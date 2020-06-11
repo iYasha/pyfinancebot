@@ -7,4 +7,4 @@
 Бот написан с целью помочь правильно управлять финансами и быть в курсе его состояния.  
 **Автор не несет ответственности за кражу ваших личных данных.**
 # Лицензия  
-#### Прочитать лицензию можно тут: [LICENSE](https://raw.githubusercontent.com/iYasha/pyfinancebot/master/LICENSE)
+#### Прочитать лицензию можно тут: [LICENSE](https://github.com/iYasha/pyfinancebot/blob/master/LICENSE)
