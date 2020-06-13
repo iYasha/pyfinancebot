@@ -4,3 +4,4 @@ __pycache__
 *.db
 source/config/*
 source/logs/*
+source/storage/receipts/*

@@ -12,8 +12,9 @@ class MsgModel(BaseModel):
 
     def get_last_msg(self, chat_id: int) -> int:
         try:
-            self._cursor.execute(
-                f'SELECT {", ".join([x for x in User.__annotations__])} FROM `users` WHERE `chat_id` = {chat_id}')
+            request = f'SELECT {", ".join([x for x in User.__annotations__])} ' \
+                      f'FROM `users` WHERE `chat_id` = {chat_id}'
+            self._cursor.execute(request)
             user: User = User(*self._cursor.fetchone())
             return user.message_id
         except Exception as e:
@@ -22,9 +23,10 @@ class MsgModel(BaseModel):
 
     def update_last_msg(self, chat_id: int, msg_id: int) -> bool:
         try:
-            self._cursor.execute('UPDATE `users`'
-                           f'SET `message_id` = {msg_id}'
-                           f'WHERE `chat_id` = {chat_id}')
+            request = 'UPDATE `users`' \
+                     f' SET `message_id` = {msg_id}' \
+                     f' WHERE `chat_id` = {chat_id}'
+            self._cursor.execute(request)
             return True
         except Exception as e:
             telebot.logger.error(e)

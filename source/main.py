@@ -6,6 +6,7 @@ import logging
 from config.enviroment import env
 from controllers.none_controller import NoneController
 from controllers.main_controller import MainController
+from controllers.receipt_controller import ReceiptController
 
 
 def init_db(cursor: sqlite3.Cursor):
@@ -15,7 +16,18 @@ def init_db(cursor: sqlite3.Cursor):
          `company_id` INT NULL , `message_id` INT NOT NULL , `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , \
           PRIMARY KEY (`chat_id`)) \
         '
-    )
+                   )
+    cursor.execute('CREATE TABLE IF NOT EXISTS `receipts`('
+                   'id INTEGER not null PRIMARY KEY autoincrement,'
+                   'chat_id INT not null,'
+                   'created_at TIMESTAMP not null,'
+                   'shop_name VARCHAR(255) null,'
+                   'amount INT null,'
+                   'address VARCHAR(255) null,'
+                   'lat DOUBLE null,'
+                   'lng INT null,'
+                   'buy_time VARCHAR(255) null,'
+                   'image_path VARCHAR(255) null);')
 
 
 def set_logger():
@@ -37,8 +49,9 @@ def main():
     init_db(cursor)
 
     none_controller = NoneController(bot)
+    receipt_controller = ReceiptController(bot, cursor)
     menu = [
-
+        receipt_controller.get_menu_btn()
     ]
     main_controller = MainController(bot, menu, cursor)
 
