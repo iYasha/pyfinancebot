@@ -1,3 +1,0 @@
-
-class CantDetectReceipt(Exception):
-    pass
