@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pyfinancebot"
+version = "0.1.0"
+description = "A simple finance manager in telegram"
+authors = ["iYasha <vanareals@mail.ru>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aiogram = "^2.19"
+loguru = "^0.6.0"
+pydantic = "^1.9.0"
+SQLAlchemy = "^1.4.32"
+databases = "^0.5.5"
+alembic = "^1.7.7"
+asyncpg = "^0.25.0"
+psycopg2 = "^2.9.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

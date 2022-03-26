@@ -3,7 +3,6 @@ import telebot
 
 import logging
 
-from config.enviroment import env
 from controllers.none_controller import NoneController
 from controllers.main_controller import MainController
 from controllers.receipt_controller import ReceiptController
@@ -30,21 +29,19 @@ def init_db(cursor: sqlite3.Cursor):
                    'image_path VARCHAR(255) null);')
 
 
-def set_logger():
-    # Логи
-    telebot.logger.setLevel(logging.INFO)
-    fileh = logging.FileHandler(env.get('LOG_PATH'), 'a')
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    fileh.setFormatter(formatter)
-    telebot.logger.addHandler(fileh)
+# def set_logger():
+#     # Логи
+#     telebot.logger.setLevel(logging.INFO)
+#     fileh = logging.FileHandler(env.get('LOG_PATH'), 'a')
+#     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#     fileh.setFormatter(formatter)
+#     telebot.logger.addHandler(fileh)
 
 
 def main():
-    bot = telebot.TeleBot(env.get('TELEGRAM_API_TOKEN'))
+    bot = telebot.TeleBot('1209681927:AAFcSOzHDwLs5j0hKER3wldSuZSPZdTaelE')
 
-    set_logger()
-
-    conn = sqlite3.connect(env.get('DATABASE_PATH'), check_same_thread=False, isolation_level=None)
+    conn = sqlite3.connect('./', check_same_thread=False, isolation_level=None)
     cursor: sqlite3.Cursor = conn.cursor()
     init_db(cursor)
 

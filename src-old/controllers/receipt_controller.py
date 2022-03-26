@@ -3,8 +3,8 @@ from telebot import TeleBot
 import telebot
 from telebot.types import InlineKeyboardButton, Message
 import sqlite3
-from config.enviroment import env
-from typing import Optional, List, Tuple, Union
+from core.config import env
+from typing import Optional, Tuple, Union
 from google.cloud import vision
 import io
 import os
