@@ -92,7 +92,7 @@ class BaseCRUD:
         _now = datetime.now()
         values = {
             **_primary_key,
-            **obj_in.dict(exclude_unset=True, exclude_none=True),
+            **obj_in.dict(),
             cls._model.created_at.key: _now,
         }
 
@@ -110,15 +110,12 @@ class BaseCRUD:
     @classmethod
     async def get_by_id(
         cls,
-        obj_id: UUID,
+        obj_id: any,
         *,
         with_deleted: Optional[bool] = False,
     ) -> Optional[BaseModelType]:
         query = cls.get_base_query()
-        if with_deleted:
-            where = cls._model.id == obj_id
-        else:
-            where = sa.and_(cls._model.id == obj_id, cls._model.deleted_at.is_(None))
+        where = cls._model.id == obj_id
         query = query.where(where)
         result = await database.fetch_one(query)
         return cls._get_parsed_object(result)

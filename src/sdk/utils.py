@@ -1,5 +1,11 @@
 import re
 from typing import Dict, Union
+from uuid import UUID
+
+from aiogram import types
+
+import enums
+import schemas
 
 
 def strip_string(text: str) -> str:
@@ -44,3 +50,52 @@ async def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
 			'type': 'every_week',
 			'days': get_weekday(time)
 		}
+
+
+async def get_received_amount_markup(operation_id: UUID) -> types.InlineKeyboardMarkup:
+	markup = types.InlineKeyboardMarkup(row_width=1)
+	markup.add(
+		types.InlineKeyboardButton(
+			'✅ Получил',
+			callback_data=enums.OperationReceivedCallback.full(operation_id)
+		),
+		types.InlineKeyboardButton(
+			'⚠️ Получил не всю сумму',
+			callback_data=enums.OperationReceivedCallback.partial(operation_id)
+		),
+		types.InlineKeyboardButton(
+			'❌ Не получил',
+			callback_data=enums.OperationReceivedCallback.none_received(operation_id)
+		),
+	)
+	return markup
+
+
+async def get_operation_approved_markup(operation_id: UUID) -> types.InlineKeyboardMarkup:
+	markup = types.InlineKeyboardMarkup(row_width=2)
+	markup.add(
+		types.InlineKeyboardButton(
+			'✅ Все правильно',
+			callback_data=enums.OperationCreateCallback.correct(operation_id)
+		),
+		types.InlineKeyboardButton(
+			'❌ Не правильно',
+			callback_data=enums.OperationCreateCallback.no(operation_id)
+		),
+	)
+	return markup
+
+
+async def get_operation_text(operation: schemas.OperationInDBSchema, *, title: str = 'Подтвердите операцию') -> str:
+	if operation.repeat_type != enums.RepeatType.NO_REPEAT:
+		repeat_days_text = ', '.join(list(map(str, operation.repeat_days)))
+		repeat_at_days = f'каждый {repeat_days_text} день' if operation.repeat_type != enums.RepeatType.EVERY_DAY else ''
+		repeat_at = f'🔄 Повторять: {operation.repeat_type.get_translation()} {repeat_at_days}\n'
+	else:
+		repeat_at = '🔄 Повторять: Никогда\n'
+	operation_type = '☺️' if operation.operation_type == enums.OperationType.INCOME else '🥲'
+	return f'<b>{title}:</b>\n\n' \
+		   f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n' \
+		   f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n' \
+		   f'{repeat_at}' \
+		   f'💬 Описание: {operation.description}\n'

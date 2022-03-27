@@ -1,4 +1,4 @@
-from core.config import settings
+from core.config import settings  # noqa
 from core.database import database
 from aiogram import executor
 from views import *  # noqa

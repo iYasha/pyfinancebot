@@ -78,6 +78,7 @@ class HardSettings:
     """
     OPERATION_REGULAR_REGEX_PATTERN: str = r'^(?P<amount>[+-].[0-9]+) (?P<currency>\w{3}) (?P<repeat_time>\S.*) за (?P<description>\S.*)'
 
+    PARSE_MODE: str = 'html'
     BOT_TOKEN: Optional[str] = EnvSettings().BOT_TOKEN
     if BOT_TOKEN is not None:
         bot = Bot(token=EnvSettings().BOT_TOKEN)

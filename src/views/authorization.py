@@ -3,9 +3,10 @@ from aiogram import types
 
 from crud.users import UserCRUD
 import schemas
+import enums
 
 
-@settings.dp.message_handler(commands=['start'])
+@settings.dp.message_handler(commands=[enums.Command.START])
 async def authorization(message: types.Message):
     user_data = schemas.UserCreateSchema(
         chat_id=message.chat.id,
