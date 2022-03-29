@@ -1,6 +1,8 @@
 import re
 from typing import Dict, Union
 from uuid import UUID
+import datetime
+import calendar
 
 from aiogram import types
 
@@ -94,8 +96,21 @@ async def get_operation_text(operation: schemas.OperationInDBSchema, *, title: s
 	else:
 		repeat_at = '🔄 Повторять: Никогда\n'
 	operation_type = '☺️' if operation.operation_type == enums.OperationType.INCOME else '🥲'
+	received_amount = f'⚠️ Получено {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
 	return f'<b>{title}:</b>\n\n' \
 		   f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n' \
 		   f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n' \
 		   f'{repeat_at}' \
-		   f'💬 Описание: {operation.description}\n'
+		   f'💬 Описание: {operation.description}\n{received_amount}\n'
+
+
+async def get_current_month_period():
+	now = datetime.datetime.now()
+	max_days = calendar.monthrange(now.year, now.month)[1]
+	date_from = datetime.datetime(now.year, now.month, 1)
+	date_to = datetime.datetime(now.year, now.month, max_days)
+	return date_from, date_to
+
+
+
+

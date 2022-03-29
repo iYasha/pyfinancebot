@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List, Optional
 
 from crud.base import BaseCRUD
@@ -14,7 +15,6 @@ class OperationCRUD(BaseCRUD):
     _model = models.Operation
     _model_schema = schemas.OperationInDBSchema
     _model_create_schema = schemas.OperationCreateSchema
-    _paginator = BasePaginator
 
     @classmethod
     async def get_regular_operation(
@@ -37,3 +37,32 @@ class OperationCRUD(BaseCRUD):
         query = query.where(*where)
         results = await database.fetch_all(query)
         return [cls._get_parsed_object(obj) for obj in results]
+
+    @classmethod
+    async def get_by_user_id(
+            cls,
+            user_id: int,
+            date_from: Optional[datetime] = None,
+            date_to: Optional[datetime] = None,
+            is_approved: bool = True,
+            is_regular_operation: bool = False,
+            has_full_amount: Optional[bool] = None,
+    ) -> List[schemas.OperationInDBSchema]:
+        query = cls.get_base_query()
+        where = [
+            cls._model.is_approved == is_approved,
+            cls._model.is_regular_operation == is_regular_operation,
+            cls._model.user_id == user_id
+        ]
+        if has_full_amount is not None:
+            if has_full_amount:
+                where.append(cls._model.amount == cls._model.received_amount)
+            else:
+                where.append(sa.or_(cls._model.amount != cls._model.received_amount, cls._model.received_amount == None))
+        # If date_from is not None and date_to is not None, then we need to add it to the query
+        if date_from is not None and date_to is not None:
+            where.append(sa.and_(cls._model.created_at >= date_from, cls._model.created_at <= date_to))
+        query = query.where(*where)
+        results = await database.fetch_all(query)
+        return [cls._get_parsed_object(obj) for obj in results]
+

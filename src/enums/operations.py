@@ -81,6 +81,8 @@ class Currency(str, Enum):
 	"""Доступные валюты в проекте"""
 
 	USD = 'usd'
+	EUR = 'eur'
+	BTC = 'btc'
 	UAH = 'uah'
 
 	@staticmethod

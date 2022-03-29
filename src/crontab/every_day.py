@@ -2,6 +2,7 @@ from calendar import monthrange
 from typing import List
 import asyncio
 from datetime import datetime
+import aiohttp
 
 from core.config import settings
 from core.database import database
@@ -47,7 +48,7 @@ async def send_regular_payments_notification():
 	operations: List[schemas.OperationInDBSchema] = await crud.OperationCRUD.get_regular_operation(
 		is_regular_operation=False,
 		has_full_amount=False
-	)  # @TODO Отправляем дубликаты операций, а нужно брать только последнюю операцию
+	)
 	for operation in operations:
 		await settings.bot.send_message(
 			operation.user_id,
@@ -57,11 +58,26 @@ async def send_regular_payments_notification():
 		)
 
 
+async def get_currencies_rate():
+	async with aiohttp.ClientSession() as session:
+		async with session.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5') as response:
+			data = await response.json()
+			for currency in data:
+				currency_create = schemas.CurrencyCreateSchema(
+					ccy=currency['ccy'].lower(),
+					base_ccy=currency['base_ccy'].lower(),
+					buy=currency['buy'],
+					sale=currency['sale'],
+				)
+				await crud.CurrencyCRUD.create(currency_create)
+
+
 async def main():
 	await on_startup()
 
 	await create_regular_payments()
 	await send_regular_payments_notification()
+	await get_currencies_rate()
 
 	await on_shutdown()
 

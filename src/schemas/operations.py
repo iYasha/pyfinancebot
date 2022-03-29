@@ -17,7 +17,6 @@ class OperationSchema(BaseModel):
     repeat_type: enums.RepeatType = enums.RepeatType.NO_REPEAT
     repeat_days: Optional[List[Union[int, str]]] = None
     is_regular_operation: bool = False
-    # has_full_amount: bool = False
 
     @validator('amount')
     def amount_must_be_unsigned_integer(cls, v):

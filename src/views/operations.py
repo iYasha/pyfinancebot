@@ -33,6 +33,7 @@ async def create_operation(message: types.Message):
             operation_create = schemas.OperationCreateSchema(
                 user_id=message.chat.id,
                 amount=amount,
+                received_amount=amount,
                 currency=enums.Currency.get(currency),
                 operation_type=enums.OperationType.get_operation_type(amount),
                 description=description,
@@ -152,7 +153,8 @@ async def reply_received_handler(message: types.Message):
                 parse_mode=settings.PARSE_MODE
             )
         operation = await crud.OperationCRUD.get_by_id(obj_id=operation_id)
-        await crud.OperationCRUD.update(operation_id, received_amount=amount)
+        received_amount = 0 if operation.received_amount is None else operation.received_amount
+        await crud.OperationCRUD.update(operation_id, received_amount=received_amount + amount)
         received_amount_text = f'⚠️ Получено {amount}/{operation.amount}' if operation.amount > amount else '✅ Сумма успешно сохранена'
         await settings.bot.edit_message_text(
             text=f'{message.reply_to_message.html_text}\n{received_amount_text}',
