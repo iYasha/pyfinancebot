@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyfinancebot"
+name = "FinancykaBot"
 version = "0.1.0"
 description = "A simple finance manager in telegram"
 authors = ["iYasha <vanareals@mail.ru>"]

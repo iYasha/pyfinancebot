@@ -134,7 +134,6 @@ async def process_operation_received(callback_query: types.CallbackQuery):
     x.reply_to_message.reply_markup.inline_keyboard[0][0].callback_data.startswith(enums.OperationReceivedCallback.UNIQUE_PREFIX))
 async def reply_received_handler(message: types.Message):
     try:
-        # @TODO Протестировать когда тип операции расход
         if message.date >= datetime.datetime(
                 year=message.date.year, month=message.date.month, day=message.date.day, hour=23, minute=59
         ):
