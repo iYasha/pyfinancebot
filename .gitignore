@@ -128,3 +128,6 @@ src-old/
 test.py
 
 ./.env
+
+# future functionality
+privat.py

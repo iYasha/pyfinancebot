@@ -96,7 +96,11 @@ async def get_operation_text(operation: schemas.OperationInDBSchema, *, title: s
 	else:
 		repeat_at = '🔄 Повторять: Никогда\n'
 	operation_type = '☺️' if operation.operation_type == enums.OperationType.INCOME else '🥲'
-	received_amount = f'⚠️ Получено {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
+	if operation.operation_type == enums.OperationType.INCOME:
+		received_amount = '⚠️ Получено'
+	else:
+		received_amount = '⚠️ Оплачено'
+	received_amount += f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
 	return f'<b>{title}:</b>\n\n' \
 		   f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n' \
 		   f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n' \
@@ -112,5 +116,7 @@ async def get_current_month_period():
 	return date_from, date_to
 
 
+def round_amount(amount: any, symbols: int) -> float:
+	return round(float(amount), symbols)
 
 

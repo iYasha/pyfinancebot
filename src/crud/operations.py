@@ -1,6 +1,8 @@
+import collections
 from datetime import datetime
 from typing import List, Optional
 
+import crud
 from crud.base import BaseCRUD
 from crud.base import BasePaginator
 
@@ -66,3 +68,27 @@ class OperationCRUD(BaseCRUD):
         results = await database.fetch_all(query)
         return [cls._get_parsed_object(obj) for obj in results]
 
+
+    @classmethod
+    async def get_most_expensive_product_group(
+        cls,
+        user_id: int,
+        date_from: Optional[datetime] = None,
+        date_to: Optional[datetime] = None,
+        limit: int = 5,
+    ):
+        query = sa.select([sa.func.sum(cls._model.received_amount), cls._model.description, cls._model.currency])
+        where = [
+            cls._model.is_approved == True,
+            cls._model.is_regular_operation == False,
+            cls._model.user_id == user_id,
+            cls._model.operation_type == enums.OperationType.EXPENSE,
+        ]
+        if date_from is not None and date_to is not None:
+            where.append(sa.and_(cls._model.created_at >= date_from, cls._model.created_at <= date_to))
+        query = query.where(*where).group_by(cls._model.description, cls._model.currency)
+        results = collections.defaultdict(int)
+        currencies = await crud.CurrencyCRUD.get_today()
+        for result in await database.fetch_all(query):
+            results[result['description']] += (result['sum_1'] * currencies[result['currency']])
+        return sorted(results.items(), key=lambda x: x[1], reverse=True)[:limit]

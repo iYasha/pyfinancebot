@@ -60,14 +60,14 @@ async def send_regular_payments_notification():
 
 async def get_currencies_rate():
 	async with aiohttp.ClientSession() as session:
-		async with session.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5') as response:
+		async with session.get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json') as response:
 			data = await response.json()
 			for currency in data:
 				currency_create = schemas.CurrencyCreateSchema(
-					ccy=currency['ccy'].lower(),
-					base_ccy=currency['base_ccy'].lower(),
-					buy=currency['buy'],
-					sale=currency['sale'],
+					ccy=currency['cc'].lower(),
+					base_ccy='uah',
+					buy=currency['rate'],
+					sale=currency['rate'],
 				)
 				await crud.CurrencyCRUD.create(currency_create)
 

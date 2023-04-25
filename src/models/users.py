@@ -20,3 +20,4 @@ class User(
     is_admin = sa.Column(sa.Boolean, default=False)
 
     operations = relationship('Operation', uselist=True, back_populates='user')
+    wallets = relationship('Wallet', uselist=True, back_populates='user')

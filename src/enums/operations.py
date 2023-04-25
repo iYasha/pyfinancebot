@@ -27,6 +27,12 @@ class RepeatType(str, Enum):
 	EVERY_WEEK = 'every_week'
 	EVERY_MONTH = 'every_month'
 
+	@staticmethod
+	def repeated(repeat: str) -> 'RepeatType':
+		if repeat is None:
+			return RepeatType.NO_REPEAT
+		return RepeatType(repeat)
+
 	def get_translation(self):
 		if self == RepeatType.NO_REPEAT:
 			return 'Не повторять'

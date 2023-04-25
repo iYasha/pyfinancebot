@@ -6,7 +6,7 @@ import enums
 
 
 class CurrencySchema(BaseModel):
-    ccy: enums.Currency
+    ccy: str
     base_ccy: enums.Currency
     buy: float
     sale: float

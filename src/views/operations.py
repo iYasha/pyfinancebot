@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from pydantic import ValidationError
 from asyncpg.exceptions import ForeignKeyViolationError
@@ -10,6 +11,8 @@ import re
 import crud
 import schemas
 import enums
+from enums import RepeatType
+from models import Operation
 from sdk import utils
 from sdk.utils import get_operation_regularity
 
@@ -26,14 +29,14 @@ async def create_operation(message: types.Message):
             # @TODO проработать логику, когда платеж не совершен, тогда нужно со следующего платежа вычесть разницу
             """
             Если это оплата за квартиру, то платеж обязательный
-            
+
             Если это платеж наперед, то он является необязательным и в случае неоплаты
             может быть засчитан на следующий период
             """
             operation_create = schemas.OperationCreateSchema(
                 user_id=message.chat.id,
-                amount=amount,
-                received_amount=amount,
+                amount=abs(int(amount)),
+                received_amount=abs(int(amount)),
                 currency=enums.Currency.get(currency),
                 operation_type=enums.OperationType.get_operation_type(amount),
                 description=description,
@@ -46,7 +49,7 @@ async def create_operation(message: types.Message):
             amount = amount.replace(' ', '').strip()
             operation_create = schemas.OperationCreateSchema(
                 user_id=message.chat.id,
-                amount=amount,
+                amount=abs(int(amount)),
                 currency=enums.Currency.get(currency),
                 operation_type=enums.OperationType.get_operation_type(amount),
                 description=description,
@@ -77,7 +80,8 @@ async def create_operation(message: types.Message):
 async def process_operation_create(callback_query: types.CallbackQuery):
     if callback_query.data.startswith(enums.OperationCreateCallback.CORRECT):
         operation_id = callback_query.data.replace(f'{enums.OperationCreateCallback.CORRECT}_', '')
-        await crud.OperationCRUD.update(operation_id, is_approved=True)
+        operation = await crud.OperationCRUD.get_by_id(obj_id=operation_id)
+        await crud.OperationCRUD.update(operation_id, is_approved=True, received_amount=operation.amount)
         await settings.bot.edit_message_text(
             text=f'{callback_query.message.html_text}\n✅ Операция успешно создана',
             parse_mode=settings.PARSE_MODE,

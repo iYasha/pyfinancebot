@@ -16,6 +16,9 @@ alembic = "^1.7.7"
 asyncpg = "^0.25.0"
 psycopg2 = "^2.9.3"
 aiohttp = "^3.8.1"
+google-cloud-dialogflow = "^2.15.1"
+psycopg2-binary = "^2.9.3"
+xmltodict = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 

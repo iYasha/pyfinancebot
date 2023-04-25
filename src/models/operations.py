@@ -1,3 +1,5 @@
+from typing import List
+
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.orm import relationship
@@ -26,5 +28,3 @@ class Operation(
 
     user_id = sa.Column(sa.Integer, sa.ForeignKey('users.chat_id'), nullable=False)
     user = relationship("User", back_populates="operations")
-
-

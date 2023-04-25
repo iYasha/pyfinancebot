@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from crud.base import BaseCRUD
 from crud.base import BasePaginator
@@ -17,18 +17,23 @@ class CurrencyCRUD(BaseCRUD):
     _model_create_schema = schemas.CurrencyCreateSchema
 
     @classmethod
-    async def get_today(cls, ccy: enums.Currency, base_ccy: enums.Currency) -> Optional[schemas.CurrencyInDBSchema]:
+    async def get_today(cls, ccy: Optional[enums.Currency] = None) -> Optional[Union[List[schemas.CurrencyInDBSchema], schemas.CurrencyInDBSchema]]:
         """ Получить курс валюты на сегодня """
-        today = datetime.today().strftime('%Y-%m-%d')
+        today = datetime.today()
         query = cls.get_base_query().where(
-            cls._model.ccy == ccy,
-            cls._model.base_ccy == base_ccy,
-            cls._model.created_at == today
+            cls._model.base_ccy == enums.Currency.UAH,
+            sa.func.date(cls._model.created_at) == today
         )
-        result = await database.fetch_one(query)
-        if result is None:
+        if ccy is not None:
+            query = query.where(cls._model.ccy == ccy)
+        results = await database.fetch_all(query)
+        if not results:
             return None
-        return cls._get_parsed_object(result)
+        if ccy is not None:
+            return cls._get_parsed_object(results[0])
+        currencies = {x['ccy'].lower(): x['buy'] for x in results}
+        currencies['uah'] = 1
+        return currencies
 
 
 
