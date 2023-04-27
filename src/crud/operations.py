@@ -54,7 +54,6 @@ class OperationCRUD(BaseCRUD):
         where = [
             cls._model.is_approved == is_approved,
             cls._model.is_regular_operation == is_regular_operation,
-            cls._model.user_id == user_id
         ]
         if has_full_amount is not None:
             if has_full_amount:
