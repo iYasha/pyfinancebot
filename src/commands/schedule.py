@@ -5,9 +5,9 @@ from typing import Type
 
 from commands.base import Command
 from commands.currencies import FetchCurrency
-from commands.operations import CreateRegularOperation, SendRegularOperationNotification
-from croniter import croniter
+from commands.operations import CreateRegularOperation
 from config import logger
+from croniter import croniter
 
 
 class Job:

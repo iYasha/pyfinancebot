@@ -54,6 +54,7 @@ flake8-annotations = "^2.6.2"
 types-requests = "^2.25.6"
 types-aiofiles = "^0.8.4"
 flake8-commas = "^2.1.0"
+add-trailing-comma = "^2.4.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

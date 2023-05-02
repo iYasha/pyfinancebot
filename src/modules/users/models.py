@@ -1,12 +1,12 @@
 import sqlalchemy as sa
-from sqlalchemy.orm import relationship
-
 from database import Base
+
 from sdk.models import AuditMixin
 
 
 class User(
-    AuditMixin, Base,
+    AuditMixin,
+    Base,
 ):
     """ Базовая модель пользователя """
 

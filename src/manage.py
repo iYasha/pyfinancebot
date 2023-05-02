@@ -3,8 +3,8 @@ import asyncio
 from typing import Type
 
 from commands.base import Command
-from database import database
 from config import logger
+from database import database
 
 
 async def startup() -> None:
@@ -45,6 +45,6 @@ if __name__ == '__main__':
     loop.run_until_complete(startup())
     try:
         loop.run_until_complete(ConsoleManager.execute_command(args.command))
-    except Exception as e:
+    except Exception:
         logger.exception(f'Error executing command: {args.command}')
     loop.run_until_complete(shutdown())

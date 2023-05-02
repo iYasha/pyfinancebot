@@ -4,7 +4,6 @@ from typing import Generic
 from typing import List
 from typing import Optional
 from typing import TypeVar
-from uuid import UUID
 
 from config import settings
 from pydantic import BaseModel

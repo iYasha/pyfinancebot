@@ -1,9 +1,8 @@
 from typing import Type
 
 import aiohttp
-
-from config import logger
 from commands.base import Command
+from config import logger
 from modules.currencies.schemas import CurrencyCreate
 from modules.currencies.services import CurrencyService
 
@@ -17,7 +16,9 @@ class FetchCurrency(Command):
         async with aiohttp.ClientSession() as session:
             async with session.get(cls.base_url) as response:
                 if response.status != 200:
-                    logger.error(f'Error fetching currency: {response.status}. {response.text}')  # noqa: G004
+                    logger.error(
+                        f'Error fetching currency: {response.status}. {response.text}',
+                    )  # noqa: G004
                     return
                 data = await response.json()
                 currencies = [
@@ -30,4 +31,3 @@ class FetchCurrency(Command):
                     for currency in data
                 ]
                 await CurrencyService.create_many(currencies)
-

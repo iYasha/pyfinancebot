@@ -1,8 +1,5 @@
-from typing import Optional, List, Union
-from uuid import UUID
-from pydantic import BaseModel, validator
-
 from modules.operations.enums import CurrencyEnum
+from pydantic import BaseModel
 
 
 class CurrencyBase(BaseModel):

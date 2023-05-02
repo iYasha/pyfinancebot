@@ -1,8 +1,7 @@
-from typing import Optional, List, Union
+from typing import Optional
 from uuid import UUID
-from pydantic import BaseModel, validator
 
-import enums
+from pydantic import BaseModel
 
 
 class WalletSchema(BaseModel):
@@ -13,8 +12,6 @@ class WalletSchema(BaseModel):
 
 class WalletCreateSchema(WalletSchema):
     """Схема добавления валюты"""
-
-    pass
 
 
 class WalletInDBSchema(WalletSchema):

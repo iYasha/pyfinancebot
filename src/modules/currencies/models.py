@@ -1,11 +1,14 @@
 import sqlalchemy as sa
-
 from database import Base
-from sdk.models import IDModelMixin, AuditMixin
+
+from sdk.models import AuditMixin
+from sdk.models import IDModelMixin
 
 
 class Currency(
-    IDModelMixin, AuditMixin, Base,
+    IDModelMixin,
+    AuditMixin,
+    Base,
 ):
     __tablename__ = 'currencies'
 

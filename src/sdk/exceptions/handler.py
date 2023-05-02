@@ -1,17 +1,23 @@
 import functools
-from typing import Callable, Optional, Any
+from typing import Any
+from typing import Callable
+from typing import Optional
 
 from aiogram import types
 from asyncpg import ForeignKeyViolationError
+from config import bot
+from config import logger
+from config import settings
 from pydantic import ValidationError
 
-from config import bot, settings, logger
 
-
-def error_handler_decorator(func: Callable) -> Callable:
-    @functools.wraps(func)
+def error_handler_decorator(func: Callable) -> Callable:  # noqa: CCR001
+    @functools.wraps(func)  # TODO: Refactor
     async def wrapper(*args, **kwargs) -> Any:  # noqa: ANN401
-        message: Optional[types.Message] = next(filter(lambda x: isinstance(x, types.Message), args), None)
+        message: Optional[types.Message] = next(
+            filter(lambda x: isinstance(x, types.Message), args),
+            None,
+        )
         try:
             return await func(*args, **kwargs)
         except ValidationError as e:
@@ -30,7 +36,7 @@ def error_handler_decorator(func: Callable) -> Callable:
                 return None
             await message.reply(
                 text='<b>Непредвиденная ошибка!</b>\n\n'
-                     'Попробуйте позже или напишите в поддержку',
+                'Попробуйте позже или напишите в поддержку',
                 parse_mode=settings.PARSE_MODE,
             )
 

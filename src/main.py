@@ -1,11 +1,11 @@
+from aiogram import executor
 from config import dp
 from database import database
-from aiogram import executor
-from modules.users.views import *  # noqa: F403
-from modules.operations.views import *  # noqa: F403
-from modules.helps.views import *  # noqa: F403
-from modules.currencies.views import *  # noqa: F403
-from modules.analytics.views import *  # noqa: F403
+from modules.analytics.views import *  # noqa: F403, F401
+from modules.currencies.views import *  # noqa: F403, F401
+from modules.helps.views import *  # noqa: F403, F401
+from modules.operations.views import *  # noqa: F403, F401
+from modules.users.views import *  # noqa: F403, F401
 
 
 async def on_startup(*args, **kwargs) -> None:

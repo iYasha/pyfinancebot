@@ -1,7 +1,6 @@
-from sdk.base import BaseCRUD
-
-import schemas
 import models
+import schemas
+from sdk.base import BaseCRUD
 
 
 class WalletCRUD(BaseCRUD):

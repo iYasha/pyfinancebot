@@ -2,15 +2,13 @@ from calendar import monthrange
 from datetime import datetime
 from typing import Type
 
-import aiohttp
-
-from config import logger, bot, settings
 from commands.base import Command
-from modules.currencies.schemas import CurrencyCreate
-from modules.currencies.services import CurrencyService
+from config import bot
+from config import settings
 from modules.operations.enums import RepeatType
 from modules.operations.schemas import OperationCreate
 from modules.operations.services import OperationService
+
 from sdk import utils
 
 
@@ -23,11 +21,18 @@ class CreateRegularOperation(Command):
         max_days = monthrange(now.year, now.month)[1]
         operations = await OperationService.get_regular_operations()
         for operation in operations:
-            is_current_day = now.day in [max_days if x == 'last' else x for x in operation.repeat_days] \
-                if operation.repeat_days else False
+            is_current_day = (
+                now.day in [max_days if x == 'last' else x for x in operation.repeat_days]
+                if operation.repeat_days
+                else False
+            )
             is_month_repeat = operation.repeat_type == RepeatType.EVERY_MONTH and is_current_day
-            is_week_repeat = operation.repeat_type == RepeatType.EVERY_WEEK and now.weekday() in operation.repeat_days \
-                if operation.repeat_days else False
+            is_week_repeat = (
+                operation.repeat_type == RepeatType.EVERY_WEEK
+                and now.weekday() in operation.repeat_days
+                if operation.repeat_days
+                else False
+            )
             is_every_day_repeat = operation.repeat_type == RepeatType.EVERY_DAY
             if is_month_repeat or is_week_repeat or is_every_day_repeat:
                 operation_create = OperationCreate(
@@ -48,6 +53,7 @@ class SendRegularOperationNotification(Command):
     """
     TODO: Doesn't work.
     """
+
     command_name = 'send_regular_operations_notification'
 
     @classmethod

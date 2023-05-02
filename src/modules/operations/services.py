@@ -1,11 +1,19 @@
 import re
 from datetime import datetime
-from typing import Type, Optional, List, Dict
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Type
 
 from config import settings
-from modules.operations.enums import CurrencyEnum, OperationType, RepeatType, OperationCreateCallback
+from modules.operations.enums import CurrencyEnum
+from modules.operations.enums import OperationType
+from modules.operations.enums import RepeatType
 from modules.operations.repositories import OperationRepository
-from modules.operations.schemas import OperationCreate, Operation, OperationUpdate
+from modules.operations.schemas import Operation
+from modules.operations.schemas import OperationCreate
+from modules.operations.schemas import OperationUpdate
+
 from sdk.repositories import WhereModifier
 from sdk.utils import get_operation_regularity
 
@@ -14,7 +22,10 @@ class OperationService:
     repository = OperationRepository
 
     @classmethod
-    async def create_operation(cls: Type['OperationService'], operation_create: OperationCreate) -> Operation:
+    async def create_operation(
+        cls: Type['OperationService'],
+        operation_create: OperationCreate,
+    ) -> Operation:
         values = operation_create.dict()
         operation_id = await cls.repository.create(**values)
         return Operation(
@@ -23,7 +34,11 @@ class OperationService:
         )
 
     @classmethod
-    def parse_operation(cls: Type['OperationService'], text: str, creator_id: int) -> Optional[OperationCreate]:
+    def parse_operation(
+        cls: Type['OperationService'],
+        text: str,
+        creator_id: int,
+    ) -> Optional[OperationCreate]:
         operation_add = re.match(settings.OPERATION_ADD_REGEX_PATTERN, text)
         add_regular_operation = re.match(settings.OPERATION_REGULAR_REGEX_PATTERN, text)
         if add_regular_operation is not None:
@@ -42,7 +57,10 @@ class OperationService:
                 is_regular_operation=True,
             )
         elif operation_add is not None:
-            amount, currency, description = re.match(settings.OPERATION_ADD_REGEX_PATTERN, text).groups()
+            amount, currency, description = re.match(
+                settings.OPERATION_ADD_REGEX_PATTERN,
+                text,
+            ).groups()
             amount = amount.replace(' ', '').strip()
             return OperationCreate(
                 creator_id=creator_id,
@@ -62,7 +80,10 @@ class OperationService:
         await cls.repository.delete([WhereModifier(id=operation_id)])
 
     @classmethod
-    async def get_operation(cls: Type['OperationService'], operation_id: int) -> Optional[Operation]:
+    async def get_operation(
+        cls: Type['OperationService'],
+        operation_id: int,
+    ) -> Optional[Operation]:
         operation = await cls.repository.get([WhereModifier(id=operation_id)])
         if not operation:
             return None
@@ -71,7 +92,8 @@ class OperationService:
     @classmethod
     async def update_operation(
         cls: Type['OperationService'],
-        operation_id: int, operation_data: OperationUpdate,
+        operation_id: int,
+        operation_data: OperationUpdate,
     ) -> None:
         await cls.repository.update(
             fields=operation_data.dict(exclude_unset=True),
@@ -93,5 +115,9 @@ class OperationService:
         return [Operation(**operation) for operation in operations]
 
     @classmethod
-    async def get_stats(cls: Type['OperationService'], date_from: datetime, date_to: datetime) -> Dict[str, float]:
+    async def get_stats(
+        cls: Type['OperationService'],
+        date_from: datetime,
+        date_to: datetime,
+    ) -> Dict[str, float]:
         return await cls.repository.get_stats(date_from=date_from, date_to=date_to)

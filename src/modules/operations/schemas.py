@@ -1,9 +1,15 @@
-from typing import Optional, List, Union, Type
-from uuid import UUID
-from pydantic import BaseModel, validator
+from typing import List
+from typing import Optional
+from typing import Type
+from typing import Union
 
-from modules.operations.enums import CurrencyEnum, OperationType, RepeatType
-from sdk.schemas import BaseSchema, IDSchemaMixin
+from modules.operations.enums import CurrencyEnum
+from modules.operations.enums import OperationType
+from modules.operations.enums import RepeatType
+from pydantic import validator
+
+from sdk.schemas import BaseSchema
+from sdk.schemas import IDSchemaMixin
 
 
 class OperationBase(BaseSchema):
@@ -20,7 +26,10 @@ class OperationBase(BaseSchema):
     is_regular_operation: bool = False
 
     @validator('amount')
-    def amount_must_be_unsigned_integer(cls: Type['Operation'], v: Union[int, str]) -> int:  # noqa: N805
+    def amount_must_be_unsigned_integer(
+        cls: Type['Operation'],  # noqa: N805
+        v: Union[int, str],
+    ) -> int:  # noqa: N805
         if isinstance(v, str) and not v.isdigit():
             raise ValueError('Amount must be integer')
         return abs(int(v))

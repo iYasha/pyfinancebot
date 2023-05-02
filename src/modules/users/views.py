@@ -1,12 +1,10 @@
-import functools
-from typing import Optional, Callable, Any
-
-from config import dp, bot
 from aiogram import types
-
+from config import bot
+from config import dp
 from modules.helps.enums import Command
 from modules.users.schemas import UserCreate
 from modules.users.services import UserService
+
 from sdk.exceptions.handler import error_handler_decorator
 
 

@@ -1,13 +1,10 @@
 import datetime
 
-from pydantic import ValidationError
-from asyncpg.exceptions import ForeignKeyViolationError
-
-from config import settings, dp
 from aiogram import types
-
+from config import dp
 from modules.helps.enums import Command
 from modules.operations.services import OperationService
+
 from sdk import utils
 from sdk.exceptions.handler import error_handler_decorator
 from sdk.utils import round_amount

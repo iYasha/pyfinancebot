@@ -1,12 +1,14 @@
 import sqlalchemy as sa
-from sqlalchemy.orm import relationship
-
 from database import Base
-from sdk.models import AuditMixin, IDModelMixin
+
+from sdk.models import AuditMixin
+from sdk.models import IDModelMixin
 
 
 class Operation(
-    IDModelMixin, AuditMixin, Base,
+    IDModelMixin,
+    AuditMixin,
+    Base,
 ):
     """ Базовая модель пользователя """
 

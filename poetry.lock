@@ -1,4 +1,15 @@
 [[package]]
+name = "add-trailing-comma"
+version = "2.4.0"
+description = "Automatically add trailing commas to calls and literals"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+tokenize-rt = ">=3.0.1"
+
+[[package]]
 name = "aiogram"
 version = "2.25.1"
 description = "Is a pretty simple and fully asynchronous framework for Telegram Bot API"
@@ -1196,6 +1207,14 @@ timezone = ["python-dateutil"]
 url = ["furl (>=0.4.1)"]
 
 [[package]]
+name = "tokenize-rt"
+version = "5.0.0"
+description = "A wrapper around the stdlib `tokenize` which roundtrips."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -1321,9 +1340,10 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b48de2eb87c08864ce713732e516a7ffac5097520087312830ad3532fa9b37eb"
+content-hash = "f6441fa0d8d2b00452ca5d2ac6b734ea52b4a48e3a3459be18197eea392aa6a9"
 
 [metadata.files]
+add-trailing-comma = []
 aiogram = []
 aiohttp = []
 aiosignal = []
@@ -1422,6 +1442,7 @@ rsa = []
 six = []
 sqlalchemy = []
 sqlalchemy-utils = []
+tokenize-rt = []
 toml = []
 tomli = []
 traitlets = []
