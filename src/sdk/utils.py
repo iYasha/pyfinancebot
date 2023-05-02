@@ -6,8 +6,8 @@ import calendar
 
 from aiogram import types
 
-import enums
-import schemas
+from modules.operations.enums import OperationType, RepeatType, OperationCreateCallback, OperationReceivedCallback
+from modules.operations.schemas import Operation
 
 
 def strip_string(text: str) -> str:
@@ -20,7 +20,7 @@ def get_weekday(time: str) -> list:
 			len([j for j in base_days if x.find(j) != -1]) != 0]
 
 
-async def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
+def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
 	day_match = re.match(r'^(?P<intensive>\S.* день)', text)
 	week_match = re.match(r'^(?P<intensive>\S.* неделю) (?P<at>в|во) (?P<time>\S.*)', text)
 	week_other_match = re.match(r'^(каждый|каждую|каждое) (\D+)(,| |и)*$', text)
@@ -54,49 +54,49 @@ async def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
 		}
 
 
-async def get_received_amount_markup(operation_id: UUID) -> types.InlineKeyboardMarkup:
+async def get_received_amount_markup(operation_id: int) -> types.InlineKeyboardMarkup:
 	markup = types.InlineKeyboardMarkup(row_width=1)
 	markup.add(
 		types.InlineKeyboardButton(
 			'✅ Получил',
-			callback_data=enums.OperationReceivedCallback.full(operation_id)
+			callback_data=OperationReceivedCallback.full(operation_id)
 		),
 		types.InlineKeyboardButton(
 			'⚠️ Получил не всю сумму',
-			callback_data=enums.OperationReceivedCallback.partial(operation_id)
+			callback_data=OperationReceivedCallback.partial(operation_id)
 		),
 		types.InlineKeyboardButton(
 			'❌ Не получил',
-			callback_data=enums.OperationReceivedCallback.none_received(operation_id)
+			callback_data=OperationReceivedCallback.none_received(operation_id)
 		),
 	)
 	return markup
 
 
-async def get_operation_approved_markup(operation_id: UUID) -> types.InlineKeyboardMarkup:
+async def get_operation_approved_markup(operation_id: int) -> types.InlineKeyboardMarkup:
 	markup = types.InlineKeyboardMarkup(row_width=2)
 	markup.add(
 		types.InlineKeyboardButton(
 			'✅ Все правильно',
-			callback_data=enums.OperationCreateCallback.correct(operation_id)
+			callback_data=OperationCreateCallback.correct(operation_id)
 		),
 		types.InlineKeyboardButton(
 			'❌ Не правильно',
-			callback_data=enums.OperationCreateCallback.no(operation_id)
+			callback_data=OperationCreateCallback.no(operation_id)
 		),
 	)
 	return markup
 
 
-async def get_operation_text(operation: schemas.OperationInDBSchema, *, title: str = 'Подтвердите операцию') -> str:
-	if operation.repeat_type != enums.RepeatType.NO_REPEAT:
+async def get_operation_text(operation: Operation, *, title: str = 'Подтвердите операцию') -> str:
+	if operation.repeat_type != RepeatType.NO_REPEAT:
 		repeat_days_text = ', '.join(list(map(str, operation.repeat_days)))
-		repeat_at_days = f'каждый {repeat_days_text} день' if operation.repeat_type != enums.RepeatType.EVERY_DAY else ''
+		repeat_at_days = f'каждый {repeat_days_text} день' if operation.repeat_type != RepeatType.EVERY_DAY else ''
 		repeat_at = f'🔄 Повторять: {operation.repeat_type.get_translation()} {repeat_at_days}\n'
 	else:
 		repeat_at = '🔄 Повторять: Никогда\n'
-	operation_type = '☺️' if operation.operation_type == enums.OperationType.INCOME else '🥲'
-	if operation.operation_type == enums.OperationType.INCOME:
+	operation_type = '☺️' if operation.operation_type == OperationType.INCOME else '🥲'
+	if operation.operation_type == OperationType.INCOME:
 		received_amount = '⚠️ Получено'
 	else:
 		received_amount = '⚠️ Оплачено'

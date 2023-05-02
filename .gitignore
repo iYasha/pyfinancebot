@@ -120,7 +120,7 @@ imports/
 media/
 
 # temporary ignore files for formatter, linters
-setup.cfg
+#setup.cfg
 
 # test cache
 .pytest_cache

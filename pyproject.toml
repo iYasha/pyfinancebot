@@ -2,26 +2,92 @@
 name = "FinancykaBot"
 version = "0.1.0"
 description = "A simple finance manager in telegram"
-authors = ["iYasha <vanareals@mail.ru>"]
+authors = ["iYasha <ivan@simantiev.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.9"
 aiogram = "^2.19"
 loguru = "^0.6.0"
-pydantic = "^1.9.0"
-SQLAlchemy = "^1.4.32"
-databases = "^0.5.5"
+pydantic = {extras = ["dotenv"], version = "^1.10.7"}
+SQLAlchemy = "^1.3.23"
+databases = "^0.6.2"
 alembic = "^1.7.7"
 asyncpg = "^0.25.0"
-psycopg2 = "^2.9.3"
-aiohttp = "^3.8.1"
 google-cloud-dialogflow = "^2.15.1"
-psycopg2-binary = "^2.9.3"
 xmltodict = "^0.13.0"
+click = "8.0.2"
+aiosqlite = "^0.19.0"
+croniter = "^1.3.14"
+aiohttp = "^3.8.4"
 
 [tool.poetry.dev-dependencies]
+mypy = "*"
+black = "==20.8b1"
+isort = "==5.7.0"
+pytest = "^7"
+pytest-env = "^0.6.2"
+ipython = "==7.19.0"
+flake8 = "==3.8.4"
+coverage = "==5.3.1"
+flake8-logging-format = "*"
+flake8-alfred = "*"
+flake8-bugbear = "*"
+flake8-builtins = "*"
+flake8-coding = "*"
+flake8-comprehensions = "*"
+flake8-debugger = "*"
+flake8-eradicate = "*"
+flake8-multiline-containers = "*"
+flake8-pep3101 = "*"
+flake8-print = "*"
+flake8-pytest-style = "*"
+flake8-return = "*"
+flake8-quotes = "*"
+flake8-simplify = "*"
+pep8-naming = "*"
+flake8-cognitive-complexity = "*"
+flake8-isort = "*"
+SQLAlchemy-Utils = "^0.38.2"
+flake8-annotations = "^2.6.2"
+types-requests = "^2.25.6"
+types-aiofiles = "^0.8.4"
+flake8-commas = "^2.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+env = "TESTING=True"
+minversion = "6.0"
+pythonpath = [
+  ".", "src"
+]
+testpaths = [
+    "tests",
+]
+
+[tool.black]
+line-length = 100
+py38 = true
+skip-string-normalization = 1
+include = '\.py$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | env
+  | test-reports
+  | alembic
+  | ptvs_virtualenv_proxy.py
+)/
+'''
+
+[tool.isort]
+line_length = 100
+default_section = "FIRSTPARTY"
+force_single_line = "True"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+known_local_folder = "api,core,crud,db,enums,models,schemas,sdk,tests,validators"
+skip = [ "alembic" ]
