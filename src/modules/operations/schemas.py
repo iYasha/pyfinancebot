@@ -49,6 +49,10 @@ class OperationCreate(OperationBase):
     pass
 
 
+class OperationImport(OperationCreate):
+    created_at: datetime
+
+
 class OperationUpdate(BaseSchema):
     amount: Optional[int] = None
     received_amount: Optional[int] = None

@@ -150,11 +150,11 @@ def get_pagination_markup(
     markup = []
     for btn_no, page in enumerate(range(from_range, to_range + 1)):
         text = str(page)
-        data = OperationAllCallback.pagination(page)
+        data = page
 
         if btn_no == 0 and page != min_page:
             text, data = '<', min_page
-        elif btn_no == max_page and page != max_page:
+        elif btn_no + 1 == settings.PAGINATION_MAX_PAGES and page != max_page:
             text, data = '>', max_page
         elif page == current_page:
             text, data = f'[{page}]', page
@@ -162,7 +162,7 @@ def get_pagination_markup(
         markup.append(
             types.InlineKeyboardButton(
                 text=text,
-                callback_data=data,
+                callback_data=OperationAllCallback.pagination(data),
             ),
         )
 

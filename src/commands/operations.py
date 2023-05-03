@@ -1,3 +1,4 @@
+import json
 from calendar import monthrange
 from datetime import datetime
 from typing import Type
@@ -5,8 +6,10 @@ from typing import Type
 from commands.base import Command
 from config import bot
 from config import settings
+from loguru import logger
 from modules.operations.enums import RepeatType
 from modules.operations.schemas import OperationCreate
+from modules.operations.schemas import OperationImport
 from modules.operations.services import OperationService
 
 from sdk import utils
@@ -69,3 +72,20 @@ class SendRegularOperationNotification(Command):
                 parse_mode=settings.PARSE_MODE,
                 reply_markup=await utils.get_received_amount_markup(operation.id),
             )
+
+
+class ImportOperations(Command):
+    command_name = 'import_operations'
+
+    @classmethod
+    async def run(cls: Type['SendRegularOperationNotification']) -> None:  # noqa: CCR001
+        path = 'your_path_to_json_file'
+        with open(path, 'r') as f:
+            operations = [
+                OperationImport(
+                    **x,
+                )
+                for x in json.loads(f.read())
+            ]
+            await OperationService.create_many_operations(operations)
+            logger.info(f'Imported {len(operations)} operations')

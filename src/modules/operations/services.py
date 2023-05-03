@@ -142,3 +142,10 @@ class OperationService:
     @classmethod
     async def get_operation_count(cls: Type['OperationService']) -> int:
         return await cls.repository.count([WhereModifier(is_approved=True)])
+
+    @classmethod
+    async def create_many_operations(
+        cls: Type['OperationService'],
+        operations: List[OperationCreate],
+    ) -> None:
+        await cls.repository.create_many([operation.dict() for operation in operations])
