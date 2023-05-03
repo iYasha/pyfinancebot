@@ -2,10 +2,13 @@ import calendar
 import datetime
 import re
 from typing import Dict
+from typing import List
 from typing import Tuple
 from typing import Union
 
 from aiogram import types
+from config import settings
+from modules.operations.enums import OperationAllCallback
 from modules.operations.enums import OperationCreateCallback
 from modules.operations.enums import OperationReceivedCallback
 from modules.operations.enums import OperationType
@@ -81,7 +84,7 @@ async def get_received_amount_markup(operation_id: int) -> types.InlineKeyboardM
     return markup
 
 
-async def get_operation_approved_markup(operation_id: int) -> types.InlineKeyboardMarkup:
+def get_operation_approved_markup(operation_id: int) -> types.InlineKeyboardMarkup:
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(
         types.InlineKeyboardButton(
@@ -93,6 +96,76 @@ async def get_operation_approved_markup(operation_id: int) -> types.InlineKeyboa
             callback_data=OperationCreateCallback.no(operation_id),
         ),
     )
+    return markup
+
+
+async def get_operations_markup(
+    operations: List[Operation],
+    page: int,
+) -> types.InlineKeyboardMarkup:
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    for operation in operations:
+        markup.add(
+            types.InlineKeyboardButton(
+                f'📝 {operation.description} - {operation.amount} {operation.currency.value.upper()}',
+                callback_data=OperationAllCallback.detail(operation.id, page),
+            ),
+        )
+    return markup
+
+
+def get_pagination_range(
+    current_page: int = 1,
+    max_page: int = 1,
+    min_page: int = 1,
+) -> Tuple[int, int]:
+
+    if max_page < settings.PAGINATION_MAX_PAGES:
+        return min_page, max_page
+
+    middle = (settings.PAGINATION_MAX_PAGES - 1) // 2
+    from_range = current_page - middle
+    to_range = current_page + middle
+
+    if from_range < min_page:
+        from_range = min_page
+    if to_range > max_page:
+        to_range = max_page
+    if to_range < settings.PAGINATION_MAX_PAGES:
+        to_range = settings.PAGINATION_MAX_PAGES
+    if from_range > max_page - settings.PAGINATION_MAX_PAGES:
+        from_range = max_page - settings.PAGINATION_MAX_PAGES + 1
+
+    return from_range, to_range
+
+
+def get_pagination_markup(
+    current_page: int = 1,
+    max_page: int = 1,
+    min_page: int = 1,
+) -> List[types.InlineKeyboardButton]:
+
+    from_range, to_range = get_pagination_range(current_page, max_page, min_page)
+
+    markup = []
+    for btn_no, page in enumerate(range(from_range, to_range + 1)):
+        text = str(page)
+        data = OperationAllCallback.pagination(page)
+
+        if btn_no == 0 and page != min_page:
+            text, data = '<', min_page
+        elif btn_no == max_page and page != max_page:
+            text, data = '>', max_page
+        elif page == current_page:
+            text, data = f'[{page}]', page
+
+        markup.append(
+            types.InlineKeyboardButton(
+                text=text,
+                callback_data=data,
+            ),
+        )
+
     return markup
 
 
@@ -123,6 +196,7 @@ async def get_operation_text(  # noqa: CCR001
         f'<b>{title}:</b>\n\n'
         f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n'
         f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n'
+        f'🗓 Дата создания: {operation.created_at.strftime("%Y-%m-%d %H:%M")}\n'
         f'{repeat_at}'
         f'💬 Описание: {operation.description}\n{received_amount}\n'
     )
@@ -138,3 +212,18 @@ async def get_current_month_period() -> Tuple[datetime.datetime, datetime.dateti
 
 def round_amount(amount: any, symbols: int) -> float:
     return round(float(amount), symbols)
+
+
+def get_operation_detail_markup(operation_id: int, page: int) -> types.InlineKeyboardMarkup:
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    markup.add(
+        types.InlineKeyboardButton(
+            '🔙 Назад',
+            callback_data=OperationAllCallback.pagination(page),
+        ),
+        types.InlineKeyboardButton(
+            '❌ Удалить',
+            callback_data=OperationAllCallback.delete(operation_id, page),
+        ),
+    )
+    return markup

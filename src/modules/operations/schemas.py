@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 from typing import Optional
 from typing import Type
@@ -22,8 +23,17 @@ class OperationBase(BaseSchema):
 
     is_approved: bool = False
     repeat_type: RepeatType = RepeatType.NO_REPEAT
-    repeat_days: Optional[List[Union[int, str]]] = None
+    repeat_days: Optional[Union[List[Union[int, str]], str]] = None
     is_regular_operation: bool = False
+
+    @validator('repeat_days', always=True, pre=True)
+    def repeat_days_must_be_list(
+        cls: Type['Operation'],  # noqa: N805
+        v: Optional[Union[List[Union[int, str]], str]],
+    ) -> Optional[List[Union[int, str]]]:
+        if isinstance(v, str) and v == 'null':
+            return []
+        return v
 
     @validator('amount')
     def amount_must_be_unsigned_integer(
@@ -47,4 +57,4 @@ class OperationUpdate(BaseSchema):
 
 
 class Operation(IDSchemaMixin, OperationBase):
-    pass
+    created_at: datetime

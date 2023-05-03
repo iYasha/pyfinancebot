@@ -3,9 +3,11 @@ from typing import Dict
 from typing import List
 from typing import Optional
 from typing import Type
+from typing import Union
 
 import sqlalchemy as sa
 from asyncpg import Record
+from config import settings
 from database import database
 from modules.operations.enums import RepeatType
 from modules.operations.models import Operation
@@ -73,7 +75,7 @@ class OperationRepository(BaseRepository):
         from operations o
                  left join currencies c on c.ccy = o.currency and
                                            c.created_at = (select max(created_at) from currencies where ccy = o.currency)
-        where o.created_at between :date_from and :date_to
+        where o.created_at between :date_from and :date_to and o.is_approved = true
         """  # noqa: E501
 
         values = {
@@ -83,10 +85,41 @@ class OperationRepository(BaseRepository):
 
         result = await database.fetch_one(query=query, values=values)
         return (
-            dict(result)
-            if result
-            else {
-                'income': 0,
-                'expense': 0,
+            {
+                'income': result['income'] or 0,
+                'expense': result['expense'] or 0,
             }
+            if result
+            else {'income': 0, 'expense': 0}
         )
+
+    @classmethod
+    async def get_operations(
+        cls: Type['OperationRepository'],
+        page: int = 1,
+    ) -> Dict[str, Union[List[Record], int]]:
+        query = """
+        select *, count(*) over () as total
+        from operations o
+        where o.is_approved = true
+        order by o.created_at desc
+        limit :limit offset :offset
+        """
+
+        values = {
+            'offset': (page - 1) * settings.PAGE_SIZE,
+            'limit': settings.PAGE_SIZE,
+        }
+
+        operations = await database.fetch_all(query=query, values=values)
+        data = {
+            'operations': operations,
+            'total': operations[0]['total'] if operations else 0,
+        }
+        data['page_count'] = (
+            data['total'] // settings.PAGE_SIZE + 1
+            if data['total'] % settings.PAGE_SIZE
+            else data['total'] // settings.PAGE_SIZE
+        )
+
+        return data

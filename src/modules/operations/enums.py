@@ -82,6 +82,28 @@ class OperationReceivedCallback(str, Enum):
         return OperationReceivedCallback.NONE_RECEIVED + f'_{operation_id}'
 
 
+class OperationAllCallback(str, Enum):
+    """Вид callback для детальной информации об операции"""
+
+    UNIQUE_PREFIX = 'op_all_'
+
+    DETAIL = UNIQUE_PREFIX + 'dt'
+    PAGINATION = UNIQUE_PREFIX + 'pg'
+    DELETE = UNIQUE_PREFIX + 'dl'
+
+    @staticmethod
+    def detail(operation_id: int, page: int) -> str:
+        return OperationAllCallback.DETAIL + f'_{operation_id}_{page}'
+
+    @staticmethod
+    def pagination(page: int) -> str:
+        return OperationAllCallback.PAGINATION + f'_{page}'
+
+    @staticmethod
+    def delete(operation_id: int, page: int) -> str:
+        return OperationAllCallback.DELETE + f'_{operation_id}_{page}'
+
+
 class CurrencyEnum(str, Enum):
     """Доступные валюты в проекте"""
 

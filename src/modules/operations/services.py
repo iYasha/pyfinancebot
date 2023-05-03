@@ -15,6 +15,7 @@ from modules.operations.schemas import OperationCreate
 from modules.operations.schemas import OperationUpdate
 
 from sdk.repositories import WhereModifier
+from sdk.schemas import PaginatedSchema
 from sdk.utils import get_operation_regularity
 
 
@@ -27,6 +28,7 @@ class OperationService:
         operation_create: OperationCreate,
     ) -> Operation:
         values = operation_create.dict()
+        values['created_at'] = datetime.now()
         operation_id = await cls.repository.create(**values)
         return Operation(
             id=operation_id,
@@ -121,3 +123,22 @@ class OperationService:
         date_to: datetime,
     ) -> Dict[str, float]:
         return await cls.repository.get_stats(date_from=date_from, date_to=date_to)
+
+    @classmethod
+    async def get_operations(
+        cls: Type['OperationService'],
+        page: int = 1,
+    ) -> PaginatedSchema[List[Operation]]:
+        operations = await cls.repository.get_operations(page=page)
+
+        return PaginatedSchema(
+            total_count=operations['total'],
+            page_count=operations['page_count'],
+            next=page + 1 if page < operations['page_count'] else None,
+            previous=page - 1 if page > 1 else None,
+            results=[Operation(**operation) for operation in operations['operations']],
+        )
+
+    @classmethod
+    async def get_operation_count(cls: Type['OperationService']) -> int:
+        return await cls.repository.count([WhereModifier(is_approved=True)])

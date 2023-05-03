@@ -1,9 +1,12 @@
 import datetime
+from typing import Union
 
 from aiogram import types
 from config import bot
 from config import dp
 from config import settings
+from modules.helps.enums import Command
+from modules.operations.enums import OperationAllCallback
 from modules.operations.enums import OperationCreateCallback
 from modules.operations.enums import OperationReceivedCallback
 from modules.operations.schemas import Operation
@@ -12,6 +15,95 @@ from modules.operations.services import OperationService
 
 from sdk import utils
 from sdk.exceptions.handler import error_handler_decorator
+
+
+@dp.message_handler(commands=[Command.OPERATIONS])
+@dp.callback_query_handler(
+    lambda c: c.data and c.data.startswith(OperationAllCallback.PAGINATION),
+)
+@error_handler_decorator
+async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> None:
+    if isinstance(data, types.Message):
+        page = 1
+        message = data
+    else:
+        page = int(data.data.replace(f'{OperationAllCallback.PAGINATION}_', ''))
+        message = data.message
+        prev_page_buttons = next(
+            filter(lambda x: len(x) > 1, message.reply_markup.inline_keyboard),
+            [],
+        )
+        message_is_not_modified = bool(
+            next(filter(lambda x: x.text == f'[{page}]', prev_page_buttons), False),
+        )
+        if message_is_not_modified:
+            return
+
+    paginated_operations = await OperationService.get_operations(page)
+    if paginated_operations.total_count == 0:
+        await message.answer('Операции не найдены')
+        return
+
+    markup = await utils.get_operations_markup(paginated_operations.results, page)
+    markup.row(
+        *utils.get_pagination_markup(page, max_page=paginated_operations.page_count),
+    )
+
+    if isinstance(data, types.CallbackQuery):
+        await bot.edit_message_text(
+            text='Операции',
+            chat_id=message.chat.id,
+            message_id=message.message_id,
+            reply_markup=markup,
+        )
+        return
+
+    await bot.send_message(message.chat.id, text='Операции', reply_markup=markup)
+
+
+@dp.callback_query_handler(
+    lambda c: c.data and c.data.startswith(OperationAllCallback.DETAIL),
+)
+@error_handler_decorator
+async def get_operation_detail(callback_query: types.CallbackQuery) -> None:
+    message = callback_query.message
+    operation_id, page = map(
+        int,
+        callback_query.data.replace(f'{OperationAllCallback.DETAIL}_', '').split('_'),
+    )
+    operation = await OperationService.get_operation(operation_id)
+
+    await bot.edit_message_text(
+        text=await utils.get_operation_text(operation),
+        chat_id=message.chat.id,
+        message_id=message.message_id,
+        parse_mode=settings.PARSE_MODE,
+        reply_markup=utils.get_operation_detail_markup(operation_id, page),
+    )
+
+
+@dp.callback_query_handler(
+    lambda c: c.data and c.data.startswith(OperationAllCallback.DELETE),
+)
+@error_handler_decorator
+async def delete_operation(callback_query: types.CallbackQuery) -> None:
+    operation_id, page = map(
+        int,
+        callback_query.data.replace(f'{OperationAllCallback.DELETE}_', '').split('_'),
+    )
+    await OperationService.delete_operation(operation_id)
+
+    count = await OperationService.get_operation_count()
+    if count == 0:
+        await bot.edit_message_text(
+            text='✅ Операция успешно удалена!',
+            chat_id=callback_query.message.chat.id,
+            message_id=callback_query.message.message_id,
+        )
+        return
+
+    callback_query.data = OperationAllCallback.pagination(page)
+    await get_operations(callback_query)
 
 
 @dp.message_handler(regexp=settings.OPERATION_REGEX_PATTERN)
@@ -27,7 +119,7 @@ async def create_operation(message: types.Message) -> None:
         message.chat.id,
         text=await utils.get_operation_text(operation),
         parse_mode=settings.PARSE_MODE,
-        reply_markup=await utils.get_operation_approved_markup(operation.id),
+        reply_markup=utils.get_operation_approved_markup(operation.id),
     )
 
 

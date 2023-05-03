@@ -48,26 +48,28 @@ class HardSettings:
     Паттерн операции
     +/-{amount: int} *
     """
-    OPERATION_REGEX_PATTERN: str = r'^(?P<amount>[+-].[0-9]+) *'
+    OPERATION_REGEX_PATTERN: str = r'^(?P<amount>[+-].?[0-9]+) *'
 
     """
     Паттерн добавения операции
     +/-{amount: int} {current: длина 3 символа} {description:*}
     """
     OPERATION_ADD_REGEX_PATTERN: str = (
-        r'^(?P<amount>[+-].[0-9]+) (?P<currency>\w{3}) (?P<description>.*)'
+        r'^(?P<amount>[+-].?[0-9]+) (?P<currency>\w{3}) (?P<description>.*)'
     )
 
     """
     Паттерн добавления регулярных операций
     +/-{amount: int} {currency: длина 3 символа} {regular_period: период повторения} {description:*}
     """
-    OPERATION_REGULAR_REGEX_PATTERN: str = r'^(?P<amount>[+-].[0-9]+) (?P<currency>\w{3}) (?P<repeat_time>\S.*) за (?P<description>\S.*)'  # noqa: E501
+    OPERATION_REGULAR_REGEX_PATTERN: str = r'^(?P<amount>[+-].?[0-9]+) (?P<currency>\w{3}) (?P<repeat_time>\S.*) за (?P<description>\S.*)'  # noqa: E501
 
     # API configuration.
     DEFAULT_DATETIME_FORMAT: str = '%Y-%m-%dT%H:%M:%S%z'
 
     PARSE_MODE: str = 'html'
+    PAGINATION_MAX_PAGES: int = 5
+    PAGE_SIZE: int = 5
 
 
 class Settings(EnvSettings, HardSettings):
