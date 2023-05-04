@@ -79,8 +79,8 @@ class OperationRepository(BaseRepository):
         """  # noqa: E501
 
         values = {
-            'date_from': date_from.strftime('%Y-%m-%d'),
-            'date_to': date_to.strftime('%Y-%m-%d'),
+            'date_from': date_from.strftime('%Y-%m-%d %H:%M:%S'),
+            'date_to': date_to.strftime('%Y-%m-%d %H:%M:%S'),
         }
 
         result = await database.fetch_one(query=query, values=values)

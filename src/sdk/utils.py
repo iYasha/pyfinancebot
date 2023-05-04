@@ -210,6 +210,14 @@ async def get_current_month_period() -> Tuple[datetime.datetime, datetime.dateti
     return date_from, date_to
 
 
+async def get_current_day_period() -> Tuple[datetime.datetime, datetime.datetime]:
+    now = datetime.datetime.now()
+    return (
+        datetime.datetime(now.year, now.month, now.day, 0, 0, 0),
+        datetime.datetime(now.year, now.month, now.day, 23, 59, 59),
+    )
+
+
 def round_amount(amount: any, symbols: int) -> float:
     return round(float(amount), symbols)
 

@@ -9,5 +9,6 @@ class Command(str, Enum):
     HELP = 'help'
     BUDGET = 'budget'
     TODAY = 'today'
+    MONTH = 'month'
     WALLETS = 'wallets'
     WALLET = 'wallet'

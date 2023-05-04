@@ -13,8 +13,9 @@ async def get_help(message: types.Message) -> None:
     text = (
         '<b>Доступные команды:</b>\n\n'
         f'• /{Command.START} - Начать использовать бота\n'
-        f'• /{Command.BUDGET} - Получить информацию о бюджете\n'
         f'• /{Command.TODAY} - Получить информацию о бюджете сегодня\n'
+        f'• /{Command.MONTH} - Получить информацию о бюджете за месяц\n'
+        f'• /{Command.OPERATIONS} - Просмотреть все операции\n'
         f'• /{Command.WALLETS} - Просмотреть мои кошельки\n'
         f'• /{Command.HELP} - Показать все доступные команды\n'
     )
