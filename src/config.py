@@ -1,7 +1,9 @@
 import os
 from enum import Enum
+from typing import Dict
 from typing import Optional
 
+import spacy
 from aiogram import Bot
 from aiogram import Dispatcher
 from loguru import logger
@@ -33,6 +35,8 @@ class EnvSettings(BaseSettings):
 
     # Dev settings
     TESTING: bool = False
+
+    AI_MODELS_DIR: str
 
     class Config:
         env_file = '.env'
@@ -71,6 +75,30 @@ class HardSettings:
     PAGINATION_MAX_PAGES: int = 5
     PAGE_SIZE: int = 5
 
+    # AI Models
+    CATEGORY_MODEL: str = 'category-classifier'
+    OPERATION_MODEL: str = 'operation-ner'
+
+    EXPENSE_CATEGORIES: Dict[str, str] = {
+        'bad_habits': '🚬 Вредные привычки',
+        'education': '📚 Образование',
+        'entertainment': '🎾 Развлечения',
+        'food': '🍕 Еда',
+        'health': '❤️ Здоровье',
+        'house': '🏠 Дом',
+        'personal': '👤 Личные расходы',
+        'pet': '🐶 Домашние животные',
+        'subscriptions': '💰 Подписки',
+        'vehicle': '🚙 Транспорт',
+        'renovation': '🛠 Ремонт',
+        'other': '🗃 Другое',
+    }
+
+    INCOME_CATEGORIES: Dict[str, str] = {
+        'salary': '💰 Зарплата',
+        'other': '🗃 Другое',
+    }
+
 
 class Settings(EnvSettings, HardSettings):
     pass
@@ -79,6 +107,9 @@ class Settings(EnvSettings, HardSettings):
 settings = Settings()
 
 bot = Bot(token=settings.BOT_TOKEN)
+nlp = spacy.load('ru_core_news_md')
+operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
+category_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.CATEGORY_MODEL))
 dp = Dispatcher(bot)
 
 logger.add(settings.LOGGING_PATH + '{time:YYYY-MM-DD}.log', rotation=settings.LOGGING_ROTATION)

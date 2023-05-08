@@ -5,6 +5,8 @@ from typing import Type
 from typing import Union
 
 from modules.operations.enums import CurrencyEnum
+from modules.operations.enums import ExpenseCategoryEnum
+from modules.operations.enums import IncomeCategoryEnum
 from modules.operations.enums import OperationType
 from modules.operations.enums import RepeatType
 from pydantic import validator
@@ -17,6 +19,7 @@ class OperationBase(BaseSchema):
     amount: int
     received_amount: Optional[int] = None
     operation_type: OperationType
+    category: Optional[Union[ExpenseCategoryEnum, IncomeCategoryEnum]] = None
     description: str
     creator_id: int
     currency: CurrencyEnum

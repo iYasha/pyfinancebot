@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 from database import Base
 
-from models.base import UUIDModelMixin
+from models import UUIDModelMixin
 
 
 class Wallet(UUIDModelMixin, Base):

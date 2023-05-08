@@ -1,5 +1,7 @@
 from enum import Enum
 
+from config import settings
+
 
 class OperationType(str, Enum):
     """Вид операции"""
@@ -52,8 +54,9 @@ class OperationCreateCallback(str, Enum):
     NO = UNIQUE_PREFIX + 'no'
 
     @staticmethod
-    def correct(operation_id: int) -> str:
-        return OperationCreateCallback.CORRECT + f'_{operation_id}'
+    def correct(operation_id: int, category: str, operation_type: OperationType) -> str:
+        op = '+' if operation_type == OperationType.INCOME else '-'
+        return OperationCreateCallback.CORRECT + f'_{operation_id}_{op}_{category}'
 
     @staticmethod
     def no(operation_id: int) -> str:
@@ -118,3 +121,40 @@ class CurrencyEnum(str, Enum):
         if currency == 'грн':
             currency = 'uah'
         return CurrencyEnum(currency)
+
+
+class ExpenseCategoryEnum(str, Enum):
+    BAD_HABITS = 'bad_habits'
+    EDUCATION = 'education'
+    ENTERTAINMENT = 'entertainment'
+    FOOD = 'food'
+    HEALTH = 'health'
+    HOUSE = 'house'
+    PERSONAL = 'personal'
+    PET = 'pet'
+    SUBSCRIPTIONS = 'subscriptions'
+    VEHICLE = 'vehicle'
+    RENOVATION = 'renovation'
+    OTHER = 'other'
+
+    def get_translation(self) -> str:
+        return settings.EXPENSE_CATEGORIES.get(self.value, self.value.capitalize())
+
+
+class IncomeCategoryEnum(str, Enum):
+    SALARY = 'salary'
+    other = 'other'
+
+    def get_translation(self) -> str:
+        return settings.INCOME_CATEGORIES.get(self.value, self.value.capitalize())
+
+
+class CategoryCallback(str, Enum):
+
+    UNIQUE_PREFIX = 'cat_'
+
+    SHOW_MORE = UNIQUE_PREFIX + 'more'
+
+    @staticmethod
+    def more(operation_id: int) -> str:
+        return CategoryCallback.SHOW_MORE + f'_{operation_id}'

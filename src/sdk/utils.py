@@ -3,11 +3,15 @@ import datetime
 import re
 from typing import Dict
 from typing import List
+from typing import Optional
 from typing import Tuple
 from typing import Union
 
 from aiogram import types
 from config import settings
+from modules.operations.enums import CategoryCallback
+from modules.operations.enums import ExpenseCategoryEnum
+from modules.operations.enums import IncomeCategoryEnum
 from modules.operations.enums import OperationAllCallback
 from modules.operations.enums import OperationCreateCallback
 from modules.operations.enums import OperationReceivedCallback
@@ -84,8 +88,59 @@ async def get_received_amount_markup(operation_id: int) -> types.InlineKeyboardM
     return markup
 
 
-def get_operation_approved_markup(operation_id: int) -> types.InlineKeyboardMarkup:
-    markup = types.InlineKeyboardMarkup(row_width=2)
+def get_expense_categories_markup(
+    operation_id: int,
+    possible_categories: List[ExpenseCategoryEnum],
+    markup: Optional[types.InlineKeyboardMarkup] = None,
+) -> types.InlineKeyboardMarkup:
+    if markup is None:
+        markup = types.InlineKeyboardMarkup()
+    for category in possible_categories:
+        markup.add(
+            types.InlineKeyboardButton(
+                category.get_translation(),
+                callback_data=OperationCreateCallback.correct(
+                    operation_id,
+                    category.value,
+                    OperationType.EXPENSE,
+                ),
+            ),
+        )
+    markup.add(
+        types.InlineKeyboardButton(
+            '🔽 Другая категория',
+            callback_data=CategoryCallback.more(operation_id),
+        ),
+    )
+    return markup
+
+
+def get_income_categories_markup(
+    operation_id: int,
+    markup: Optional[types.InlineKeyboardMarkup] = None,
+) -> types.InlineKeyboardMarkup:
+    if markup is None:
+        markup = types.InlineKeyboardMarkup()
+    for category in list(IncomeCategoryEnum):
+        markup.add(
+            types.InlineKeyboardButton(
+                category.get_translation(),
+                callback_data=OperationCreateCallback.correct(
+                    operation_id,
+                    category.value,
+                    OperationType.INCOME,
+                ),
+            ),
+        )
+    return markup
+
+
+def get_operation_approved_markup(
+    operation_id: int,
+    markup: Optional[types.InlineKeyboardMarkup] = None,
+) -> types.InlineKeyboardMarkup:
+    if markup is None:
+        markup = types.InlineKeyboardMarkup()
     markup.add(
         types.InlineKeyboardButton(
             '✅ Все правильно',
@@ -96,6 +151,7 @@ def get_operation_approved_markup(operation_id: int) -> types.InlineKeyboardMark
             callback_data=OperationCreateCallback.no(operation_id),
         ),
     )
+
     return markup
 
 
@@ -119,7 +175,6 @@ def get_pagination_range(
     max_page: int = 1,
     min_page: int = 1,
 ) -> Tuple[int, int]:
-
     if max_page < settings.PAGINATION_MAX_PAGES:
         return min_page, max_page
 
@@ -144,7 +199,6 @@ def get_pagination_markup(
     max_page: int = 1,
     min_page: int = 1,
 ) -> List[types.InlineKeyboardButton]:
-
     from_range, to_range = get_pagination_range(current_page, max_page, min_page)
 
     markup = []
@@ -153,9 +207,9 @@ def get_pagination_markup(
         data = page
 
         if btn_no == 0 and page != min_page:
-            text, data = '<', min_page
+            text, data = '◀️', min_page
         elif btn_no + 1 == settings.PAGINATION_MAX_PAGES and page != max_page:
-            text, data = '>', max_page
+            text, data = '▶️', max_page
         elif page == current_page:
             text, data = f'[{page}]', page
 
@@ -192,10 +246,13 @@ async def get_operation_text(  # noqa: CCR001
     received_amount += (
         f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
     )
+    category = (
+        f'📂 Категория: {operation.category.get_translation()}\n' if operation.category else ''
+    )
     return (
         f'<b>{title}:</b>\n\n'
         f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n'
-        f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n'
+        f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n{category}'
         f'🗓 Дата создания: {operation.created_at.strftime("%Y-%m-%d %H:%M")}\n'
         f'{repeat_at}'
         f'💬 Описание: {operation.description}\n{received_amount}\n'
@@ -234,4 +291,21 @@ def get_operation_detail_markup(operation_id: int, page: int) -> types.InlineKey
             callback_data=OperationAllCallback.delete(operation_id, page),
         ),
     )
+    return markup
+
+
+def get_other_categories(
+    operation_id: int,
+    categories: List[str],
+    markup: types.InlineKeyboardMarkup,
+) -> types.InlineKeyboardMarkup:
+    for category in list(ExpenseCategoryEnum):
+        if category in categories:
+            continue
+        markup.add(
+            types.InlineKeyboardButton(
+                category.get_translation(),
+                callback_data=OperationCreateCallback.correct(operation_id, category.value),
+            ),
+        )
     return markup

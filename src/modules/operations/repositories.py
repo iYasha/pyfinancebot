@@ -19,14 +19,21 @@ class OperationRepository(BaseRepository):
     model: Operation = Operation
 
     @classmethod
-    async def approve_operation(cls: Type['OperationRepository'], operation_id: int) -> None:
+    async def approve_operation(
+        cls: Type['OperationRepository'],
+        operation_id: int,
+        category: str,
+    ) -> None:
         query = """
         update operations
-        set is_approved = true, received_amount = amount
+        set is_approved = true, received_amount = amount, category = :category
         where id = :operation_id
         """
 
-        await database.execute(query=query, values={'operation_id': operation_id})
+        await database.execute(
+            query=query,
+            values={'operation_id': operation_id, 'category': category},
+        )
 
     @classmethod
     async def get_regular_operations(

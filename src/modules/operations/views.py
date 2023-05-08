@@ -6,9 +6,13 @@ from config import bot
 from config import dp
 from config import settings
 from modules.helps.enums import Command
+from modules.operations.enums import CategoryCallback
+from modules.operations.enums import ExpenseCategoryEnum
+from modules.operations.enums import IncomeCategoryEnum
 from modules.operations.enums import OperationAllCallback
 from modules.operations.enums import OperationCreateCallback
 from modules.operations.enums import OperationReceivedCallback
+from modules.operations.enums import OperationType
 from modules.operations.schemas import Operation
 from modules.operations.schemas import OperationUpdate
 from modules.operations.services import OperationService
@@ -113,13 +117,19 @@ async def create_operation(message: types.Message) -> None:
     if not operation_data:
         return
 
+    operation_data, possible_categories = operation_data
     operation: Operation = await OperationService.create_operation(operation_data)
+
+    if operation.operation_type == OperationType.EXPENSE:
+        categories = utils.get_expense_categories_markup(operation.id, possible_categories)
+    else:
+        categories = utils.get_income_categories_markup(operation.id)
 
     await bot.send_message(
         message.chat.id,
-        text=await utils.get_operation_text(operation),
+        text=await utils.get_operation_text(operation, title='Выберите категорию'),
         parse_mode=settings.PARSE_MODE,
-        reply_markup=utils.get_operation_approved_markup(operation.id),
+        reply_markup=categories,
     )
 
 
@@ -130,8 +140,18 @@ async def create_operation(message: types.Message) -> None:
 async def process_operation_create(callback_query: types.CallbackQuery) -> None:
     operation_text = callback_query.message.html_text
     if callback_query.data.startswith(OperationCreateCallback.CORRECT):
-        operation_id = int(callback_query.data.replace(f'{OperationCreateCallback.CORRECT}_', ''))
-        await OperationService.approve_operation(operation_id)
+        data = callback_query.data.replace(f'{OperationCreateCallback.CORRECT}_', '').split('_')
+        operation_id, operation_type, category_slug = int(data[0]), data[1], ('_'.join(data[2:]))
+        category: Union[IncomeCategoryEnum, ExpenseCategoryEnum] = (
+            IncomeCategoryEnum(category_slug)
+            if operation_type == '+'
+            else ExpenseCategoryEnum(category_slug)
+        )
+        await OperationService.approve_operation(operation_id, category)
+        text_by_line = operation_text.split('\n')
+        operation_text = '\n'.join(
+            text_by_line[:4] + [f'📂 Категория: {category.get_translation()}'] + text_by_line[4:],
+        )
         operation_text = f'{operation_text}\n✅ Операция успешно создана'
 
     elif callback_query.data.startswith(OperationCreateCallback.NO):
@@ -144,6 +164,30 @@ async def process_operation_create(callback_query: types.CallbackQuery) -> None:
         parse_mode=settings.PARSE_MODE,
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
+    )
+
+
+@dp.callback_query_handler(
+    lambda c: c.data and c.data.startswith(CategoryCallback.SHOW_MORE),
+)
+@error_handler_decorator
+async def show_more_categories(callback_query: types.CallbackQuery) -> None:
+    message = callback_query.message
+    markup = message.reply_markup
+    operation_id = int(callback_query.data.replace(f'{CategoryCallback.SHOW_MORE}_', ''))
+    inline_keyboard = markup.inline_keyboard
+    inline_keyboard.pop()
+    categories = [
+        '_'.join(
+            x[0]['callback_data'].replace(f'{OperationCreateCallback.CORRECT}_', '').split('_')[1:],
+        )
+        for x in inline_keyboard
+    ]
+
+    await bot.edit_message_reply_markup(
+        chat_id=callback_query.message.chat.id,
+        message_id=callback_query.message.message_id,
+        reply_markup=utils.get_other_categories(operation_id, categories, markup),
     )
 
 

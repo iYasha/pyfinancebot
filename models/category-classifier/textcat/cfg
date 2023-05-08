@@ -1,0 +1,17 @@
+{
+  "labels":[
+    "BAD_HABITS",
+    "EDUCATION",
+    "ENTERTAINMENT",
+    "FOOD",
+    "HEALTH",
+    "HOUSE",
+    "OTHER",
+    "PERSONAL",
+    "PET",
+    "SUBSCRIPTIONS",
+    "VEHICLE"
+  ],
+  "threshold":0.0,
+  "positive_label":null
+}

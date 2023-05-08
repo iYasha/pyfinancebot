@@ -1,22 +1,28 @@
-import re
+import string
+from collections import defaultdict
 from datetime import datetime
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Tuple
 from typing import Type
+from typing import Union
 
-from config import settings
+from config import category_model
+from config import nlp
+from config import operation_model
 from modules.operations.enums import CurrencyEnum
+from modules.operations.enums import ExpenseCategoryEnum
 from modules.operations.enums import OperationType
 from modules.operations.enums import RepeatType
 from modules.operations.repositories import OperationRepository
 from modules.operations.schemas import Operation
 from modules.operations.schemas import OperationCreate
 from modules.operations.schemas import OperationUpdate
+from spacy.lang.ru import STOP_WORDS
 
 from sdk.repositories import WhereModifier
 from sdk.schemas import PaginatedSchema
-from sdk.utils import get_operation_regularity
 
 
 class OperationService:
@@ -36,46 +42,110 @@ class OperationService:
         )
 
     @classmethod
+    def preprocess_text(cls: Type['OperationService'], text: str) -> str:
+        text = text.lower()
+
+        tokens = [token.lemma_.strip() for token in nlp(text)]
+
+        return ' '.join(
+            [
+                t
+                for t in tokens
+                if t not in STOP_WORDS and t not in string.punctuation and not t.isdigit()
+            ],
+        )
+
+    @classmethod
+    def get_operation_entities(
+        cls: Type['OperationService'],
+        text: str,
+    ) -> Dict[str, Union[str, List[str], List[tuple]]]:
+        text = text.replace('- ', '-') if text.startswith('- ') else text
+        doc = operation_model(text)
+        single_entities = ('AMOUNT', 'CURRENCY', 'FOR', 'EVERYDAY', 'EVERYWEEK', 'EVERYMONTH')
+        multiple_entities = ('NUMBEROFDAY',)
+        weekdays = {
+            'MONDAY': 0,
+            'TUESDAY': 1,
+            'WEDNESDAY': 2,
+            'THURSDAY': 3,
+            'FRIDAY': 4,
+            'SATURDAY': 5,
+            'SUNDAY': 6,
+        }
+        weekdays_values = list(weekdays.keys())
+        entities = defaultdict(list)
+        for entity in doc.ents:
+            if entity.label_ in single_entities:
+                entities[entity.label_] = entity.text
+            elif entity.label_ in multiple_entities:
+                entities[entity.label_].append(entity.text)
+            elif entity.label_ in weekdays_values:
+                entities['WEEKDAYS'].append(weekdays[entity.label_])
+            elif entity.label_ == 'LASTDAY':
+                entities['WEEKDAYS'].append('last')
+        return entities
+
+    @classmethod
+    def get_categories(cls: Type['OperationService'], text: str) -> List[ExpenseCategoryEnum]:
+        doc = category_model(cls.preprocess_text(text))
+        categories = doc.cats
+        return [
+            ExpenseCategoryEnum(x.lower())
+            for x in sorted(categories, key=categories.get, reverse=True)[:2]
+        ]
+
+    @classmethod
+    def get_operation_regularity(
+        cls: Type['OperationService'],
+        entities: Dict[str, Union[str, List[str], List[tuple]]],
+    ) -> Optional[Dict[str, Union[str, list]]]:
+        if entities.get('EVERYDAY', False):
+            return {'type': 'every_day', 'days': []}
+        elif entities.get('EVERYWEEK', False):
+            return {'type': 'every_week', 'days': entities.get('WEEKDAYS')}
+        elif entities.get('EVERYMONTH', False):
+            return {'type': 'every_month', 'days': entities.get('NUMBEROFDAY')}
+        return None
+
+    @classmethod
     def parse_operation(
         cls: Type['OperationService'],
         text: str,
         creator_id: int,
-    ) -> Optional[OperationCreate]:
-        operation_add = re.match(settings.OPERATION_ADD_REGEX_PATTERN, text)
-        add_regular_operation = re.match(settings.OPERATION_REGULAR_REGEX_PATTERN, text)
-        if add_regular_operation is not None:
-            amount, currency, repeat_time, description = add_regular_operation.groups()
-            repeat_time = get_operation_regularity(repeat_time)
-
-            return OperationCreate(
-                creator_id=creator_id,
-                amount=abs(int(amount)),
-                received_amount=abs(int(amount)),
-                currency=CurrencyEnum.get(currency),
-                operation_type=OperationType.get_operation_type(amount),
-                description=description,
-                repeat_type=repeat_time['type'],
-                repeat_days=repeat_time['days'],
-                is_regular_operation=True,
-            )
-        elif operation_add is not None:
-            amount, currency, description = re.match(
-                settings.OPERATION_ADD_REGEX_PATTERN,
-                text,
-            ).groups()
-            amount = amount.replace(' ', '').strip()
-            return OperationCreate(
+    ) -> Optional[Tuple[OperationCreate, List[ExpenseCategoryEnum]]]:
+        entities = cls.get_operation_entities(text)
+        description = entities.get('FOR')
+        amount = int(entities.get('AMOUNT'))
+        currency = entities.get('CURRENCY')
+        operation_type = OperationType.get_operation_type(amount)
+        repeat_time = cls.get_operation_regularity(entities)
+        categories = (
+            cls.get_categories(description) if operation_type == OperationType.EXPENSE else []
+        )
+        return (
+            OperationCreate(
                 creator_id=creator_id,
                 amount=abs(int(amount)),
                 currency=CurrencyEnum.get(currency),
-                operation_type=OperationType.get_operation_type(amount),
+                operation_type=operation_type,
                 description=description,
-                repeat_type=RepeatType.NO_REPEAT,
-            )
+                repeat_type=repeat_time['type']
+                if repeat_time is not None
+                else RepeatType.NO_REPEAT,
+                repeat_days=repeat_time['days'] if repeat_time is not None else None,
+                is_regular_operation=repeat_time is not None,
+            ),
+            categories,
+        )
 
     @classmethod
-    async def approve_operation(cls: Type['OperationService'], operation_id: int) -> None:
-        await cls.repository.approve_operation(operation_id)
+    async def approve_operation(
+        cls: Type['OperationService'],
+        operation_id: int,
+        category: str,
+    ) -> None:
+        await cls.repository.approve_operation(operation_id, category)
 
     @classmethod
     async def delete_operation(cls: Type['OperationService'], operation_id: int) -> None:

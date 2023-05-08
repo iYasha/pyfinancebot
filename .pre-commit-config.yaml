@@ -37,4 +37,4 @@ repos:
         entry: flake8
         language: system
         types: [ python ]
-        args: [ ]
+        args: [ --exclude=./alembic/* ]
