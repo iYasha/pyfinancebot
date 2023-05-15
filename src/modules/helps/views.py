@@ -16,7 +16,8 @@ async def get_help(message: types.Message) -> None:
         f'• /{Command.TODAY} - Получить информацию о бюджете сегодня\n'
         f'• /{Command.MONTH} - Получить информацию о бюджете за месяц\n'
         f'• /{Command.OPERATIONS} - Просмотреть все операции\n'
-        f'• /{Command.WALLETS} - Просмотреть мои кошельки\n'
+        f'• /{Command.REGULAR} - Просмотреть все регулярные операции\n'
+        f'• /{Command.FUTURE} - Просмотреть все будущие операции\n'
         f'• /{Command.HELP} - Показать все доступные команды\n'
     )
     await bot.send_message(message.chat.id, text=text, parse_mode=settings.PARSE_MODE)

@@ -32,6 +32,7 @@ class ConsoleManager:
 
 
 if __name__ == '__main__':
+    # TODO: Use subparsers for commands https://docs.python.org/3/library/argparse.html#sub-commands
     argparse = argparse.ArgumentParser()
     argparse.add_argument(
         '-c',

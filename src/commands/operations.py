@@ -43,6 +43,7 @@ class CreateRegularOperation(Command):
                     amount=operation.amount,
                     currency=operation.currency,
                     operation_type=operation.operation_type,
+                    category=operation.category,
                     description=operation.description,
                     repeat_type=operation.repeat_type,
                     repeat_days=operation.repeat_days,
@@ -51,34 +52,19 @@ class CreateRegularOperation(Command):
                 )
                 await OperationService.create_operation(operation_create)
 
-
-class SendRegularOperationNotification(Command):
-    """
-    TODO: Doesn't work.
-    """
-
-    command_name = 'send_regular_operations_notification'
-
-    @classmethod
-    async def run(cls: Type['SendRegularOperationNotification']) -> None:  # noqa: CCR001
-        operations = await OperationService.get_regular_operations(
-            is_regular_operation=False,
-            has_full_amount=False,
-        )
-        for operation in operations:
-            await bot.send_message(
-                operation.creator_id,
-                text=await utils.get_operation_text(operation, title='Подтвердите получение'),
-                parse_mode=settings.PARSE_MODE,
-                reply_markup=await utils.get_received_amount_markup(operation.id),
-            )
+                await bot.send_message(  # TODO: Need to refactor
+                    operation.creator_id,
+                    text=await utils.get_operation_text(operation, title='Подтвердите получение'),
+                    parse_mode=settings.PARSE_MODE,
+                    reply_markup=await utils.get_received_amount_markup(operation.id),
+                )
 
 
 class ImportOperations(Command):
     command_name = 'import_operations'
 
     @classmethod
-    async def run(cls: Type['SendRegularOperationNotification']) -> None:  # noqa: CCR001
+    async def run(cls: Type['ImportOperations']) -> None:  # noqa: CCR001
         path = 'your_path_to_json_file'
         with open(path, 'r') as f:
             operations = [

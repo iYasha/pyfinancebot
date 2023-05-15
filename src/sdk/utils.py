@@ -1,14 +1,21 @@
 import calendar
 import datetime
 import re
+from typing import Awaitable
+from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Sequence
 from typing import Tuple
 from typing import Union
+from typing import get_args
 
 from aiogram import types
+from aiogram.dispatcher import filters
+from config import dp
 from config import settings
+from modules.operations.enums import BackScreenType
 from modules.operations.enums import CategoryCallback
 from modules.operations.enums import ExpenseCategoryEnum
 from modules.operations.enums import IncomeCategoryEnum
@@ -18,6 +25,7 @@ from modules.operations.enums import OperationReceivedCallback
 from modules.operations.enums import OperationType
 from modules.operations.enums import RepeatType
 from modules.operations.schemas import Operation
+from modules.operations.schemas import OperationImport
 
 
 def strip_string(text: str) -> str:
@@ -155,16 +163,47 @@ def get_operation_approved_markup(
     return markup
 
 
-async def get_operations_markup(
-    operations: List[Operation],
-    page: int,
+def get_future_operation_markup(
+    operations: Sequence[OperationImport],
+    back_screen_type: BackScreenType = BackScreenType.FUTURE,
 ) -> types.InlineKeyboardMarkup:
     markup = types.InlineKeyboardMarkup(row_width=1)
     for operation in operations:
+        op_type = '+' if operation.operation_type == OperationType.INCOME else '-'
+        category_smile = (
+            '📝'
+            if operation.category is None
+            else operation.category.get_translation().split(' ')[0]
+        )
         markup.add(
             types.InlineKeyboardButton(
-                f'📝 {operation.description} - {operation.amount} {operation.currency.value.upper()}',
-                callback_data=OperationAllCallback.detail(operation.id, page),
+                f'{category_smile} {operation.description} | '
+                f'{op_type}{operation.amount} {operation.currency.value.upper()} | '
+                f'({operation.created_at.strftime("%d.%m.%Y")})',
+                callback_data=OperationAllCallback.detail(operation.id, 1, back_screen_type),
+            ),
+        )
+    return markup
+
+
+def get_operations_markup(
+    operations: Sequence[Operation],
+    page: int,
+    back_screen_type: BackScreenType = BackScreenType.ALL_OPERATIONS,
+) -> types.InlineKeyboardMarkup:
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    for operation in operations:
+        op_type = '+' if operation.operation_type == OperationType.INCOME else '-'
+        category_smile = (
+            '📝'
+            if operation.category is None
+            else operation.category.get_translation().split(' ')[0]
+        )
+        markup.add(
+            types.InlineKeyboardButton(
+                f'{category_smile} {operation.description} | '
+                f'{op_type}{operation.amount} {operation.currency.value.upper()}',
+                callback_data=OperationAllCallback.detail(operation.id, page, back_screen_type),
             ),
         )
     return markup
@@ -198,6 +237,7 @@ def get_pagination_markup(
     current_page: int = 1,
     max_page: int = 1,
     min_page: int = 1,
+    is_regular_operation: bool = False,
 ) -> List[types.InlineKeyboardButton]:
     from_range, to_range = get_pagination_range(current_page, max_page, min_page)
 
@@ -216,7 +256,7 @@ def get_pagination_markup(
         markup.append(
             types.InlineKeyboardButton(
                 text=text,
-                callback_data=OperationAllCallback.pagination(data),
+                callback_data=OperationAllCallback.pagination(data, is_regular_operation),
             ),
         )
 
@@ -279,16 +319,27 @@ def round_amount(amount: any, symbols: int) -> float:
     return round(float(amount), symbols)
 
 
-def get_operation_detail_markup(operation_id: int, page: int) -> types.InlineKeyboardMarkup:
+def get_operation_detail_markup(
+    operation_id: int,
+    page: int,
+    back_type: BackScreenType,
+) -> types.InlineKeyboardMarkup:
     markup = types.InlineKeyboardMarkup(row_width=2)
+    if back_type in (BackScreenType.ALL_OPERATIONS, BackScreenType.REGULAR):
+        back_callback_data = OperationAllCallback.pagination(
+            page,
+            is_regular_operation=back_type == BackScreenType.REGULAR,
+        )
+    else:
+        back_callback_data = back_type.get_command()
     markup.add(
         types.InlineKeyboardButton(
             '🔙 Назад',
-            callback_data=OperationAllCallback.pagination(page),
+            callback_data=back_callback_data,
         ),
         types.InlineKeyboardButton(
             '❌ Удалить',
-            callback_data=OperationAllCallback.delete(operation_id, page),
+            callback_data=OperationAllCallback.delete(operation_id, page, back_type),
         ),
     )
     return markup
@@ -305,7 +356,29 @@ def get_other_categories(
         markup.add(
             types.InlineKeyboardButton(
                 category.get_translation(),
-                callback_data=OperationCreateCallback.correct(operation_id, category.value),
+                callback_data=OperationCreateCallback.correct(
+                    operation_id,
+                    category.value,
+                    OperationType.EXPENSE,
+                ),
             ),
         )
     return markup
+
+
+def get_message_handler(
+    back_type: BackScreenType,
+) -> Callable[[types.CallbackQuery], Awaitable[None]]:
+    command_name = back_type.get_command()
+    for handler in dp.message_handlers.handlers:
+        handler_filter = next(
+            filter(lambda x: isinstance(x.filter, filters.builtin.Command), handler.filters),
+        )
+        if (
+            handler_filter is None
+            or command_name not in handler_filter.filter.commands
+            or types.CallbackQuery not in get_args(handler.spec.annotations['data'])
+        ):
+            continue
+        return handler.handler
+    raise ValueError(f'Handler for command {command_name} not found')

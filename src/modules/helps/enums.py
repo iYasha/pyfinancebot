@@ -5,10 +5,9 @@ class Command(str, Enum):
     """Виды команд"""
 
     OPERATIONS = 'operations'
+    FUTURE = 'future'
+    REGULAR = 'regular'
     START = 'start'
     HELP = 'help'
-    BUDGET = 'budget'
     TODAY = 'today'
     MONTH = 'month'
-    WALLETS = 'wallets'
-    WALLET = 'wallet'

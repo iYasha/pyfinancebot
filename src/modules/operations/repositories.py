@@ -22,42 +22,35 @@ class OperationRepository(BaseRepository):
     async def approve_operation(
         cls: Type['OperationRepository'],
         operation_id: int,
-        category: str,
+        category: Optional[str] = None,
     ) -> None:
-        query = """
+        update_category = ''
+        values = {'operation_id': operation_id}
+        if category:
+            update_category = ', category = :category'
+            values['category'] = category
+        query = f"""
         update operations
-        set is_approved = true, received_amount = amount, category = :category
+        set is_approved = true, received_amount = amount {update_category}
         where id = :operation_id
         """
 
         await database.execute(
             query=query,
-            values={'operation_id': operation_id, 'category': category},
+            values=values,
         )
 
     @classmethod
     async def get_regular_operations(
         cls: Type['OperationRepository'],
-        is_approved: bool,
-        is_regular_operation: bool,
-        has_full_amount: Optional[bool] = None,
     ) -> List[Record]:
-        query = cls.get_base_query()
-        where = [
-            cls.model.repeat_type != RepeatType.NO_REPEAT,
-            cls.model.is_approved == is_approved,
-            cls.model.is_regular_operation == is_regular_operation,
-        ]
-        if has_full_amount is not None:
-            if has_full_amount:
-                where.append(cls.model.amount == cls.model.received_amount)
-            else:
-                where.append(
-                    sa.or_(
-                        cls.model.amount != cls.model.received_amount,
-                        cls.model.received_amount == None,  # noqa: E711
-                    ),
-                )
+        query = cls.get_base_query().where(
+            sa.and_(
+                cls.model.is_approved == True,  # noqa: E712
+                cls.model.is_regular_operation == True,  # noqa: E712
+                cls.model.repeat_type != RepeatType.NO_REPEAT,
+            ),
+        )
         return await database.fetch_all(query)
 
     @classmethod
@@ -65,7 +58,7 @@ class OperationRepository(BaseRepository):
         cls: Type['OperationRepository'],
         date_from: datetime,
         date_to: datetime,
-    ) -> Dict[str, float]:
+    ) -> Dict[str, float]:  # TODO: Фиксировать курс на момент создания транзакции
         query = """
         select sum(
                case
@@ -82,7 +75,7 @@ class OperationRepository(BaseRepository):
         from operations o
                  left join currencies c on c.ccy = o.currency and
                                            c.created_at = (select max(created_at) from currencies where ccy = o.currency)
-        where o.created_at between :date_from and :date_to and o.is_approved = true
+        where o.created_at between :date_from and :date_to and o.is_approved = true and o.is_regular_operation = false
         """  # noqa: E501
 
         values = {
@@ -103,12 +96,13 @@ class OperationRepository(BaseRepository):
     @classmethod
     async def get_operations(
         cls: Type['OperationRepository'],
+        is_regular_operation: bool,
         page: int = 1,
     ) -> Dict[str, Union[List[Record], int]]:
         query = """
         select *, count(*) over () as total
         from operations o
-        where o.is_approved = true
+        where o.is_approved = true and o.is_regular_operation = :is_regular_operation
         order by o.created_at desc
         limit :limit offset :offset
         """
@@ -116,6 +110,7 @@ class OperationRepository(BaseRepository):
         values = {
             'offset': (page - 1) * settings.PAGE_SIZE,
             'limit': settings.PAGE_SIZE,
+            'is_regular_operation': is_regular_operation,
         }
 
         operations = await database.fetch_all(query=query, values=values)

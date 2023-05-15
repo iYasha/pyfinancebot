@@ -1,9 +1,11 @@
 import string
+from calendar import monthrange
 from collections import defaultdict
 from datetime import datetime
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Sequence
 from typing import Tuple
 from typing import Type
 from typing import Union
@@ -18,6 +20,7 @@ from modules.operations.enums import RepeatType
 from modules.operations.repositories import OperationRepository
 from modules.operations.schemas import Operation
 from modules.operations.schemas import OperationCreate
+from modules.operations.schemas import OperationImport
 from modules.operations.schemas import OperationUpdate
 from spacy.lang.ru import STOP_WORDS
 
@@ -143,7 +146,7 @@ class OperationService:
     async def approve_operation(
         cls: Type['OperationService'],
         operation_id: int,
-        category: str,
+        category: Optional[str] = None,
     ) -> None:
         await cls.repository.approve_operation(operation_id, category)
 
@@ -175,16 +178,116 @@ class OperationService:
     @classmethod
     async def get_regular_operations(
         cls: Type['OperationService'],
-        is_approved: bool = True,
-        is_regular_operation: bool = True,
-        has_full_amount: Optional[bool] = None,
     ) -> List[Operation]:
-        operations = await cls.repository.get_regular_operations(
-            is_approved=is_approved,
-            is_regular_operation=is_regular_operation,
-            has_full_amount=has_full_amount,
-        )
+        operations = await cls.repository.get_regular_operations()
         return [Operation(**operation) for operation in operations]
+
+    @classmethod
+    def get_every_day_operations(
+        cls,
+        base_operation_data: Dict[str, any],
+        now: datetime,
+        days_range: Sequence[int],
+    ) -> List[Operation]:
+        return [
+            Operation(
+                **base_operation_data,
+                created_at=datetime(
+                    year=now.year,
+                    month=now.month,
+                    day=day,
+                    hour=8,
+                    minute=0,
+                    second=0,
+                ),
+            )
+            for day in days_range
+        ]
+
+    @classmethod
+    def get_month_operations(
+        cls,
+        base_operation_data: Dict[str, any],
+        now: datetime,
+        repeat_days: List[int],
+        last_day: int,
+    ) -> List[Operation]:
+        return [
+            Operation(
+                **base_operation_data,
+                created_at=datetime(
+                    year=now.year,
+                    month=now.month,
+                    day=(last_day if day == 'last' else int(day)),
+                    hour=8,
+                    minute=0,
+                    second=0,
+                ),
+            )
+            for day in repeat_days
+            if now.day < (last_day if day == 'last' else int(day)) <= last_day
+        ]
+
+    @classmethod
+    def get_every_week_operations(
+        cls,
+        base_operation_data: Dict[str, any],
+        now: datetime,
+        repeat_days: List[str],
+        weekdays: Dict[int, List[int]],
+    ) -> List[Operation]:
+        return [
+            Operation(
+                **base_operation_data,
+                created_at=datetime(
+                    year=now.year,
+                    month=now.month,
+                    day=day,
+                    hour=8,
+                    minute=0,
+                    second=0,
+                ),
+            )
+            for weekday in repeat_days
+            for day in weekdays[int(weekday)]
+        ]
+
+    @classmethod
+    async def get_future_operations(cls) -> Tuple[OperationImport]:
+        operations = await OperationService.get_regular_operations()
+        future_operations = []
+        now = datetime.now()
+        last_day = monthrange(now.year, now.month)[1]
+        days_range = tuple(range(now.day + 1, last_day + 1))
+        weekdays = defaultdict(list)
+        for day in days_range:
+            weekdays[datetime(year=now.year, month=now.month, day=day).weekday()].append(day)
+
+        for operation in operations:
+            base_operation_data = operation.dict(exclude={'created_at', 'is_regular_operation'})
+            base_operation_data['is_regular_operation'] = False
+            if operation.repeat_type == RepeatType.EVERY_DAY:
+                future_operations += cls.get_every_day_operations(
+                    base_operation_data,
+                    now,
+                    days_range,
+                )
+            elif operation.repeat_type == RepeatType.EVERY_MONTH:
+                future_operations += cls.get_month_operations(
+                    base_operation_data,
+                    now,
+                    operation.repeat_days,
+                    last_day,
+                )
+            elif operation.repeat_type == RepeatType.EVERY_WEEK:
+                future_operations += cls.get_every_week_operations(
+                    base_operation_data,
+                    now,
+                    operation.repeat_days,
+                    weekdays,
+                )
+
+        return tuple(sorted(future_operations, key=lambda x: x.created_at))
 
     @classmethod
     async def get_stats(
@@ -198,8 +301,12 @@ class OperationService:
     async def get_operations(
         cls: Type['OperationService'],
         page: int = 1,
+        is_regular_operation: bool = False,
     ) -> PaginatedSchema[List[Operation]]:
-        operations = await cls.repository.get_operations(page=page)
+        operations = await cls.repository.get_operations(
+            page=page,
+            is_regular_operation=is_regular_operation,
+        )
 
         return PaginatedSchema(
             total_count=operations['total'],
