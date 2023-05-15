@@ -43,7 +43,7 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
     tomorrow_operations = tuple(
         filter(lambda x: x.created_at.date() == tomorrow.date(), future_operations),
     )
-    saldo = month_stats['income'] + future_income - month_stats['expense'] + future_expense
+    saldo = month_stats['income'] + future_income - month_stats['expense'] - future_expense
     day_budget = round(saldo / (month_date_to.day - date_from.day), 2)
     message_text = (
         f'🟢 Доход: {round_amount(today_stats["income"], 2)}₴\n🔴 Расход: {round_amount(today_stats["expense"], 2)}₴\n'
@@ -89,7 +89,7 @@ async def get_month_analytics(message: types.Message) -> None:
             if operation.operation_type == OperationType.INCOME
         ],
     )
-    saldo = income + future_income - expense + future_expense
+    saldo = income + future_income - expense - future_expense
     day_budget = round(saldo / (date_to.day - now_day), 2)
     await message.answer(
         f'🟢 Доход: {round_amount(income, 2)}₴\n🔴 Расход: {round_amount(expense, 2)}₴\n'
