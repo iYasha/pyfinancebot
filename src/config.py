@@ -1,4 +1,5 @@
 import os
+import sys
 from enum import Enum
 from typing import Dict
 from typing import Optional
@@ -107,9 +108,14 @@ class Settings(EnvSettings, HardSettings):
 settings = Settings()
 
 bot = Bot(token=settings.BOT_TOKEN)
-nlp = spacy.load('ru_core_news_md')
-operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
-category_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.CATEGORY_MODEL))
+nlp = None
+operation_model = None
+category_model = None
+if os.path.basename(sys.argv[0]) == 'main.py':
+    nlp = spacy.load('ru_core_news_md')
+    operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
+    category_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.CATEGORY_MODEL))
+
 dp = Dispatcher(bot)
 
 logger.add(settings.LOGGING_PATH + '{time:YYYY-MM-DD}.log', rotation=settings.LOGGING_ROTATION)
