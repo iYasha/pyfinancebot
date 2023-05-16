@@ -1,3 +1,13 @@
+<div align="center">
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+</div>
+
 <br />
 <div align="center">
   <a href="https://github.com/iyasha/financyka-bot">
@@ -69,3 +79,16 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 If you have any questions, feel free to contact me via email: [ivan@simantiev.com](mailto:ivan@simantiev.com)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/iyasha/financyka-bot.svg?style=for-the-badge
+[contributors-url]: https://github.com/iyasha/financyka-bot/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/iyasha/financyka-bot.svg?style=for-the-badge
+[forks-url]: https://github.com/iyasha/financyka-bot/network/members
+[stars-shield]: https://img.shields.io/github/stars/iyasha/financyka-bot.svg?style=for-the-badge
+[stars-url]: https://github.com/iyasha/financyka-bot/stargazers
+[issues-shield]: https://img.shields.io/github/issues/iyasha/financyka-bot.svg?style=for-the-badge
+[issues-url]: https://github.com/iyasha/financyka-bot/issues
+[license-shield]: https://img.shields.io/github/license/iyasha/financyka-bot.svg?style=for-the-badge
+[license-url]: https://github.com/iyasha/financyka-bot/blob/master/LICENSE
