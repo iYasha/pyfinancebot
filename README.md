@@ -7,7 +7,7 @@
   <h3 align="center">FinancykaBot</h3>
 
   <p align="center">
-    Make it controllable!
+    FinancykaBot is the ultimate financial management tool on Telegram!
     <br />
     <br />
     <a href="https://github.com/iYasha/financyka-bot/issues">Report Bug</a>
@@ -15,7 +15,9 @@
     <a href="https://github.com/iYasha/financyka-bot/issues">Request Feature</a>
   </p>
 </div>
-FinancykaBot is the ultimate financial management tool on Telegram! With FinancykaBot, you can effortlessly store and organize your income and expenses transactions. This intelligent bot goes above and beyond by aggregating your financial data, providing valuable insights, and guiding you towards optimizing your financial flow. Say goodbye to the hassle of manual tracking and welcome a smarter way to enhance your financial well-being with FinancykaBot.
+
+
+With FinancykaBot, you can effortlessly store and organize your income and expenses transactions. This intelligent bot goes above and beyond by aggregating your financial data, providing valuable insights, and guiding you towards optimizing your financial flow. Say goodbye to the hassle of manual tracking and welcome a smarter way to enhance your financial well-being with FinancykaBot.
 Based on [aiogram](https://github.com/aiogram/aiogram).
 
 ## Requirements
@@ -23,13 +25,14 @@ Based on [aiogram](https://github.com/aiogram/aiogram).
 - [Poetry](https://python-poetry.org/docs/#installation)
 - [Telegram Bot Token](https://core.telegram.org/bots#how-do-i-create-a-bot)
 
-## Quick Start:  
-*Clone the repository:* `git clone https://github.com/iYasha/financyka-bot.git`  
-*Install all dependencies:*   `cd financyka-bot && poetry install`  
-*Fill in environment variables:*   `cp example.env .env`   
-*Enable shell:*   `poetry shell`  
-*Install spacy model:*  `python -m spacy download ru_core_news_md`  
-*Run the main script:*  `python src/main.py`   
+## Getting Started:  
+* Clone the repository: `git clone https://github.com/iYasha/financyka-bot.git`  
+* Install all dependencies:   `cd financyka-bot && poetry install`  
+* Create a `.env` file:   `cp example.env .env`
+* Fill in your bot token in `.env`:   `BOT_TOKEN=YOUR_TOKEN_HERE`   
+* Enable shell:   `poetry shell`  
+* Install spacy model:  `python -m spacy download ru_core_news_md`  
+* Run the main script:  `python src/main.py`   
 
 ## Roadmap
  - [x] Add future transactions
