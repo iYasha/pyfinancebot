@@ -7,6 +7,7 @@ from typing import Optional
 import spacy
 from aiogram import Bot
 from aiogram import Dispatcher
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from loguru import logger
 from pydantic import BaseSettings
 
@@ -38,6 +39,9 @@ class EnvSettings(BaseSettings):
     TESTING: bool = False
 
     AI_MODELS_DIR: str
+
+    # Companies that user selected. In the future, it will be in Redis
+    SELECTED_COMPANIES: Dict[int, int] = {}
 
     class Config:
         env_file = '.env'
@@ -116,6 +120,7 @@ if os.path.basename(sys.argv[0]) == 'main.py':
     operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
     category_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.CATEGORY_MODEL))
 
-dp = Dispatcher(bot)
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
 
 logger.add(settings.LOGGING_PATH + '{time:YYYY-MM-DD}.log', rotation=settings.LOGGING_ROTATION)

@@ -29,3 +29,8 @@ class Operation(
         sa.ForeignKey('users.chat_id', ondelete='CASCADE'),
         nullable=False,
     )
+    company_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey('companies.id', ondelete='CASCADE'),
+        nullable=False,
+    )

@@ -61,7 +61,9 @@ class OperationUpdate(BaseSchema):
     received_amount: Optional[int] = None
     operation_type: Optional[OperationType] = None
     description: Optional[str] = None
+    is_approved: Optional[bool] = None
 
 
 class Operation(IDSchemaMixin, OperationBase):
     created_at: datetime
+    company_id: int

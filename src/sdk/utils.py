@@ -13,6 +13,8 @@ from typing import get_args
 
 from aiogram import types
 from aiogram.dispatcher import filters
+from aiogram.types import KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup
 from config import dp
 from config import settings
 from modules.operations.enums import BackScreenType
@@ -77,19 +79,23 @@ def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
         return {'type': 'every_week', 'days': get_weekday(time)}
 
 
-async def get_received_amount_markup(operation_id: int) -> types.InlineKeyboardMarkup:
+async def get_received_amount_markup(
+    operation_id: int,
+    is_income: bool = True,
+) -> types.InlineKeyboardMarkup:
     markup = types.InlineKeyboardMarkup(row_width=1)
+    received_text = 'Получил' if is_income else 'Оплатил'
     markup.add(
         types.InlineKeyboardButton(
-            '✅ Получил',
+            f'✅ {received_text}',
             callback_data=OperationReceivedCallback.full(operation_id),
         ),
         types.InlineKeyboardButton(
-            '⚠️ Получил не всю сумму',
+            f'⚠️ {received_text} не всю сумму',
             callback_data=OperationReceivedCallback.partial(operation_id),
         ),
         types.InlineKeyboardButton(
-            '❌ Не получил',
+            f'❌ Не {received_text}',
             callback_data=OperationReceivedCallback.none_received(operation_id),
         ),
     )
@@ -202,7 +208,7 @@ def get_operations_markup(
         markup.add(
             types.InlineKeyboardButton(
                 f'{category_smile} {operation.description} | '
-                f'{op_type}{operation.amount} {operation.currency.value.upper()}',
+                f'{op_type}{operation.received_amount} {operation.currency.value.upper()}',
                 callback_data=OperationAllCallback.detail(operation.id, page, back_screen_type),
             ),
         )
@@ -263,7 +269,7 @@ def get_pagination_markup(
     return markup
 
 
-async def get_operation_text(  # noqa: CCR001
+def get_operation_text(  # noqa: CCR001
     operation: Operation,
     *,
     title: str = 'Подтвердите операцию',
@@ -382,3 +388,9 @@ def get_message_handler(
             continue
         return handler.handler
     raise ValueError(f'Handler for command {command_name} not found')
+
+
+def get_cancel_markup() -> ReplyKeyboardMarkup:
+    markup = ReplyKeyboardMarkup()
+    markup.add(KeyboardButton('❌ Отмена'))
+    return markup

@@ -35,9 +35,11 @@ class OperationService:
     async def create_operation(
         cls: Type['OperationService'],
         operation_create: OperationCreate,
+        company_id: int,
     ) -> Operation:
         values = operation_create.dict()
         values['created_at'] = datetime.now()
+        values['company_id'] = company_id
         operation_id = await cls.repository.create(**values)
         return Operation(
             id=operation_id,
@@ -178,8 +180,9 @@ class OperationService:
     @classmethod
     async def get_regular_operations(
         cls: Type['OperationService'],
+        company_id: Optional[int] = None,
     ) -> List[Operation]:
-        operations = await cls.repository.get_regular_operations()
+        operations = await cls.repository.get_regular_operations(company_id)
         return [Operation(**operation) for operation in operations]
 
     @classmethod
@@ -253,8 +256,8 @@ class OperationService:
         ]
 
     @classmethod
-    async def get_future_operations(cls) -> Tuple[OperationImport]:
-        operations = await OperationService.get_regular_operations()
+    async def get_future_operations(cls, company_id: int) -> Tuple[OperationImport]:
+        operations = await OperationService.get_regular_operations(company_id)
         future_operations = []
         now = datetime.now()
         last_day = monthrange(now.year, now.month)[1]
@@ -294,18 +297,25 @@ class OperationService:
         cls: Type['OperationService'],
         date_from: datetime,
         date_to: datetime,
+        company_id: int,
     ) -> Dict[str, float]:
-        return await cls.repository.get_stats(date_from=date_from, date_to=date_to)
+        return await cls.repository.get_stats(
+            date_from=date_from,
+            date_to=date_to,
+            company_id=company_id,
+        )
 
     @classmethod
     async def get_operations(
         cls: Type['OperationService'],
+        company_id: int,
         page: int = 1,
         is_regular_operation: bool = False,
     ) -> PaginatedSchema[List[Operation]]:
         operations = await cls.repository.get_operations(
             page=page,
             is_regular_operation=is_regular_operation,
+            company_id=company_id,
         )
 
         return PaginatedSchema(

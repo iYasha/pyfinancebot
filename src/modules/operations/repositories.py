@@ -43,6 +43,7 @@ class OperationRepository(BaseRepository):
     @classmethod
     async def get_regular_operations(
         cls: Type['OperationRepository'],
+        company_id: Optional[int] = None,
     ) -> List[Record]:
         query = cls.get_base_query().where(
             sa.and_(
@@ -51,6 +52,8 @@ class OperationRepository(BaseRepository):
                 cls.model.repeat_type != RepeatType.NO_REPEAT,
             ),
         )
+        if company_id is not None:
+            query = query.where(cls.model.company_id == company_id)
         return await database.fetch_all(query)
 
     @classmethod
@@ -58,6 +61,7 @@ class OperationRepository(BaseRepository):
         cls: Type['OperationRepository'],
         date_from: datetime,
         date_to: datetime,
+        company_id: int,
     ) -> Dict[str, float]:  # TODO: Фиксировать курс на момент создания транзакции
         query = """
         select sum(
@@ -65,22 +69,28 @@ class OperationRepository(BaseRepository):
                    when (o.operation_type = 'income') then o.received_amount *
                                                            (case when (o.currency = 'uah') then 1 else c.buy end)
                    else 0 end
-                   ) as income,
-               sum(
-                       case
-                           when (o.operation_type = 'expense') then o.received_amount *
-                                                                    (case when (o.currency = 'uah') then 1 else c.buy end)
-                           else 0 end
-                   ) as expense
+           ) as income,
+       sum(
+               case
+                   when (o.operation_type = 'expense') then o.received_amount *
+                                                            (case when (o.currency = 'uah') then 1 else c.buy end)
+                   else 0 end
+           ) as expense
         from operations o
-                 left join currencies c on c.ccy = o.currency and
-                                           c.created_at = (select max(created_at) from currencies where ccy = o.currency)
-        where o.created_at between :date_from and :date_to and o.is_approved = true and o.is_regular_operation = false
+                 left join currencies c on
+                    c.ccy = o.currency and
+                    c.created_at = (select max(created_at) from currencies where ccy = o.currency)
+        where o.created_at between :date_from
+            and :date_to
+          and o.is_approved = true
+          and o.is_regular_operation = false
+          and o.company_id = :company_id
         """  # noqa: E501
 
         values = {
             'date_from': date_from.strftime('%Y-%m-%d %H:%M:%S'),
             'date_to': date_to.strftime('%Y-%m-%d %H:%M:%S'),
+            'company_id': company_id,
         }
 
         result = await database.fetch_one(query=query, values=values)
@@ -97,12 +107,13 @@ class OperationRepository(BaseRepository):
     async def get_operations(
         cls: Type['OperationRepository'],
         is_regular_operation: bool,
+        company_id: int,
         page: int = 1,
     ) -> Dict[str, Union[List[Record], int]]:
         query = """
         select *, count(*) over () as total
         from operations o
-        where o.is_approved = true and o.is_regular_operation = :is_regular_operation
+        where o.is_approved = true and o.is_regular_operation = :is_regular_operation and o.company_id = :company_id
         order by o.created_at desc
         limit :limit offset :offset
         """
@@ -111,6 +122,7 @@ class OperationRepository(BaseRepository):
             'offset': (page - 1) * settings.PAGE_SIZE,
             'limit': settings.PAGE_SIZE,
             'is_regular_operation': is_regular_operation,
+            'company_id': company_id,
         }
 
         operations = await database.fetch_all(query=query, values=values)

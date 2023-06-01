@@ -7,6 +7,7 @@ from commands.base import Command
 from config import bot
 from config import settings
 from loguru import logger
+from modules.operations.enums import OperationType
 from modules.operations.enums import RepeatType
 from modules.operations.schemas import OperationCreate
 from modules.operations.schemas import OperationImport
@@ -22,6 +23,7 @@ class CreateRegularOperation(Command):
     async def run(cls: Type['CreateRegularOperation']) -> None:  # noqa: CCR001
         now = datetime.now()
         max_days = monthrange(now.year, now.month)[1]
+        # @TODO: Refactor
         operations = await OperationService.get_regular_operations()
         for operation in operations:
             is_current_day = (
@@ -47,16 +49,27 @@ class CreateRegularOperation(Command):
                     description=operation.description,
                     repeat_type=operation.repeat_type,
                     repeat_days=operation.repeat_days,
-                    is_approved=True,
+                    is_approved=False,
                     is_regular_operation=False,
                 )
-                await OperationService.create_operation(operation_create)
+                new_operation = await OperationService.create_operation(
+                    operation_create,
+                    company_id=operation.company_id,
+                )
 
-                await bot.send_message(  # TODO: Need to refactor
-                    operation.creator_id,
-                    text=await utils.get_operation_text(operation, title='Подтвердите получение'),
+                is_income = new_operation.operation_type == OperationType.INCOME
+
+                await bot.send_message(
+                    new_operation.creator_id,
+                    text=utils.get_operation_text(
+                        new_operation,
+                        title='Подтвердите операцию',
+                    ),
                     parse_mode=settings.PARSE_MODE,
-                    reply_markup=await utils.get_received_amount_markup(operation.id),
+                    reply_markup=await utils.get_received_amount_markup(
+                        new_operation.id,
+                        is_income,
+                    ),
                 )
 
 

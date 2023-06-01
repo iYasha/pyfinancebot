@@ -57,6 +57,10 @@ Based on [aiogram](https://github.com/aiogram/aiogram).
    - [ ] MonoBank
    - [ ] OTP Bank
    - [ ] PrivatBank (Impossible to do because of the lack of [API](https://api.privatbank.ua/#p24/orders))
+ - [ ] Add synchronization with Personal Shop Accounts
+   - [ ] Silpo
+   - [ ] ATB
+   - [ ] Rozetka
  - [ ] Add ability to create financial goals
  - [ ] Add ability to create financial predictions
  - [ ] Add financial recommendations based on user's goals and predictions

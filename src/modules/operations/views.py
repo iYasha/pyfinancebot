@@ -20,6 +20,7 @@ from modules.operations.services import OperationService
 
 from sdk import utils
 from sdk.exceptions.handler import error_handler_decorator
+from sdk.exceptions.handler import select_company_required
 from sdk.utils import get_message_handler
 
 
@@ -27,12 +28,14 @@ from sdk.utils import get_message_handler
 @dp.callback_query_handler(
     lambda c: c.data and c.data.startswith(OperationAllCallback.PAGINATION),
 )
+@select_company_required
 @error_handler_decorator
 async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> None:
     if isinstance(data, types.Message):
         is_regular_operations = data.text == f'/{Command.REGULAR}'
         page = 1
         message = data
+        chat_id = data.chat.id
     else:
         page, is_regular_operations = map(
             int,
@@ -51,6 +54,7 @@ async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> Non
         )
         if is_message_modified:
             return
+        chat_id = message.chat.id
 
     back_screen_type = BackScreenType.ALL_OPERATIONS
     message_text = 'Операции'
@@ -59,6 +63,7 @@ async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> Non
         message_text = 'Регулярные операции'
 
     paginated_operations = await OperationService.get_operations(
+        settings.SELECTED_COMPANIES[chat_id],
         page,
         is_regular_operation=is_regular_operations,
     )
@@ -92,9 +97,16 @@ async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> Non
     lambda c: c.data and c.data.startswith(Command.FUTURE),
 )
 @dp.message_handler(commands=[Command.FUTURE])
+@select_company_required
 @error_handler_decorator
 async def get_future_operations(data: Union[types.Message, types.CallbackQuery]) -> None:
-    future_operations = await OperationService.get_future_operations()
+    if isinstance(data, types.Message):
+        chat_id = data.chat.id
+    else:
+        chat_id = data.message.chat.id
+    future_operations = await OperationService.get_future_operations(
+        settings.SELECTED_COMPANIES[chat_id],
+    )
     markup = utils.get_future_operation_markup(
         future_operations,
     )
@@ -124,7 +136,7 @@ async def get_operation_detail(callback_query: types.CallbackQuery) -> None:
     operation = await OperationService.get_operation(operation_id)
 
     await bot.edit_message_text(
-        text=await utils.get_operation_text(operation, title='Детали операции'),
+        text=utils.get_operation_text(operation, title='Детали операции'),
         chat_id=message.chat.id,
         message_id=message.message_id,
         parse_mode=settings.PARSE_MODE,
@@ -148,16 +160,17 @@ async def delete_operation(callback_query: types.CallbackQuery) -> None:
     operation_id = int(operation_id)
     page = int(page)
     back_type = BackScreenType(back_type)
+    operation = await OperationService.get_operation(operation_id)
+    category_smile = (
+        '📝' if operation.category is None else operation.category.get_translation().split(' ')[0]
+    )
+    op_type = '+' if operation.operation_type == OperationType.INCOME else '-'
+    await bot.answer_callback_query(
+        callback_query.id,
+        text=f'🗑 Операция "{category_smile} {operation.description} | '
+        f'{op_type}{operation.amount} {operation.currency.value.upper()}" удалена!',
+    )
     await OperationService.delete_operation(operation_id)
-
-    count = await OperationService.get_operation_count()
-    if count == 0:
-        await bot.edit_message_text(
-            text='✅ Операция успешно удалена!',
-            chat_id=callback_query.message.chat.id,
-            message_id=callback_query.message.message_id,
-        )
-        return
 
     if back_type in (BackScreenType.REGULAR, BackScreenType.ALL_OPERATIONS):
         callback_query.data = OperationAllCallback.pagination(
@@ -171,6 +184,7 @@ async def delete_operation(callback_query: types.CallbackQuery) -> None:
 
 
 @dp.message_handler(regexp=settings.OPERATION_REGEX_PATTERN)
+@select_company_required
 @error_handler_decorator
 async def create_operation(message: types.Message) -> None:
     operation_data = OperationService.parse_operation(message.text, message.chat.id)
@@ -178,7 +192,10 @@ async def create_operation(message: types.Message) -> None:
         return
 
     operation_data, possible_categories = operation_data
-    operation: Operation = await OperationService.create_operation(operation_data)
+    operation: Operation = await OperationService.create_operation(
+        operation_data,
+        company_id=settings.SELECTED_COMPANIES[message.chat.id],
+    )
 
     if operation.operation_type == OperationType.EXPENSE:
         categories = utils.get_expense_categories_markup(operation.id, possible_categories)
@@ -187,7 +204,7 @@ async def create_operation(message: types.Message) -> None:
 
     await bot.send_message(
         message.chat.id,
-        text=await utils.get_operation_text(operation, title='Выберите категорию'),
+        text=utils.get_operation_text(operation, title='Выберите категорию'),
         parse_mode=settings.PARSE_MODE,
         reply_markup=categories,
     )
@@ -239,7 +256,7 @@ async def show_more_categories(callback_query: types.CallbackQuery) -> None:
     inline_keyboard.pop()
     categories = [
         '_'.join(
-            x[0]['callback_data'].replace(f'{OperationCreateCallback.CORRECT}_', '').split('_')[1:],
+            x[0]['callback_data'].replace(f'{OperationCreateCallback.CORRECT}_', '').split('_')[2:],
         )
         for x in inline_keyboard
     ]
@@ -317,16 +334,18 @@ async def reply_received_handler(message: types.Message) -> None:
             parse_mode=settings.PARSE_MODE,
         )
     operation = await OperationService.get_operation(operation_id)
-    received_amount = 0 or operation.received_amount
+    received_amount = operation.received_amount or 0
     await OperationService.update_operation(
         operation_id,
-        OperationUpdate(received_amount=received_amount + amount),
+        OperationUpdate(received_amount=received_amount + amount, is_approved=True),
     )
+    received_text = 'Получено' if operation.operation_type == OperationType.INCOME else 'Оплачено'
     received_amount_text = (
-        f'⚠️ Получено {amount}/{operation.amount}'
+        f'⚠️ {received_text} {amount}/{operation.amount}'
         if operation.amount > amount
         else '✅ Сумма успешно сохранена'
     )
+    # TODO: Fix old amount "💰 Сумма: 310 UAH" in message
     await bot.edit_message_text(
         text=f'{message.reply_to_message.html_text}\n{received_amount_text}',
         parse_mode=settings.PARSE_MODE,
