@@ -128,7 +128,6 @@ async def get_company_detail(callback: types.CallbackQuery) -> None:
         )[0],
     )
     company = await CompanyService.company_detail(company_id)
-    settings.SELECTED_COMPANIES[callback.message.chat.id] = company_id
     participant_count = len(company.participants)
     text = [
         md.text(f'🏢 Компания: *{company.name}*'),
