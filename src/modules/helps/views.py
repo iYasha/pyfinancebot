@@ -4,7 +4,7 @@ from config import dp
 from config import settings
 from modules.helps.enums import Command
 
-from sdk.exceptions.handler import error_handler_decorator
+from sdk.decorators import error_handler_decorator
 
 
 @dp.message_handler(commands=[Command.HELP])

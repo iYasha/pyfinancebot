@@ -3,10 +3,10 @@ from calendar import monthrange
 from datetime import datetime
 from typing import Type
 
+import sentry_sdk
 from commands.base import Command
 from config import bot
 from config import settings
-from loguru import logger
 from modules.operations.enums import OperationType
 from modules.operations.enums import RepeatType
 from modules.operations.schemas import OperationCreate
@@ -87,4 +87,4 @@ class ImportOperations(Command):
                 for x in json.loads(f.read())
             ]
             await OperationService.create_many_operations(operations)
-            logger.info(f'Imported {len(operations)} operations')
+            sentry_sdk.capture_message(f'Imported {len(operations)} operations')

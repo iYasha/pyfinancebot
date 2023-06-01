@@ -8,7 +8,6 @@ import spacy
 from aiogram import Bot
 from aiogram import Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from loguru import logger
 from pydantic import BaseSettings
 
 
@@ -27,8 +26,6 @@ class EnvSettings(BaseSettings):
     DEBUG: Optional[bool] = True
     PROJECT_ROOT: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
-    LOGGING_PATH: str = f'{PROJECT_ROOT}/../logs/'
-    LOGGING_ROTATION: str = '500 MB'
 
     DB_URI: str = 'sqlite:///db.sqlite3'
 
@@ -40,8 +37,7 @@ class EnvSettings(BaseSettings):
 
     AI_MODELS_DIR: str
 
-    # Companies that user selected. In the future, it will be in Redis
-    SELECTED_COMPANIES: Dict[int, int] = {}
+    SENTRY_DSN: Optional[str] = None
 
     class Config:
         env_file = '.env'
@@ -104,6 +100,9 @@ class HardSettings:
         'other': '🗃 Другое',
     }
 
+    # Companies that user selected. In the future, it will be moved to Redis
+    SELECTED_COMPANIES: Dict[int, int] = {}
+
 
 class Settings(EnvSettings, HardSettings):
     pass
@@ -122,5 +121,3 @@ if os.path.basename(sys.argv[0]) == 'main.py':
 
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
-
-logger.add(settings.LOGGING_PATH + '{time:YYYY-MM-DD}.log', rotation=settings.LOGGING_ROTATION)

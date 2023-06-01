@@ -6,7 +6,6 @@ from typing import Type
 from commands.base import Command
 from commands.currencies import FetchCurrency
 from commands.operations import CreateRegularOperation
-from config import logger
 from croniter import croniter
 
 
@@ -59,5 +58,5 @@ class Schedule(Command):
         now = datetime.now()
         for job in await cls.get_jobs():
             if job.is_due(now):
-                logger.info(f'Running {job.command.command_name} command')
+                print(f'Running {job.command.command_name} command')  # noqa: T201
                 await job.command.run()

@@ -4,48 +4,33 @@ from typing import Callable
 from typing import Optional
 from typing import Union
 
+import sentry_sdk
 from aiogram import types
-from asyncpg import ForeignKeyViolationError
 from config import bot
-from config import logger
 from config import settings
 from database import database
-from pydantic import ValidationError
+
+from sdk.exceptions.exception_handler_mapping import catch_exception
 
 
 def error_handler_decorator(func: Callable) -> Callable:  # noqa: CCR001
-    @functools.wraps(func)  # TODO: Refactor
+    @functools.wraps(func)
     async def wrapper(*args, **kwargs) -> Any:  # noqa: ANN401
-        message: Optional[types.Message] = next(
-            filter(lambda x: isinstance(x, types.Message), args),
+        data: Optional[Union[types.Message, types.CallbackQuery]] = next(
+            filter(lambda x: isinstance(x, (types.Message, types.CallbackQuery)), args),
             None,
         )
         try:
             return await func(*args, **kwargs)
-        except ValidationError as e:
-            await bot.send_message(
-                message.chat.id,
-                text='\n'.join([f'{x["loc"][0]}: {x["msg"]}' for x in e.errors()]),
-            )
-        except ForeignKeyViolationError:  # Юзер не зарегистрирован
-            await bot.send_message(
-                message.chat.id,
-                text='Для начала нужно зарегистрироваться /start',
-            )
-        except ValueError as e:
-            await bot.send_message(
-                message.chat.id,
-                text=str(e),
-            )
-        except Exception:
-            logger.exception('Unknown error')
-            if message is None:
-                return None
-            await message.reply(
-                text='<b>Непредвиденная ошибка!</b>\n\n'
-                'Попробуйте позже или напишите в поддержку',
-                parse_mode=settings.PARSE_MODE,
-            )
+        except Exception as e:
+            sentry_sdk.capture_exception(e)
+            if data is None:
+                return
+            elif isinstance(data, types.Message):
+                chat_id = data.chat.id
+            else:
+                chat_id = data.message.chat.id
+            await catch_exception(e, chat_id)
 
     return wrapper
 
@@ -79,7 +64,7 @@ def select_company_required(func: Callable) -> Callable:  # noqa: CCR001
 
 
 def transaction_decorator(func: Callable) -> Callable:  # noqa: CCR001
-    @functools.wraps(func)  # TODO: Refactor
+    @functools.wraps(func)
     async def wrapper(*args, **kwargs) -> Any:  # noqa: ANN401
         async with database.transaction():
             return await func(*args, **kwargs)

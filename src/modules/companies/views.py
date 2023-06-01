@@ -17,8 +17,8 @@ from modules.companies.services import CompanyService
 from modules.helps.enums import Command
 
 from sdk import utils
-from sdk.exceptions.handler import error_handler_decorator
-from sdk.exceptions.handler import transaction_decorator
+from sdk.decorators import error_handler_decorator
+from sdk.decorators import transaction_decorator
 
 
 @dp.message_handler(commands=[Command.COMPANIES])

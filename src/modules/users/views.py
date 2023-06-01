@@ -7,7 +7,7 @@ from modules.helps.enums import Command
 from modules.users.schemas import UserCreate
 from modules.users.services import UserService
 
-from sdk.exceptions.handler import error_handler_decorator
+from sdk.decorators import error_handler_decorator
 
 
 @dp.message_handler(commands=[Command.START])

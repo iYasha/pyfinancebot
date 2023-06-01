@@ -19,8 +19,8 @@ from modules.operations.schemas import OperationUpdate
 from modules.operations.services import OperationService
 
 from sdk import utils
-from sdk.exceptions.handler import error_handler_decorator
-from sdk.exceptions.handler import select_company_required
+from sdk.decorators import error_handler_decorator
+from sdk.decorators import select_company_required
 from sdk.utils import get_message_handler
 
 

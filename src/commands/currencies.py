@@ -1,8 +1,8 @@
 from typing import Type
 
 import aiohttp
+import sentry_sdk
 from commands.base import Command
-from config import logger
 from modules.currencies.schemas import CurrencyCreate
 from modules.currencies.services import CurrencyService
 
@@ -16,7 +16,7 @@ class FetchCurrency(Command):
         async with aiohttp.ClientSession() as session:
             async with session.get(cls.base_url) as response:
                 if response.status != 200:
-                    logger.error(
+                    sentry_sdk.capture_message(
                         f'Error fetching currency: {response.status}. {response.text}',
                     )  # noqa: G004
                     return
