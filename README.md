@@ -51,7 +51,7 @@ Based on [aiogram](https://github.com/aiogram/aiogram).
  - [x] Add categories for transactions
  - [x] Add NER for transaction recognition
  - [x] Add ability to see budget for day and balance
- - [ ] Add ability to create and join companies
+ - [x] Add ability to create and join companies
  - [ ] Add ability to create wallets and use them in transactions
  - [ ] Add ability to scrape information from mobile banking
    - [ ] MonoBank

@@ -1,8 +1,10 @@
 from typing import List
 
+from config import settings
 from modules.companies.repositories import CompanyRepository
 from modules.companies.repositories import CompanyUserRepository
 from modules.companies.schemas import Company
+from modules.operations.repositories import OperationRepository
 
 from sdk.repositories import WhereModifier
 
@@ -44,6 +46,16 @@ class CompanyService:
     @classmethod
     async def delete_company(cls, company_id: int) -> None:
         await cls.repository.delete([WhereModifier(id=company_id)])
+
+        # We need to delete relationships manually, because sqlite doesn't support ON DELETE CASCADE by default
+        # Maybe we would use PostgreSQL in future
+        company_users = await CompanyUserRepository.all([WhereModifier(company_id=company_id)])
+        await CompanyUserRepository.delete([WhereModifier(company_id=company_id)])
+        await OperationRepository.delete([WhereModifier(company_id=company_id)])
+
+        # Remove deleted company from selected companies. In the future, it will be moved to Redis
+        for user in company_users:
+            settings.SELECTED_COMPANIES.pop(user['chat_id'], None)
 
     @classmethod
     async def remove_participant(cls, company_id: int, chat_id: int) -> None:

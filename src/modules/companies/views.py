@@ -75,6 +75,11 @@ async def create_company(callback: types.CallbackQuery) -> None:
 async def cancel_handler(message: types.Message, state: FSMContext) -> None:
     current_state = await state.get_state()
     if current_state is None:
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text='Операция отменена!',
+            reply_markup=types.ReplyKeyboardRemove(),
+        )
         return
     await state.finish()
     await bot.send_message(

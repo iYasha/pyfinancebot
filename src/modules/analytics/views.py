@@ -11,8 +11,8 @@ from modules.operations.enums import OperationType
 from modules.operations.services import OperationService
 
 from sdk import utils
+from sdk.decorators import SelectCompanyRequired
 from sdk.decorators import error_handler_decorator
-from sdk.decorators import select_company_required
 from sdk.utils import round_amount
 
 
@@ -20,7 +20,7 @@ from sdk.utils import round_amount
     lambda c: c.data and c.data.startswith(Command.TODAY),
 )
 @dp.message_handler(commands=[Command.TODAY])
-@select_company_required
+@SelectCompanyRequired
 @error_handler_decorator
 async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -> None:
     if isinstance(data, types.CallbackQuery):
@@ -87,7 +87,7 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
 
 
 @dp.message_handler(commands=[Command.MONTH])
-@select_company_required
+@SelectCompanyRequired
 @error_handler_decorator
 async def get_month_analytics(message: types.Message) -> None:
     date_from, date_to = await utils.get_current_month_period()

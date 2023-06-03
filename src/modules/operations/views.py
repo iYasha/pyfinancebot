@@ -20,8 +20,8 @@ from modules.operations.schemas import OperationUpdate
 from modules.operations.services import OperationService
 
 from sdk import utils
+from sdk.decorators import SelectCompanyRequired
 from sdk.decorators import error_handler_decorator
-from sdk.decorators import select_company_required
 from sdk.utils import get_message_handler
 
 
@@ -29,7 +29,7 @@ from sdk.utils import get_message_handler
 @dp.callback_query_handler(
     lambda c: c.data and c.data.startswith(OperationAllCallback.PAGINATION),
 )
-@select_company_required
+@SelectCompanyRequired
 @error_handler_decorator
 async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> None:
     if isinstance(data, types.Message):
@@ -98,7 +98,7 @@ async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> Non
     lambda c: c.data and c.data.startswith(Command.FUTURE),
 )
 @dp.message_handler(commands=[Command.FUTURE])
-@select_company_required
+@SelectCompanyRequired
 @error_handler_decorator
 async def get_future_operations(data: Union[types.Message, types.CallbackQuery]) -> None:
     if isinstance(data, types.Message):
@@ -185,7 +185,7 @@ async def delete_operation(callback_query: types.CallbackQuery) -> None:
 
 
 @dp.message_handler(regexp=settings.OPERATION_REGEX_PATTERN)
-@select_company_required
+@SelectCompanyRequired
 @error_handler_decorator
 async def create_operation(message: types.Message) -> None:
     operation_data = OperationService.parse_operation(message.text, message.chat.id)
