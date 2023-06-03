@@ -44,14 +44,14 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
     tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
     future_expense = sum(
         [
-            operation.amount
+            operation.received_amount
             for operation in future_operations
             if operation.operation_type == OperationType.EXPENSE
         ],
     )
     future_income = sum(
         [
-            operation.amount
+            operation.received_amount
             for operation in future_operations
             if operation.operation_type == OperationType.INCOME
         ],
@@ -68,7 +68,7 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
         f'🟢 Доход: {round_amount(today_stats["income"], 2)}₴\n🔴 Расход: {round_amount(today_stats["expense"], 2)}₴\n'
         f'💸 Баланс: {round_amount(saldo, 2)}₴\n'
         f'💰 Дневной бюджет: {round_amount(day_budget, 2)}₴\n\n'
-        f'🟢 Future income {round_amount(future_income, 2)}₴\n🔴 Future expense {round_amount(future_expense, 2)}₴\n\n'
+        f'🟢 Будущий доход {round_amount(future_income, 2)}₴\n🔴 Будущий расход {round_amount(future_expense, 2)}₴\n\n'
         f'Операции на завтра:\n'
     )
     markup = utils.get_future_operation_markup(tomorrow_operations, BackScreenType.TODAY)
@@ -102,14 +102,14 @@ async def get_month_analytics(message: types.Message) -> None:
     future_operations = await OperationService.get_future_operations(company_id)
     future_expense = sum(
         [
-            operation.amount
+            operation.received_amount
             for operation in future_operations
             if operation.operation_type == OperationType.EXPENSE
         ],
     )
     future_income = sum(
         [
-            operation.amount
+            operation.received_amount
             for operation in future_operations
             if operation.operation_type == OperationType.INCOME
         ],
@@ -123,5 +123,5 @@ async def get_month_analytics(message: types.Message) -> None:
         f'🟢 Доход: {round_amount(income, 2)}₴\n🔴 Расход: {round_amount(expense, 2)}₴\n'
         f'💸 Баланс: {round_amount(saldo, 2)}₴\n'
         f'💰 Дневной бюджет: {round_amount(day_budget, 2)}₴\n\n'
-        f'🟢 Future income {round_amount(future_income, 2)}₴\n🔴 Future expense {round_amount(future_expense, 2)}₴',
+        f'🟢 Будущий доход {round_amount(future_income, 2)}₴\n🔴 Будущий расход {round_amount(future_expense, 2)}₴',
     )

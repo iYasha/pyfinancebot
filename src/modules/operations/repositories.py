@@ -5,7 +5,6 @@ from typing import Optional
 from typing import Type
 from typing import Union
 
-import sqlalchemy as sa
 from asyncpg import Record
 from config import settings
 from database import database
@@ -45,16 +44,22 @@ class OperationRepository(BaseRepository):
         cls: Type['OperationRepository'],
         company_id: Optional[int] = None,
     ) -> List[Record]:
-        query = cls.get_base_query().where(
-            sa.and_(
-                cls.model.is_approved == True,  # noqa: E712
-                cls.model.is_regular_operation == True,  # noqa: E712
-                cls.model.repeat_type != RepeatType.NO_REPEAT,
-            ),
-        )
+        values = {'no_repeat': RepeatType.NO_REPEAT.value}
+        query = """
+        select o.*, round(o.amount * (case when (o.currency = 'uah') then 1 else c.buy end)) as received_amount
+        from operations o
+                 left join currencies c
+                           on
+                                       c.ccy = o.currency and
+                                       c.created_at = (select max(created_at) from currencies where ccy = o.currency)
+        where o.is_approved = true
+          and o.is_regular_operation = true
+          and o.repeat_type != :no_repeat
+        """
         if company_id is not None:
-            query = query.where(cls.model.company_id == company_id)
-        return await database.fetch_all(query)
+            query += ' and o.company_id = :company_id'
+            values['company_id'] = company_id
+        return await database.fetch_all(query, values=values)
 
     @classmethod
     async def get_stats(

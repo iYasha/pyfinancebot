@@ -125,6 +125,9 @@ class OperationService:
         currency = entities.get('CURRENCY')
         operation_type = OperationType.get_operation_type(amount)
         repeat_time = cls.get_operation_regularity(entities)
+        repeat_days = None
+        if repeat_time is not None:
+            repeat_days = repeat_time['days']
         categories = (
             cls.get_categories(description) if operation_type == OperationType.EXPENSE else []
         )
@@ -138,7 +141,7 @@ class OperationService:
                 repeat_type=repeat_time['type']
                 if repeat_time is not None
                 else RepeatType.NO_REPEAT,
-                repeat_days=repeat_time['days'] if repeat_time is not None else None,
+                repeat_days=repeat_days,
                 is_regular_operation=repeat_time is not None,
             ),
             categories,
@@ -183,7 +186,7 @@ class OperationService:
         company_id: Optional[int] = None,
     ) -> List[Operation]:
         operations = await cls.repository.get_regular_operations(company_id)
-        return [Operation(**operation) for operation in operations]
+        return [Operation(**dict(operation)) for operation in operations]
 
     @classmethod
     def get_every_day_operations(
@@ -336,3 +339,46 @@ class OperationService:
         operations: List[OperationCreate],
     ) -> None:
         await cls.repository.create_many([operation.dict() for operation in operations])
+
+    @classmethod
+    async def create_regular_operation(  # noqa: CCR001 TODO: Cognitive complexity is too high (9 > 7). Need to refactor
+        cls,
+        operation: Operation,
+        now: datetime,
+        last_month_day: int,
+        is_approved: bool = False,
+    ) -> Optional[Operation]:
+        if operation.repeat_type == RepeatType.NO_REPEAT:
+            return None
+        is_current_day = (
+            now.day in [last_month_day if x == 'last' else int(x) for x in operation.repeat_days]
+            if operation.repeat_days
+            else False
+        )
+        is_month_repeat = operation.repeat_type == RepeatType.EVERY_MONTH and is_current_day
+        is_week_repeat = (
+            operation.repeat_type == RepeatType.EVERY_WEEK
+            and now.weekday() in operation.repeat_days
+            if operation.repeat_days
+            else False
+        )
+        is_every_day_repeat = operation.repeat_type == RepeatType.EVERY_DAY
+        if is_month_repeat or is_week_repeat or is_every_day_repeat:
+            operation_create = OperationCreate(
+                creator_id=operation.creator_id,
+                amount=operation.amount,
+                received_amount=operation.amount if is_approved else None,
+                currency=operation.currency,
+                operation_type=operation.operation_type,
+                category=operation.category,
+                description=operation.description,
+                repeat_type=operation.repeat_type,
+                repeat_days=operation.repeat_days,
+                is_approved=is_approved,
+                is_regular_operation=False,
+            )
+            return await OperationService.create_operation(
+                operation_create,
+                company_id=operation.company_id,
+            )
+        return None

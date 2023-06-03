@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import List
 from typing import Optional
@@ -36,6 +37,8 @@ class OperationBase(BaseSchema):
     ) -> Optional[List[Union[int, str]]]:
         if isinstance(v, str) and v == 'null':
             return []
+        if isinstance(v, str):
+            return json.loads(v)
         return v
 
     @validator('amount')

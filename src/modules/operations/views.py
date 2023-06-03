@@ -1,4 +1,5 @@
 import datetime
+from calendar import monthrange
 from typing import Union
 
 from aiogram import types
@@ -225,6 +226,15 @@ async def process_operation_create(callback_query: types.CallbackQuery) -> None:
             else ExpenseCategoryEnum(category_slug)
         )
         await OperationService.approve_operation(operation_id, category)
+        now = datetime.datetime.now()
+        last_month_day = monthrange(now.year, now.month)[1]
+        operation = await OperationService.get_operation(operation_id)
+        await OperationService.create_regular_operation(
+            operation,
+            now,
+            last_month_day,
+            is_approved=True,
+        )
         text_by_line = operation_text.split('\n')
         operation_text = '\n'.join(
             text_by_line[:4] + [f'📂 Категория: {category.get_translation()}'] + text_by_line[4:],
@@ -288,6 +298,9 @@ async def process_operation_received(callback_query: types.CallbackQuery) -> Non
         operation_text = f'{operation_text}\n✅ Операция успешно создана'
     elif callback_query.data.startswith(OperationReceivedCallback.NONE_RECEIVED):
         operation_text = f'{operation_text}\n❌ Сумма не получена'
+        await OperationService.delete_operation(
+            int(callback_query.data.replace(f'{OperationReceivedCallback.NONE_RECEIVED}_', '')),
+        )
 
     await bot.edit_message_text(
         text=operation_text,
@@ -345,7 +358,6 @@ async def reply_received_handler(message: types.Message) -> None:
         if operation.amount > amount
         else '✅ Сумма успешно сохранена'
     )
-    # TODO: Fix old amount "💰 Сумма: 310 UAH" in message
     await bot.edit_message_text(
         text=f'{message.reply_to_message.html_text}\n{received_amount_text}',
         parse_mode=settings.PARSE_MODE,

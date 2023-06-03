@@ -1,4 +1,5 @@
 import functools
+import logging
 from typing import Any
 from typing import Callable
 from typing import Optional
@@ -6,6 +7,7 @@ from typing import Union
 
 import sentry_sdk
 from aiogram import types
+from config import Environment
 from config import bot
 from config import settings
 from database import database
@@ -23,6 +25,8 @@ def error_handler_decorator(func: Callable) -> Callable:  # noqa: CCR001
         try:
             return await func(*args, **kwargs)
         except Exception as e:
+            if settings.ENVIRONMENT == Environment.DEV:
+                logging.exception(e)  # noqa: G200
             sentry_sdk.capture_exception(e)
             if data is None:
                 return

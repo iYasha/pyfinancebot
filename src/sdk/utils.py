@@ -273,6 +273,7 @@ def get_operation_text(  # noqa: CCR001
     operation: Operation,
     *,
     title: str = 'Подтвердите операцию',
+    is_regular: bool = False,
 ) -> str:
     if operation.repeat_type != RepeatType.NO_REPEAT:  # TODO: Refactor
         repeat_days_text = ', '.join(list(map(str, operation.repeat_days)))
@@ -285,10 +286,12 @@ def get_operation_text(  # noqa: CCR001
     else:
         repeat_at = '🔄 Повторять: Никогда\n'
     operation_type = '☺️' if operation.operation_type == OperationType.INCOME else '🥲'
-    if operation.operation_type == OperationType.INCOME:
+    if not is_regular and operation.operation_type == OperationType.INCOME:
         received_amount = '⚠️ Получено'
-    else:
+    elif not is_regular:
         received_amount = '⚠️ Оплачено'
+    else:
+        received_amount = ''
     received_amount += (
         f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
     )
