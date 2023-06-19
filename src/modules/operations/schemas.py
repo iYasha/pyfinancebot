@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import List
 from typing import Optional
@@ -5,6 +6,8 @@ from typing import Type
 from typing import Union
 
 from modules.operations.enums import CurrencyEnum
+from modules.operations.enums import ExpenseCategoryEnum
+from modules.operations.enums import IncomeCategoryEnum
 from modules.operations.enums import OperationType
 from modules.operations.enums import RepeatType
 from pydantic import validator
@@ -17,6 +20,7 @@ class OperationBase(BaseSchema):
     amount: int
     received_amount: Optional[int] = None
     operation_type: OperationType
+    category: Optional[Union[ExpenseCategoryEnum, IncomeCategoryEnum]] = None
     description: str
     creator_id: int
     currency: CurrencyEnum
@@ -33,6 +37,8 @@ class OperationBase(BaseSchema):
     ) -> Optional[List[Union[int, str]]]:
         if isinstance(v, str) and v == 'null':
             return []
+        if isinstance(v, str):
+            return json.loads(v)
         return v
 
     @validator('amount')
@@ -58,7 +64,9 @@ class OperationUpdate(BaseSchema):
     received_amount: Optional[int] = None
     operation_type: Optional[OperationType] = None
     description: Optional[str] = None
+    is_approved: Optional[bool] = None
 
 
 class Operation(IDSchemaMixin, OperationBase):
     created_at: datetime
+    company_id: int

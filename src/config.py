@@ -1,10 +1,13 @@
 import os
+import sys
 from enum import Enum
+from typing import Dict
 from typing import Optional
 
+import spacy
 from aiogram import Bot
 from aiogram import Dispatcher
-from loguru import logger
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from pydantic import BaseSettings
 
 
@@ -23,8 +26,6 @@ class EnvSettings(BaseSettings):
     DEBUG: Optional[bool] = True
     PROJECT_ROOT: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
-    LOGGING_PATH: str = f'{PROJECT_ROOT}/../logs/'
-    LOGGING_ROTATION: str = '500 MB'
 
     DB_URI: str = 'sqlite:///db.sqlite3'
 
@@ -33,6 +34,10 @@ class EnvSettings(BaseSettings):
 
     # Dev settings
     TESTING: bool = False
+
+    AI_MODELS_DIR: str
+
+    SENTRY_DSN: Optional[str] = None
 
     class Config:
         env_file = '.env'
@@ -71,6 +76,33 @@ class HardSettings:
     PAGINATION_MAX_PAGES: int = 5
     PAGE_SIZE: int = 5
 
+    # AI Models
+    CATEGORY_MODEL: str = 'category-classifier'
+    OPERATION_MODEL: str = 'operation-ner'
+
+    EXPENSE_CATEGORIES: Dict[str, str] = {
+        'bad_habits': '🚬 Вредные привычки',
+        'education': '📚 Образование',
+        'entertainment': '🎾 Развлечения',
+        'food': '🍕 Еда',
+        'health': '❤️ Здоровье',
+        'house': '🏠 Дом',
+        'personal': '👤 Личные расходы',
+        'pet': '🐶 Домашние животные',
+        'subscriptions': '💳 Подписки',
+        'vehicle': '🚙 Транспорт',
+        'renovation': '🛠 Ремонт',
+        'other': '🗃 Другое',
+    }
+
+    INCOME_CATEGORIES: Dict[str, str] = {
+        'salary': '💰 Зарплата',
+        'other': '🗃 Другое',
+    }
+
+    # Companies that user selected. In the future, it will be moved to Redis
+    SELECTED_COMPANIES: Dict[int, int] = {}
+
 
 class Settings(EnvSettings, HardSettings):
     pass
@@ -79,6 +111,13 @@ class Settings(EnvSettings, HardSettings):
 settings = Settings()
 
 bot = Bot(token=settings.BOT_TOKEN)
-dp = Dispatcher(bot)
+nlp = None
+operation_model = None
+category_model = None
+if os.path.basename(sys.argv[0]) == 'main.py':
+    nlp = spacy.load('ru_core_news_md')
+    operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
+    category_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.CATEGORY_MODEL))
 
-logger.add(settings.LOGGING_PATH + '{time:YYYY-MM-DD}.log', rotation=settings.LOGGING_ROTATION)
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)

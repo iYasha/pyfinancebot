@@ -1,5 +1,8 @@
 from enum import Enum
 
+from config import settings
+from modules.helps.enums import Command
+
 
 class OperationType(str, Enum):
     """Вид операции"""
@@ -52,8 +55,9 @@ class OperationCreateCallback(str, Enum):
     NO = UNIQUE_PREFIX + 'no'
 
     @staticmethod
-    def correct(operation_id: int) -> str:
-        return OperationCreateCallback.CORRECT + f'_{operation_id}'
+    def correct(operation_id: int, category: str, operation_type: OperationType) -> str:
+        op = '+' if operation_type == OperationType.INCOME else '-'
+        return OperationCreateCallback.CORRECT + f'_{operation_id}_{op}_{category}'
 
     @staticmethod
     def no(operation_id: int) -> str:
@@ -82,6 +86,19 @@ class OperationReceivedCallback(str, Enum):
         return OperationReceivedCallback.NONE_RECEIVED + f'_{operation_id}'
 
 
+class BackScreenType(str, Enum):
+    REGULAR = 'rg'
+    ALL_OPERATIONS = 'ao'
+    FUTURE = 'ft'
+    TODAY = 'td'
+
+    def get_command(self) -> str:
+        if self == BackScreenType.FUTURE:
+            return Command.FUTURE
+        elif self == BackScreenType.TODAY:
+            return Command.TODAY
+
+
 class OperationAllCallback(str, Enum):
     """Вид callback для детальной информации об операции"""
 
@@ -92,16 +109,24 @@ class OperationAllCallback(str, Enum):
     DELETE = UNIQUE_PREFIX + 'dl'
 
     @staticmethod
-    def detail(operation_id: int, page: int) -> str:
-        return OperationAllCallback.DETAIL + f'_{operation_id}_{page}'
+    def detail(
+        operation_id: int,
+        page: int,
+        back_type: BackScreenType = BackScreenType.ALL_OPERATIONS,
+    ) -> str:
+        return OperationAllCallback.DETAIL + f'_{operation_id}_{page}_{back_type}'
 
     @staticmethod
-    def pagination(page: int) -> str:
-        return OperationAllCallback.PAGINATION + f'_{page}'
+    def pagination(page: int, is_regular_operation: bool) -> str:
+        return OperationAllCallback.PAGINATION + f'_{page}_{int(is_regular_operation)}'
 
     @staticmethod
-    def delete(operation_id: int, page: int) -> str:
-        return OperationAllCallback.DELETE + f'_{operation_id}_{page}'
+    def delete(
+        operation_id: int,
+        page: int,
+        back_type: BackScreenType = BackScreenType.ALL_OPERATIONS,
+    ) -> str:
+        return OperationAllCallback.DELETE + f'_{operation_id}_{page}_{back_type}'
 
 
 class CurrencyEnum(str, Enum):
@@ -118,3 +143,40 @@ class CurrencyEnum(str, Enum):
         if currency == 'грн':
             currency = 'uah'
         return CurrencyEnum(currency)
+
+
+class ExpenseCategoryEnum(str, Enum):
+    BAD_HABITS = 'bad_habits'
+    EDUCATION = 'education'
+    ENTERTAINMENT = 'entertainment'
+    FOOD = 'food'
+    HEALTH = 'health'
+    HOUSE = 'house'
+    PERSONAL = 'personal'
+    PET = 'pet'
+    SUBSCRIPTIONS = 'subscriptions'
+    VEHICLE = 'vehicle'
+    RENOVATION = 'renovation'
+    OTHER = 'other'
+
+    def get_translation(self) -> str:
+        return settings.EXPENSE_CATEGORIES.get(self.value, self.value.capitalize())
+
+
+class IncomeCategoryEnum(str, Enum):
+    SALARY = 'salary'
+    other = 'other'
+
+    def get_translation(self) -> str:
+        return settings.INCOME_CATEGORIES.get(self.value, self.value.capitalize())
+
+
+class CategoryCallback(str, Enum):
+
+    UNIQUE_PREFIX = 'cat_'
+
+    SHOW_MORE = UNIQUE_PREFIX + 'more'
+
+    @staticmethod
+    def more(operation_id: int) -> str:
+        return CategoryCallback.SHOW_MORE + f'_{operation_id}'

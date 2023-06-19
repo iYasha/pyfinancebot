@@ -2,13 +2,18 @@ import argparse
 import asyncio
 from typing import Type
 
+import sentry_sdk
 from commands.base import Command
-from config import logger
+from config import settings
 from database import database
 
 
 async def startup() -> None:
     await database.connect()
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        traces_sample_rate=1.0,
+    )
 
 
 async def shutdown() -> None:
@@ -32,6 +37,7 @@ class ConsoleManager:
 
 
 if __name__ == '__main__':
+    # TODO: Use subparsers for commands https://docs.python.org/3/library/argparse.html#sub-commands
     argparse = argparse.ArgumentParser()
     argparse.add_argument(
         '-c',
@@ -43,8 +49,5 @@ if __name__ == '__main__':
     args = argparse.parse_args()
     loop = asyncio.get_event_loop()
     loop.run_until_complete(startup())
-    try:
-        loop.run_until_complete(ConsoleManager.execute_command(args.command))
-    except Exception:
-        logger.exception(f'Error executing command: {args.command}')
+    loop.run_until_complete(ConsoleManager.execute_command(args.command))
     loop.run_until_complete(shutdown())

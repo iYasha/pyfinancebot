@@ -4,10 +4,12 @@ from enum import Enum
 class Command(str, Enum):
     """Виды команд"""
 
+    CHOOSE_COMPANY = 'choose_company'
     OPERATIONS = 'operations'
+    FUTURE = 'future'
+    REGULAR = 'regular'
     START = 'start'
     HELP = 'help'
-    BUDGET = 'budget'
     TODAY = 'today'
-    WALLETS = 'wallets'
-    WALLET = 'wallet'
+    MONTH = 'month'
+    COMPANIES = 'companies'

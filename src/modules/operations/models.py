@@ -23,8 +23,14 @@ class Operation(
     repeat_days = sa.Column(sa.JSON, nullable=True)
     is_approved = sa.Column(sa.Boolean, default=False, nullable=False)
     is_regular_operation = sa.Column(sa.Boolean, default=False, nullable=False)
+    category = sa.Column(sa.String, nullable=True)
     creator_id = sa.Column(
         sa.Integer,
         sa.ForeignKey('users.chat_id', ondelete='CASCADE'),
+        nullable=False,
+    )
+    company_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey('companies.id', ondelete='CASCADE'),
         nullable=False,
     )

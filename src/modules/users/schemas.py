@@ -10,3 +10,7 @@ class UserCreate(BaseSchema):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     username: Optional[str] = None
+
+
+class User(UserCreate):
+    pass
