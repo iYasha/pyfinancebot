@@ -286,12 +286,12 @@ def get_operation_text(  # noqa: CCR001
     else:
         repeat_at = '🔄 Повторять: Никогда\n'
     operation_type = '☺️' if operation.operation_type == OperationType.INCOME else '🥲'
-    if not is_regular and operation.operation_type == OperationType.INCOME:
-        received_amount = '⚠️ Получено'
-    elif not is_regular:
-        received_amount = '⚠️ Оплачено'
-    else:
+    if is_regular:
         received_amount = ''
+    elif operation.operation_type == OperationType.INCOME:
+        received_amount = '⚠️ Получено'
+    else:
+        received_amount = '⚠️ Оплачено'
     received_amount += (
         f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
     )

@@ -131,11 +131,18 @@ class OperationService:
         categories = (
             cls.get_categories(description) if operation_type == OperationType.EXPENSE else []
         )
+        try:
+            currency = CurrencyEnum.get(currency)
+        except ValueError:
+            available_currency = ', '.join((x.value for x in CurrencyEnum))
+            raise ValueError(
+                f'Invalid currency `{currency}`. Valid currencies: {available_currency}',
+            )
         return (
             OperationCreate(
                 creator_id=creator_id,
                 amount=abs(int(amount)),
-                currency=CurrencyEnum.get(currency),
+                currency=currency,
                 operation_type=operation_type,
                 description=description,
                 repeat_type=repeat_time['type']

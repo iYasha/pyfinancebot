@@ -80,7 +80,7 @@ class SelectCompanyRequired:
         else:
             await bot.send_message(
                 chat_id,
-                text='Сначала нужно выбрать компанию /choose_company',
+                text='У Вас не выбрана компания, чтобы это исправить введите /choose_company',
             )
             return False
 

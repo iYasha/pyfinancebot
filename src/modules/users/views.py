@@ -25,7 +25,7 @@ async def authorization(message: types.Message, **kwargs) -> None:
         await UserService.create_or_ignore(user_data)
         await bot.send_message(
             message.chat.id,
-            text='🌟 Добро пожаловать! Для просмотра доступных команд введите /help',
+            text='🌟 Добро пожаловать! Для ознакомления с возможностями бота введите /help',
         )
     if invited:
         company_id, creator_id = invited.split('_')
@@ -33,11 +33,12 @@ async def authorization(message: types.Message, **kwargs) -> None:
         await CompanyService.add_participant(company_id, message.chat.id)
         await bot.send_message(
             chat_id=message.chat.id,
-            text=f'🎉 Вы присоединились к компании "<b>{company.name}</b>"!',
+            text=f'🎉 Вы присоединились к компании "<b>{company.name}</b>"! '
+            f'Для ознакомления с возможностями бота введите /help',
             parse_mode=settings.PARSE_MODE,
         )
     if user and not invited:
         await bot.send_message(
             chat_id=message.chat.id,
-            text='Вы уже зарегистрированы! Для просмотра доступных команд введите /help',
+            text='Вы уже зарегистрированы! Для ознакомления с возможностями бота введите /help',
         )

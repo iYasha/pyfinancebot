@@ -5,6 +5,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton
 from aiogram.types import ParseMode
+from aiogram.utils.text_decorations import markdown_decoration
 from config import bot
 from config import dp
 from config import settings
@@ -32,7 +33,7 @@ async def get_companies(data: Union[types.Message, types.CallbackQuery]) -> None
     else:
         message = data
     companies = await CompanyService.get_my_companies(message.chat.id)
-    markup = get_companies_list_markup(companies)
+    markup = get_companies_list_markup(companies, message.chat.id)
     if isinstance(data, types.CallbackQuery):
         await bot.edit_message_text(
             chat_id=message.chat.id,
@@ -52,10 +53,11 @@ async def get_companies(data: Union[types.Message, types.CallbackQuery]) -> None
 @error_handler_decorator
 async def choose_company(message: types.Message) -> None:
     companies = await CompanyService.get_my_companies(message.chat.id)
-    markup = get_companies_list_markup(companies, callback_type=CompanyCallback.select)
+    chat_id = message.chat.id
+    markup = get_companies_list_markup(companies, chat_id, callback_type=CompanyCallback.select)
     await bot.send_message(
         chat_id=message.chat.id,
-        text='Ваши компании:',
+        text='Выбор активной компании:',
         reply_markup=markup,
     )
 
@@ -142,7 +144,7 @@ async def get_company_detail(callback: types.CallbackQuery) -> None:
                 md.text(
                     ('└' if idx + 1 == participant_count else '├')
                     + '  '
-                    + md.link(
+                    + markdown_decoration.link(
                         f'@{participant.username}'
                         if participant.username
                         else f'{participant.first_name} {participant.last_name}',
@@ -205,13 +207,15 @@ async def select_company(callback: types.CallbackQuery) -> None:
             '',
         ),
     )
-    company = await CompanyService.get_company(company_id)
+    await CompanyService.get_company(company_id)
     settings.SELECTED_COMPANIES[callback.message.chat.id] = company_id
-    await bot.send_message(
-        chat_id=callback.message.chat.id,
-        text=md.text(
-            f'✅ Вы выбрали компанию "{company.name}"',
-        ),
+    companies = await CompanyService.get_my_companies(callback.message.chat.id)
+    chat_id = callback.message.chat.id
+    markup = get_companies_list_markup(companies, chat_id, callback_type=CompanyCallback.select)
+    await bot.edit_message_reply_markup(
+        chat_id=chat_id,
+        message_id=callback.message.message_id,
+        reply_markup=markup,
     )
 
 
