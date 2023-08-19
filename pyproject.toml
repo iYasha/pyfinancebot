@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "FinancykaBot"
-version = "0.1.0"
+version = "2.1.0"
 description = "A simple finance manager in telegram"
 authors = ["iYasha <ivan@simantiev.com>"]
 license = "MIT"

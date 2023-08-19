@@ -397,3 +397,35 @@ def get_cancel_markup() -> ReplyKeyboardMarkup:
     markup = ReplyKeyboardMarkup()
     markup.add(KeyboardButton('❌ Отмена'))
     return markup
+
+
+def format_report_diff(current_spending: float, prev_spending: float) -> str:
+    diff = current_spending - prev_spending
+    return f'{diff:+}'
+
+
+def get_report_text(report: Dict[str, float], prev_report: Dict[str, float], title: str) -> str:
+    intersection = set(prev_report.keys()) - set(report.keys())
+    spending_categories = '\n\n'.join(
+        [
+            f'{ExpenseCategoryEnum(category).get_translation()} - <b>{report[category]:,}</b> грн.'.replace(
+                ',',
+                ' ',
+            )
+            + (
+                f' (<code>{format_report_diff(report[category], prev_report[category])}</code>)'
+                if category in prev_report
+                else ''
+            )
+            for category in report
+        ],
+    )
+    if len(intersection) > 0:
+        spending_categories += '\n\n' + '\n\n'.join(
+            [
+                f'{ExpenseCategoryEnum(category).get_translation()} - <b>0</b> грн. '
+                f'(<code>{format_report_diff(0, prev_report[category])}</code>)'.replace(',', ' ')
+                for category in intersection
+            ],
+        )
+    return f'<b>{title}:</b>\n\n{spending_categories}'

@@ -142,3 +142,42 @@ class OperationRepository(BaseRepository):
         )
 
         return data
+
+    @classmethod
+    async def get_stats_by_categories(
+        cls,
+        date_from: datetime,
+        date_to: datetime,
+        company_id: int,
+    ) -> Dict[str, float]:
+        query = """
+        select
+               o.category,
+               sum(
+                       case
+                           when (o.operation_type = 'expense') then o.received_amount *
+                                                                    (case when (o.currency = 'uah')
+                                                                    then 1 else c.buy end)
+                           else 0 end
+                   ) as expense
+        from operations o
+                 left join currencies c on
+                    c.ccy = o.currency and
+                    c.created_at = (select max(created_at) from currencies where ccy = o.currency)
+        where o.created_at between :date_from
+            and :date_to
+          and o.is_approved = true
+          and o.is_regular_operation = false
+          and o.company_id = :company_id
+          and o.operation_type = 'expense'
+        group by o.category
+        order by expense desc
+        """
+
+        values = {
+            'date_from': date_from.strftime('%Y-%m-%d %H:%M:%S'),
+            'date_to': date_to.strftime('%Y-%m-%d %H:%M:%S'),
+            'company_id': company_id,
+        }
+
+        return {x[0]: x[1] for x in await database.fetch_all(query=query, values=values)}

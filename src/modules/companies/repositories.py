@@ -50,3 +50,20 @@ class CompanyRepository(BaseRepository):
         """
 
         return await database.fetch_one(query=query, values={'company_id': company_id})
+
+    @classmethod
+    async def get_all_companies(cls) -> List[Record]:
+        query = """
+        select c.id, c.name, c.creator_id, json_group_array(json_object(
+            'chat_id', u.chat_id,
+            'first_name', u.first_name,
+            'last_name', u.last_name,
+            'username', u.username
+        )) as participants
+        from companies c
+        join companies_users cu on c.id = cu.company_id
+        join users u on cu.chat_id = u.chat_id
+        group by c.id
+        """
+
+        return await database.fetch_all(query=query)
