@@ -3,9 +3,11 @@ from typing import List
 from typing import Optional
 from typing import Type
 
+from commands import SendWeeklyReport
 from commands.base import Command
 from commands.currencies import FetchCurrency
 from commands.operations import CreateRegularOperation
+from commands.reports import SendMonthlyReport
 from croniter import croniter
 
 
@@ -51,6 +53,8 @@ class Schedule(Command):
         return [
             cls.schedule.command(FetchCurrency).cron('0 8 * * *'),
             cls.schedule.command(CreateRegularOperation).cron('0 9 * * *'),
+            cls.schedule.command(SendWeeklyReport).cron('0 10 * * 1'),
+            cls.schedule.command(SendMonthlyReport).cron('0 11 1 * *'),
         ]
 
     @classmethod

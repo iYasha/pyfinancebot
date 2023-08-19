@@ -389,3 +389,16 @@ class OperationService:
                 company_id=operation.company_id,
             )
         return None
+
+    @classmethod
+    async def get_stats_by_categories(
+        cls: Type['OperationService'],
+        date_from: datetime,
+        date_to: datetime,
+        company_id: int,
+    ) -> Dict[str, float]:
+        return await cls.repository.get_stats_by_categories(
+            date_from=date_from,
+            date_to=date_to,
+            company_id=company_id,
+        )

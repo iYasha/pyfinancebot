@@ -60,3 +60,7 @@ class CompanyService:
     @classmethod
     async def remove_participant(cls, company_id: int, chat_id: int) -> None:
         await CompanyUserRepository.delete([WhereModifier(company_id=company_id, chat_id=chat_id)])
+
+    @classmethod
+    async def get_all_companies(cls) -> List[Company]:
+        return [Company(**x) for x in await cls.repository.get_all_companies()]
