@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import List, Optional, Type
 
 from croniter import croniter
-
 from commands import SendWeeklyReport
 from commands.base import Command
 from commands.currencies import FetchCurrency
