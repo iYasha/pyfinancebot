@@ -1,21 +1,23 @@
 from datetime import datetime
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Type
-from typing import Union
+from typing import Dict, List, Optional, Type, TypedDict, Union
 
 from asyncpg import Record
+
 from config import settings
 from database import database
 from modules.operations.enums import RepeatType
 from modules.operations.models import Operation
-
 from sdk.repositories import BaseRepository
 
 
+class PaginatedDict(TypedDict):
+    operations: List[Record]
+    total: int
+    page_count: int
+
+
 class OperationRepository(BaseRepository):
-    model: Operation = Operation
+    model: Type[Operation] = Operation
 
     @classmethod
     async def approve_operation(
@@ -24,7 +26,7 @@ class OperationRepository(BaseRepository):
         category: Optional[str] = None,
     ) -> None:
         update_category = ''
-        values = {'operation_id': operation_id}
+        values: Dict[str, Union[str, int]] = {'operation_id': operation_id}
         if category:
             update_category = ', category = :category'
             values['category'] = category
@@ -44,7 +46,7 @@ class OperationRepository(BaseRepository):
         cls: Type['OperationRepository'],
         company_id: Optional[int] = None,
     ) -> List[Record]:
-        values = {'no_repeat': RepeatType.NO_REPEAT.value}
+        values: Dict[str, Union[int, str]] = {'no_repeat': RepeatType.NO_REPEAT.value}
         query = """
         select o.*, round(o.amount * (case when (o.currency = 'uah') then 1 else c.buy end)) as received_amount
         from operations o
@@ -114,7 +116,7 @@ class OperationRepository(BaseRepository):
         is_regular_operation: bool,
         company_id: int,
         page: int = 1,
-    ) -> Dict[str, Union[List[Record], int]]:
+    ) -> PaginatedDict:
         query = """
         select *, count(*) over () as total
         from operations o
@@ -131,9 +133,10 @@ class OperationRepository(BaseRepository):
         }
 
         operations = await database.fetch_all(query=query, values=values)
-        data = {
+        data: PaginatedDict = {
             'operations': operations,
             'total': operations[0]['total'] if operations else 0,
+            'page_count': 0,
         }
         data['page_count'] = (
             data['total'] // settings.PAGE_SIZE + 1

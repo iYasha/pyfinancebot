@@ -1,14 +1,13 @@
 from datetime import datetime
-from typing import List
-from typing import Optional
-from typing import Type
+from typing import List, Optional, Type
+
+from croniter import croniter
 
 from commands import SendWeeklyReport
 from commands.base import Command
 from commands.currencies import FetchCurrency
 from commands.operations import CreateRegularOperation
 from commands.reports import SendMonthlyReport
-from croniter import croniter
 
 
 class Job:
@@ -46,7 +45,7 @@ class Scheduler:
 
 class Schedule(Command):
     command_name = 'schedule'
-    schedule: Scheduler = Scheduler
+    schedule: Type[Scheduler] = Scheduler
 
     @classmethod
     async def get_jobs(cls: Type['Schedule']) -> List[Job]:

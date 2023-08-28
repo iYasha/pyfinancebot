@@ -1,14 +1,11 @@
 import json
-from typing import List
-from typing import Union
+from typing import List, Union
 
-from aiogram.dispatcher.filters.state import State
-from aiogram.dispatcher.filters.state import StatesGroup
-from modules.users.schemas import User
+from aiogram.dispatcher.filters.state import State, StatesGroup
 from pydantic import validator
 
-from sdk.schemas import BaseSchema
-from sdk.schemas import IDSchemaMixin
+from modules.users.schemas import User
+from sdk.schemas import BaseSchema, IDSchemaMixin
 
 
 class Company(IDSchemaMixin, BaseSchema):

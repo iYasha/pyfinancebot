@@ -1,9 +1,9 @@
 import abc
-from typing import Type
+from typing import List, Type
 
 
 class Command:
-    commands = []
+    commands: List[Type['Command']] = []
     command_name: str
 
     @classmethod

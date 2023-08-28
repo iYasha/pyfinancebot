@@ -1,14 +1,13 @@
 import os
 import sys
 from enum import Enum
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 
 import spacy
-from aiogram import Bot
-from aiogram import Dispatcher
+from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from pydantic import BaseSettings
+from spacy import Language
 
 
 class Environment(str, Enum):
@@ -59,15 +58,15 @@ class HardSettings:
     Паттерн добавения операции
     +/-{amount: int} {current: длина 3 символа} {description:*}
     """
-    OPERATION_ADD_REGEX_PATTERN: str = (
-        r'^(?P<amount>[+-].?[0-9]+) (?P<currency>\w{3}) (?P<description>.*)'
-    )
+    OPERATION_ADD_REGEX_PATTERN: str = r'^(?P<amount>[+-].?[0-9]+) (?P<currency>\w{3}) (?P<description>.*)'
 
     """
     Паттерн добавления регулярных операций
     +/-{amount: int} {currency: длина 3 символа} {regular_period: период повторения} {description:*}
     """
-    OPERATION_REGULAR_REGEX_PATTERN: str = r'^(?P<amount>[+-].?[0-9]+) (?P<currency>\w{3}) (?P<repeat_time>\S.*) за (?P<description>\S.*)'  # noqa: E501
+    OPERATION_REGULAR_REGEX_PATTERN: str = (
+        r'^(?P<amount>[+-].?[0-9]+) (?P<currency>\w{3}) (?P<repeat_time>\S.*) за (?P<description>\S.*)'  # noqa: E501
+    )
 
     # API configuration.
     DEFAULT_DATETIME_FORMAT: str = '%Y-%m-%dT%H:%M:%S%z'
@@ -111,9 +110,9 @@ class Settings(EnvSettings, HardSettings):
 settings = Settings()
 
 bot = Bot(token=settings.BOT_TOKEN)
-nlp = None
-operation_model = None
-category_model = None
+nlp: Language
+operation_model: Language
+category_model: Language
 if os.path.basename(sys.argv[0]) == 'main.py':
     nlp = spacy.load('ru_core_news_md')
     operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))

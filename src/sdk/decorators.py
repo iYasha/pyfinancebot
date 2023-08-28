@@ -1,18 +1,13 @@
 import functools
 import logging
-from typing import Any
-from typing import Callable
-from typing import Optional
-from typing import Union
+from typing import Any, Callable, Optional, Union
 
 import sentry_sdk
 from aiogram import types
-from config import Environment
-from config import bot
-from config import settings
+
+from config import Environment, bot, settings
 from database import database
 from modules.companies.services import CompanyService
-
 from sdk.exceptions.exception_handler_mapping import catch_exception
 
 

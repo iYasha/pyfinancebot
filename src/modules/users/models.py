@@ -1,6 +1,6 @@
 import sqlalchemy as sa
-from database import Base
 
+from database import Base
 from sdk.models import AuditMixin
 
 
@@ -8,7 +8,7 @@ class User(
     AuditMixin,
     Base,
 ):
-    """ Базовая модель пользователя """
+    """Базовая модель пользователя"""
 
     __tablename__ = 'users'
 

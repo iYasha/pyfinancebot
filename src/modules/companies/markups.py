@@ -1,8 +1,7 @@
-from typing import Callable
-from typing import List
+from typing import Callable, List
 
-from aiogram.types import InlineKeyboardButton
-from aiogram.types import InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from config import settings
 from modules.companies.enums import CompanyCallback
 from modules.companies.schemas import Company
@@ -18,8 +17,7 @@ def get_companies_list_markup(
     for company in companies:
         markup.add(
             InlineKeyboardButton(
-                text=('⭐ ' if settings.SELECTED_COMPANIES.get(chat_id) == company.id else '')
-                + company.name,
+                text=('⭐ ' if settings.SELECTED_COMPANIES.get(chat_id) == company.id else '') + company.name,
                 callback_data=callback_type(company.id),
             ),
         )

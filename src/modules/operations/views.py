@@ -3,25 +3,23 @@ from calendar import monthrange
 from typing import Union
 
 from aiogram import types
-from config import bot
-from config import dp
-from config import settings
-from modules.helps.enums import Command
-from modules.operations.enums import BackScreenType
-from modules.operations.enums import CategoryCallback
-from modules.operations.enums import ExpenseCategoryEnum
-from modules.operations.enums import IncomeCategoryEnum
-from modules.operations.enums import OperationAllCallback
-from modules.operations.enums import OperationCreateCallback
-from modules.operations.enums import OperationReceivedCallback
-from modules.operations.enums import OperationType
-from modules.operations.schemas import Operation
-from modules.operations.schemas import OperationUpdate
-from modules.operations.services import OperationService
 
+from config import bot, dp, settings
+from modules.helps.enums import Command
+from modules.operations.enums import (
+    BackScreenType,
+    CategoryCallback,
+    ExpenseCategoryEnum,
+    IncomeCategoryEnum,
+    OperationAllCallback,
+    OperationCreateCallback,
+    OperationReceivedCallback,
+    OperationType,
+)
+from modules.operations.schemas import Operation, OperationUpdate
+from modules.operations.services import OperationService
 from sdk import utils
-from sdk.decorators import SelectCompanyRequired
-from sdk.decorators import error_handler_decorator
+from sdk.decorators import SelectCompanyRequired, error_handler_decorator
 from sdk.utils import get_message_handler
 
 
@@ -49,8 +47,7 @@ async def get_operations(data: Union[types.Message, types.CallbackQuery]) -> Non
                 button
                 for markup in message.reply_markup.inline_keyboard
                 for button in markup
-                if button.text == f'[{page}]'
-                and button.callback_data.startswith(OperationAllCallback.PAGINATION)
+                if button.text == f'[{page}]' and button.callback_data.startswith(OperationAllCallback.PAGINATION)
             ],
         )
         if is_message_modified:
@@ -135,6 +132,12 @@ async def get_operation_detail(callback_query: types.CallbackQuery) -> None:
     operation_id = int(operation_id)
     page = int(page)
     operation = await OperationService.get_operation(operation_id)
+    if operation is None:
+        await bot.send_message(
+            callback_query.message.chat.id,
+            text='Операция не найдена',
+        )
+        return
 
     await bot.edit_message_text(
         text=utils.get_operation_text(operation, title='Детали операции'),
@@ -162,9 +165,13 @@ async def delete_operation(callback_query: types.CallbackQuery) -> None:
     page = int(page)
     back_type = BackScreenType(back_type)
     operation = await OperationService.get_operation(operation_id)
-    category_smile = (
-        '📝' if operation.category is None else operation.category.get_translation().split(' ')[0]
-    )
+    if operation is None:
+        await bot.send_message(
+            callback_query.message.chat.id,
+            text='Операция не найдена',
+        )
+        return
+    category_smile = '📝' if operation.category is None else operation.category.get_translation().split(' ')[0]
     op_type = '+' if operation.operation_type == OperationType.INCOME else '-'
     await bot.answer_callback_query(
         callback_query.id,
@@ -221,14 +228,18 @@ async def process_operation_create(callback_query: types.CallbackQuery) -> None:
         data = callback_query.data.replace(f'{OperationCreateCallback.CORRECT}_', '').split('_')
         operation_id, operation_type, category_slug = int(data[0]), data[1], ('_'.join(data[2:]))
         category: Union[IncomeCategoryEnum, ExpenseCategoryEnum] = (
-            IncomeCategoryEnum(category_slug)
-            if operation_type == '+'
-            else ExpenseCategoryEnum(category_slug)
+            IncomeCategoryEnum(category_slug) if operation_type == '+' else ExpenseCategoryEnum(category_slug)
         )
         await OperationService.approve_operation(operation_id, category)
         now = datetime.datetime.now()
         last_month_day = monthrange(now.year, now.month)[1]
         operation = await OperationService.get_operation(operation_id)
+        if operation is None:
+            await bot.send_message(
+                callback_query.message.chat.id,
+                text='Операция не найдена',
+            )
+            return
         await OperationService.create_regular_operation(
             operation,
             now,
@@ -347,6 +358,12 @@ async def reply_received_handler(message: types.Message) -> None:
             parse_mode=settings.PARSE_MODE,
         )
     operation = await OperationService.get_operation(operation_id)
+    if operation is None:
+        await message.reply(
+            text='<b>Операция не найдена</b>',
+            parse_mode=settings.PARSE_MODE,
+        )
+        return
     received_amount = operation.received_amount or 0
     await OperationService.update_operation(
         operation_id,
@@ -354,9 +371,7 @@ async def reply_received_handler(message: types.Message) -> None:
     )
     received_text = 'Получено' if operation.operation_type == OperationType.INCOME else 'Оплачено'
     received_amount_text = (
-        f'⚠️ {received_text} {amount}/{operation.amount}'
-        if operation.amount > amount
-        else '✅ Сумма успешно сохранена'
+        f'⚠️ {received_text} {amount}/{operation.amount}' if operation.amount > amount else '✅ Сумма успешно сохранена'
     )
     await bot.edit_message_text(
         text=f'{message.reply_to_message.html_text}\n{received_amount_text}',

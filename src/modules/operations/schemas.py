@@ -1,19 +1,11 @@
 import json
 from datetime import datetime
-from typing import List
-from typing import Optional
-from typing import Type
-from typing import Union
+from typing import List, Optional, Type, Union
 
-from modules.operations.enums import CurrencyEnum
-from modules.operations.enums import ExpenseCategoryEnum
-from modules.operations.enums import IncomeCategoryEnum
-from modules.operations.enums import OperationType
-from modules.operations.enums import RepeatType
 from pydantic import validator
 
-from sdk.schemas import BaseSchema
-from sdk.schemas import IDSchemaMixin
+from modules.operations.enums import CurrencyEnum, ExpenseCategoryEnum, IncomeCategoryEnum, OperationType, RepeatType
+from sdk.schemas import BaseSchema, IDSchemaMixin
 
 
 class OperationBase(BaseSchema):

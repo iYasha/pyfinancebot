@@ -1,7 +1,7 @@
 from asyncpg import ForeignKeyViolationError
-from config import bot
-from config import settings
 from pydantic import ValidationError
+
+from config import bot, settings
 
 
 async def validator_error_handler(exc: ValidationError, chat_id: int) -> None:

@@ -2,6 +2,7 @@ from typing import Type
 
 import aiohttp
 import sentry_sdk
+
 from commands.base import Command
 from modules.currencies.schemas import CurrencyCreate
 from modules.currencies.services import CurrencyService

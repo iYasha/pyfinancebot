@@ -1,33 +1,25 @@
 import calendar
 import datetime
 import re
-from typing import Awaitable
-from typing import Callable
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Sequence
-from typing import Tuple
-from typing import Union
-from typing import get_args
+from typing import Awaitable, Callable, Dict, List, Optional, Sequence, Tuple, Union, get_args
 
 from aiogram import types
 from aiogram.dispatcher import filters
-from aiogram.types import KeyboardButton
-from aiogram.types import ReplyKeyboardMarkup
-from config import dp
-from config import settings
-from modules.operations.enums import BackScreenType
-from modules.operations.enums import CategoryCallback
-from modules.operations.enums import ExpenseCategoryEnum
-from modules.operations.enums import IncomeCategoryEnum
-from modules.operations.enums import OperationAllCallback
-from modules.operations.enums import OperationCreateCallback
-from modules.operations.enums import OperationReceivedCallback
-from modules.operations.enums import OperationType
-from modules.operations.enums import RepeatType
-from modules.operations.schemas import Operation
-from modules.operations.schemas import OperationImport
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
+
+from config import dp, settings
+from modules.operations.enums import (
+    BackScreenType,
+    CategoryCallback,
+    ExpenseCategoryEnum,
+    IncomeCategoryEnum,
+    OperationAllCallback,
+    OperationCreateCallback,
+    OperationReceivedCallback,
+    OperationType,
+    RepeatType,
+)
+from modules.operations.schemas import Operation, OperationImport
 
 
 def strip_string(text: str) -> str:
@@ -51,7 +43,7 @@ def get_weekday(time: str) -> list:
     ]
 
 
-def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
+def get_operation_regularity(text: str) -> Optional[Dict[str, Union[str, list]]]:
     day_match = re.match(r'^(?P<intensive>\S.* день)', text)
     week_match = re.match(r'^(?P<intensive>\S.* неделю) (?P<at>в|во) (?P<time>\S.*)', text)
     week_other_match = re.match(r'^(каждый|каждую|каждое) (\D+)(,| |и)*$', text)
@@ -77,6 +69,7 @@ def get_operation_regularity(text: str) -> Dict[str, Union[str, list]]:
     elif week_other_match is not None:
         intensive, time, _ = week_other_match.groups()
         return {'type': 'every_week', 'days': get_weekday(time)}
+    return None
 
 
 async def get_received_amount_markup(
@@ -149,26 +142,6 @@ def get_income_categories_markup(
     return markup
 
 
-def get_operation_approved_markup(
-    operation_id: int,
-    markup: Optional[types.InlineKeyboardMarkup] = None,
-) -> types.InlineKeyboardMarkup:
-    if markup is None:
-        markup = types.InlineKeyboardMarkup()
-    markup.add(
-        types.InlineKeyboardButton(
-            '✅ Все правильно',
-            callback_data=OperationCreateCallback.correct(operation_id),
-        ),
-        types.InlineKeyboardButton(
-            '❌ Не правильно',
-            callback_data=OperationCreateCallback.no(operation_id),
-        ),
-    )
-
-    return markup
-
-
 def get_future_operation_markup(
     operations: Sequence[OperationImport],
     back_screen_type: BackScreenType = BackScreenType.FUTURE,
@@ -176,11 +149,7 @@ def get_future_operation_markup(
     markup = types.InlineKeyboardMarkup(row_width=1)
     for operation in operations:
         op_type = '+' if operation.operation_type == OperationType.INCOME else '-'
-        category_smile = (
-            '📝'
-            if operation.category is None
-            else operation.category.get_translation().split(' ')[0]
-        )
+        category_smile = '📝' if operation.category is None else operation.category.get_translation().split(' ')[0]
         markup.add(
             types.InlineKeyboardButton(
                 f'{category_smile} {operation.description} | '
@@ -200,11 +169,7 @@ def get_operations_markup(
     markup = types.InlineKeyboardMarkup(row_width=1)
     for operation in operations:
         op_type = '+' if operation.operation_type == OperationType.INCOME else '-'
-        category_smile = (
-            '📝'
-            if operation.category is None
-            else operation.category.get_translation().split(' ')[0]
-        )
+        category_smile = '📝' if operation.category is None else operation.category.get_translation().split(' ')[0]
         markup.add(
             types.InlineKeyboardButton(
                 f'{category_smile} {operation.description} | '
@@ -269,19 +234,15 @@ def get_pagination_markup(
     return markup
 
 
-def get_operation_text(  # noqa: CCR001
+def get_operation_text(
     operation: Operation,
     *,
     title: str = 'Подтвердите операцию',
     is_regular: bool = False,
 ) -> str:
-    if operation.repeat_type != RepeatType.NO_REPEAT:  # TODO: Refactor
-        repeat_days_text = ', '.join(list(map(str, operation.repeat_days)))
-        repeat_at_days = (
-            f'каждый {repeat_days_text} день'
-            if operation.repeat_type != RepeatType.EVERY_DAY
-            else ''
-        )
+    if operation.repeat_type != RepeatType.NO_REPEAT:
+        repeat_days_text = ', '.join(map(str, operation.repeat_days))  # type: ignore[arg-type]
+        repeat_at_days = f'каждый {repeat_days_text} день' if operation.repeat_type != RepeatType.EVERY_DAY else ''
         repeat_at = f'🔄 Повторять: {operation.repeat_type.get_translation()} {repeat_at_days}\n'
     else:
         repeat_at = '🔄 Повторять: Никогда\n'
@@ -292,12 +253,8 @@ def get_operation_text(  # noqa: CCR001
         received_amount = '⚠️ Получено'
     else:
         received_amount = '⚠️ Оплачено'
-    received_amount += (
-        f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
-    )
-    category = (
-        f'📂 Категория: {operation.category.get_translation()}\n' if operation.category else ''
-    )
+    received_amount += f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
+    category = f'📂 Категория: {operation.category.get_translation()}\n' if operation.category else ''
     return (
         f'<b>{title}:</b>\n\n'
         f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n'
@@ -324,7 +281,7 @@ async def get_current_day_period() -> Tuple[datetime.datetime, datetime.datetime
     )
 
 
-def round_amount(amount: any, symbols: int) -> float:
+def round_amount(amount: Union[str, int, float], symbols: int) -> float:
     return round(float(amount), symbols)
 
 
@@ -334,6 +291,7 @@ def get_operation_detail_markup(
     back_type: BackScreenType,
 ) -> types.InlineKeyboardMarkup:
     markup = types.InlineKeyboardMarkup(row_width=2)
+    back_callback_data: Optional[str]
     if back_type in (BackScreenType.ALL_OPERATIONS, BackScreenType.REGULAR):
         back_callback_data = OperationAllCallback.pagination(
             page,

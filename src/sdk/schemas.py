@@ -1,13 +1,10 @@
-from datetime import datetime
-from datetime import timezone
-from typing import Generic
-from typing import List
-from typing import Optional
-from typing import TypeVar
+from datetime import datetime, timezone
+from typing import Generic, List, Optional, TypeVar
 
-from config import settings
 from pydantic import BaseModel
 from pydantic.generics import GenericModel
+
+from config import settings
 
 
 class BaseSchema(BaseModel):
