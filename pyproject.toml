@@ -71,27 +71,3 @@ pythonpath = [
 testpaths = [
     "tests",
 ]
-
-[tool.black]
-line-length = 100
-py38 = true
-skip-string-normalization = 1
-include = '\.py$'
-exclude = '''
-/(
-    \.git
-  | \.mypy_cache
-  | env
-  | test-reports
-  | alembic
-  | ptvs_virtualenv_proxy.py
-)/
-'''
-
-[tool.isort]
-line_length = 100
-default_section = "FIRSTPARTY"
-force_single_line = "True"
-sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-known_local_folder = "api,core,crud,db,enums,models,schemas,sdk,tests,validators"
-skip = [ "alembic" ]

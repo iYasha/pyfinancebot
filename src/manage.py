@@ -1,8 +1,9 @@
 import argparse
 import asyncio
-from typing import Type
+from typing import Optional, Type
 
 import sentry_sdk
+
 from commands.base import Command
 from config import settings
 from database import database
@@ -26,8 +27,11 @@ class ConsoleManager:
         if command_name is None:
             raise ValueError('Command name is required')
 
-        command_instance: Command = next(
-            filter(lambda command: command.command_name == command_name, Command.commands),
+        command_instance: Optional[Command] = next(
+            filter(
+                lambda command: command.command_name == command_name,  # type: ignore[arg-type, union-attr]
+                Command.commands,
+            ),
             None,
         )
         if command_instance is None:
@@ -38,15 +42,15 @@ class ConsoleManager:
 
 if __name__ == '__main__':
     # TODO: Use subparsers for commands https://docs.python.org/3/library/argparse.html#sub-commands
-    argparse = argparse.ArgumentParser()
-    argparse.add_argument(
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
         '-c',
         '--command',
         type=str,
         help='Run command',
         required=True,
     )
-    args = argparse.parse_args()
+    args = parser.parse_args()
     loop = asyncio.get_event_loop()
     loop.run_until_complete(startup())
     loop.run_until_complete(ConsoleManager.execute_command(args.command))

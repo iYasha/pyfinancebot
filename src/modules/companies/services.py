@@ -1,11 +1,9 @@
 from typing import List
 
 from config import settings
-from modules.companies.repositories import CompanyRepository
-from modules.companies.repositories import CompanyUserRepository
+from modules.companies.repositories import CompanyRepository, CompanyUserRepository
 from modules.companies.schemas import Company
 from modules.operations.repositories import OperationRepository
-
 from sdk.repositories import WhereModifier
 
 

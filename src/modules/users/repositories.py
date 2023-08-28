@@ -1,7 +1,8 @@
-from modules.users.models import User
+from typing import Type
 
+from modules.users.models import User
 from sdk.repositories import BaseRepository
 
 
 class UserRepository(BaseRepository):
-    model: User = User
+    model: Type[User] = User

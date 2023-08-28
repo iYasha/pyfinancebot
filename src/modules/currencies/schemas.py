@@ -1,5 +1,6 @@
-from modules.operations.enums import CurrencyEnum
 from pydantic import BaseModel
+
+from modules.operations.enums import CurrencyEnum
 
 
 class CurrencyBase(BaseModel):

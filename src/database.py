@@ -1,9 +1,10 @@
 from typing import TypeVar
 
 import databases
-from config import settings
 from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declarative_base
+
+from config import settings
 
 __all__ = ('database', 'metadata', 'Base')
 
@@ -24,5 +25,5 @@ meta = MetaData(
 )
 
 Base = declarative_base(metadata=meta)
-ModelType = TypeVar('ModelType', bound=Base)
+ModelType = TypeVar('ModelType', bound=Base)  # type: ignore[valid-type]
 metadata = Base.metadata

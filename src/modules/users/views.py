@@ -1,12 +1,10 @@
 from aiogram import types
-from config import bot
-from config import dp
-from config import settings
+
+from config import bot, dp, settings
 from modules.companies.services import CompanyService
 from modules.helps.enums import Command
 from modules.users.schemas import UserCreate
 from modules.users.services import UserService
-
 from sdk.decorators import error_handler_decorator
 
 

@@ -1,19 +1,18 @@
-from typing import List
+from typing import List, Type
 
 from asyncpg import Record
-from database import database
-from modules.companies.models import Company
-from modules.companies.models import CompanyUser
 
+from database import database
+from modules.companies.models import Company, CompanyUser
 from sdk.repositories import BaseRepository
 
 
 class CompanyUserRepository(BaseRepository):
-    model: CompanyUser = CompanyUser
+    model: Type[CompanyUser] = CompanyUser
 
 
 class CompanyRepository(BaseRepository):
-    model: Company = Company
+    model: Type[Company] = Company
 
     @classmethod
     async def get_my_companies(cls, chat_id: int) -> List[Record]:

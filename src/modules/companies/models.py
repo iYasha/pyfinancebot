@@ -1,6 +1,6 @@
 import sqlalchemy as sa
-from database import Base
 
+from database import Base
 from sdk.models import IDModelMixin
 
 
@@ -8,7 +8,7 @@ class Company(
     IDModelMixin,
     Base,
 ):
-    """ Base company model """
+    """Base company model"""
 
     __tablename__ = 'companies'
 

@@ -1,9 +1,7 @@
 from aiogram import types
-from config import bot
-from config import dp
-from config import settings
-from modules.helps.enums import Command
 
+from config import bot, dp, settings
+from modules.helps.enums import Command
 from sdk.decorators import error_handler_decorator
 
 

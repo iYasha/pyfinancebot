@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Optional
 
 from config import settings
 from modules.helps.enums import Command
@@ -92,11 +93,12 @@ class BackScreenType(str, Enum):
     FUTURE = 'ft'
     TODAY = 'td'
 
-    def get_command(self) -> str:
+    def get_command(self) -> Optional[str]:
         if self == BackScreenType.FUTURE:
             return Command.FUTURE
         elif self == BackScreenType.TODAY:
             return Command.TODAY
+        return None
 
 
 class OperationAllCallback(str, Enum):
@@ -138,7 +140,9 @@ class CurrencyEnum(str, Enum):
     UAH = 'uah'
 
     @staticmethod
-    def get(value: str) -> 'CurrencyEnum':
+    def get(value: Optional[str]) -> 'CurrencyEnum':
+        if value is None:
+            raise ValueError('Currency is required')
         currency = value.lower().strip().replace('.', '')
         if currency == 'грн':
             currency = 'uah'

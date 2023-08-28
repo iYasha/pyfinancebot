@@ -1,7 +1,7 @@
 import sentry_sdk
 from aiogram import executor
-from config import dp
-from config import settings
+
+from config import dp, settings
 from database import database
 from modules.analytics.views import *  # noqa: F403, F401
 from modules.companies.views import *  # noqa: F403, F401

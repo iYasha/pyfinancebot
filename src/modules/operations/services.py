@@ -2,28 +2,14 @@ import string
 from calendar import monthrange
 from collections import defaultdict
 from datetime import datetime
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Sequence
-from typing import Tuple
-from typing import Type
-from typing import Union
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Type, Union
 
-from config import category_model
-from config import nlp
-from config import operation_model
-from modules.operations.enums import CurrencyEnum
-from modules.operations.enums import ExpenseCategoryEnum
-from modules.operations.enums import OperationType
-from modules.operations.enums import RepeatType
-from modules.operations.repositories import OperationRepository
-from modules.operations.schemas import Operation
-from modules.operations.schemas import OperationCreate
-from modules.operations.schemas import OperationImport
-from modules.operations.schemas import OperationUpdate
 from spacy.lang.ru import STOP_WORDS
 
+from config import category_model, nlp, operation_model
+from modules.operations.enums import CurrencyEnum, ExpenseCategoryEnum, OperationType, RepeatType
+from modules.operations.repositories import OperationRepository
+from modules.operations.schemas import Operation, OperationCreate, OperationUpdate
 from sdk.repositories import WhereModifier
 from sdk.schemas import PaginatedSchema
 
@@ -53,11 +39,7 @@ class OperationService:
         tokens = [token.lemma_.strip() for token in nlp(text)]
 
         return ' '.join(
-            [
-                t
-                for t in tokens
-                if t not in STOP_WORDS and t not in string.punctuation and not t.isdigit()
-            ],
+            [t for t in tokens if t not in STOP_WORDS and t not in string.punctuation and not t.isdigit()],
         )
 
     @classmethod
@@ -95,10 +77,7 @@ class OperationService:
     def get_categories(cls: Type['OperationService'], text: str) -> List[ExpenseCategoryEnum]:
         doc = category_model(cls.preprocess_text(text))
         categories = doc.cats
-        return [
-            ExpenseCategoryEnum(x.lower())
-            for x in sorted(categories, key=categories.get, reverse=True)[:2]
-        ]
+        return [ExpenseCategoryEnum(x.lower()) for x in sorted(categories, key=categories.get, reverse=True)[:2]]
 
     @classmethod
     def get_operation_regularity(
@@ -106,11 +85,11 @@ class OperationService:
         entities: Dict[str, Union[str, List[str], List[tuple]]],
     ) -> Optional[Dict[str, Union[str, list]]]:
         if entities.get('EVERYDAY', False):
-            return {'type': 'every_day', 'days': []}
+            return {'type': 'every_day', 'days': []}  # type: ignore[dict-item]
         elif entities.get('EVERYWEEK', False):
-            return {'type': 'every_week', 'days': entities.get('WEEKDAYS')}
+            return {'type': 'every_week', 'days': entities.get('WEEKDAYS')}  # type: ignore[dict-item]
         elif entities.get('EVERYMONTH', False):
-            return {'type': 'every_month', 'days': entities.get('NUMBEROFDAY')}
+            return {'type': 'every_month', 'days': entities.get('NUMBEROFDAY')}  # type: ignore[dict-item]
         return None
 
     @classmethod
@@ -119,24 +98,26 @@ class OperationService:
         text: str,
         creator_id: int,
     ) -> Optional[Tuple[OperationCreate, List[ExpenseCategoryEnum]]]:
+        """ """
         entities = cls.get_operation_entities(text)
-        description = entities.get('FOR')
-        amount = int(entities.get('AMOUNT'))
-        currency = entities.get('CURRENCY')
+        description: Optional[str] = entities.get('FOR')  # type: ignore[assignment]
+        amount = int(entities['AMOUNT'])  # type: ignore[arg-type]
+        possible_currency: Optional[str] = entities.get('CURRENCY')  # type: ignore[assignment]
         operation_type = OperationType.get_operation_type(amount)
         repeat_time = cls.get_operation_regularity(entities)
         repeat_days = None
         if repeat_time is not None:
             repeat_days = repeat_time['days']
-        categories = (
-            cls.get_categories(description) if operation_type == OperationType.EXPENSE else []
-        )
+        if description is None:
+            categories = []
+        else:
+            categories = cls.get_categories(description) if operation_type == OperationType.EXPENSE else []
         try:
-            currency = CurrencyEnum.get(currency)
+            currency = CurrencyEnum.get(possible_currency)
         except ValueError:
             available_currency = ', '.join((x.value for x in CurrencyEnum))
             raise ValueError(
-                f'Invalid currency `{currency}`. Valid currencies: {available_currency}',
+                f'Invalid currency `{possible_currency}`. Valid currencies: {available_currency}',
             )
         return (
             OperationCreate(
@@ -145,9 +126,7 @@ class OperationService:
                 currency=currency,
                 operation_type=operation_type,
                 description=description,
-                repeat_type=repeat_time['type']
-                if repeat_time is not None
-                else RepeatType.NO_REPEAT,
+                repeat_type=repeat_time['type'] if repeat_time is not None else RepeatType.NO_REPEAT,
                 repeat_days=repeat_days,
                 is_regular_operation=repeat_time is not None,
             ),
@@ -198,7 +177,7 @@ class OperationService:
     @classmethod
     def get_every_day_operations(
         cls,
-        base_operation_data: Dict[str, any],
+        base_operation_data: Dict[str, Any],
         now: datetime,
         days_range: Sequence[int],
     ) -> List[Operation]:
@@ -220,7 +199,7 @@ class OperationService:
     @classmethod
     def get_month_operations(
         cls,
-        base_operation_data: Dict[str, any],
+        base_operation_data: Dict[str, Any],
         now: datetime,
         repeat_days: List[int],
         last_day: int,
@@ -244,7 +223,7 @@ class OperationService:
     @classmethod
     def get_every_week_operations(
         cls,
-        base_operation_data: Dict[str, any],
+        base_operation_data: Dict[str, Any],
         now: datetime,
         repeat_days: List[str],
         weekdays: Dict[int, List[int]],
@@ -266,7 +245,7 @@ class OperationService:
         ]
 
     @classmethod
-    async def get_future_operations(cls, company_id: int) -> Tuple[OperationImport]:
+    async def get_future_operations(cls, company_id: int) -> Tuple[Operation, ...]:
         operations = await OperationService.get_regular_operations(company_id)
         future_operations = []
         now = datetime.now()
@@ -289,14 +268,14 @@ class OperationService:
                 future_operations += cls.get_month_operations(
                     base_operation_data,
                     now,
-                    operation.repeat_days,
+                    operation.repeat_days,  # type: ignore[arg-type]
                     last_day,
                 )
             elif operation.repeat_type == RepeatType.EVERY_WEEK:
                 future_operations += cls.get_every_week_operations(
                     base_operation_data,
                     now,
-                    operation.repeat_days,
+                    operation.repeat_days,  # type: ignore[arg-type]
                     weekdays,
                 )
 
@@ -321,7 +300,7 @@ class OperationService:
         company_id: int,
         page: int = 1,
         is_regular_operation: bool = False,
-    ) -> PaginatedSchema[List[Operation]]:
+    ) -> PaginatedSchema[Operation]:
         operations = await cls.repository.get_operations(
             page=page,
             is_regular_operation=is_regular_operation,
@@ -364,8 +343,7 @@ class OperationService:
         )
         is_month_repeat = operation.repeat_type == RepeatType.EVERY_MONTH and is_current_day
         is_week_repeat = (
-            operation.repeat_type == RepeatType.EVERY_WEEK
-            and now.weekday() in operation.repeat_days
+            operation.repeat_type == RepeatType.EVERY_WEEK and now.weekday() in operation.repeat_days
             if operation.repeat_days
             else False
         )

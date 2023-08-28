@@ -2,17 +2,13 @@ import datetime
 from typing import Union
 
 from aiogram import types
-from config import bot
-from config import dp
-from config import settings
-from modules.helps.enums import Command
-from modules.operations.enums import BackScreenType
-from modules.operations.enums import OperationType
-from modules.operations.services import OperationService
 
+from config import bot, dp, settings
+from modules.helps.enums import Command
+from modules.operations.enums import BackScreenType, OperationType
+from modules.operations.services import OperationService
 from sdk import utils
-from sdk.decorators import SelectCompanyRequired
-from sdk.decorators import error_handler_decorator
+from sdk.decorators import SelectCompanyRequired, error_handler_decorator
 from sdk.utils import round_amount
 
 
@@ -29,7 +25,7 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
         chat_id = data.chat.id
     month_date_from, month_date_to = await utils.get_current_month_period()
     date_from, date_to = await utils.get_current_day_period()
-    company_id = settings.SELECTED_COMPANIES.get(chat_id)
+    company_id = settings.SELECTED_COMPANIES[chat_id]
     today_stats = await OperationService.get_stats(
         date_from=date_from,
         date_to=date_to,
@@ -43,18 +39,14 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
     future_operations = await OperationService.get_future_operations(company_id)
     tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
     future_expense = sum(
-        [
-            operation.received_amount
-            for operation in future_operations
-            if operation.operation_type == OperationType.EXPENSE
-        ],
+        operation.received_amount or 0
+        for operation in future_operations
+        if operation.operation_type == OperationType.EXPENSE
     )
     future_income = sum(
-        [
-            operation.received_amount
-            for operation in future_operations
-            if operation.operation_type == OperationType.INCOME
-        ],
+        operation.received_amount or 0
+        for operation in future_operations
+        if operation.operation_type == OperationType.INCOME
     )
     tomorrow_operations = tuple(
         filter(lambda x: x.created_at.date() == tomorrow.date(), future_operations),
@@ -92,7 +84,7 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
 async def get_month_analytics(message: types.Message) -> None:
     date_from, date_to = await utils.get_current_month_period()
     now_day = datetime.datetime.now().day
-    company_id = settings.SELECTED_COMPANIES.get(message.chat.id)
+    company_id = settings.SELECTED_COMPANIES[message.chat.id]
     stats = await OperationService.get_stats(
         date_from=date_from,
         date_to=date_to,
@@ -101,18 +93,14 @@ async def get_month_analytics(message: types.Message) -> None:
     income, expense = stats['income'], stats['expense']
     future_operations = await OperationService.get_future_operations(company_id)
     future_expense = sum(
-        [
-            operation.received_amount
-            for operation in future_operations
-            if operation.operation_type == OperationType.EXPENSE
-        ],
+        operation.received_amount or 0
+        for operation in future_operations
+        if operation.operation_type == OperationType.EXPENSE
     )
     future_income = sum(
-        [
-            operation.received_amount
-            for operation in future_operations
-            if operation.operation_type == OperationType.INCOME
-        ],
+        operation.received_amount or 0
+        for operation in future_operations
+        if operation.operation_type == OperationType.INCOME
     )
     saldo = income + future_income - expense - future_expense
     days_left = date_to.day - now_day

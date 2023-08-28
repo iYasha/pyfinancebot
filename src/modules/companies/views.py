@@ -3,23 +3,17 @@ from typing import Union
 import aiogram.utils.markdown as md
 from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.types import InlineKeyboardButton
-from aiogram.types import ParseMode
+from aiogram.types import InlineKeyboardButton, ParseMode
 from aiogram.utils.text_decorations import markdown_decoration
-from config import bot
-from config import dp
-from config import settings
+
+from config import bot, dp, settings
 from modules.companies.enums import CompanyCallback
-from modules.companies.markups import get_companies_list_markup
-from modules.companies.markups import get_company_leave_markup
-from modules.companies.markups import get_participants_list_markup
+from modules.companies.markups import get_companies_list_markup, get_company_leave_markup, get_participants_list_markup
 from modules.companies.schemas import CompanyCreateState
 from modules.companies.services import CompanyService
 from modules.helps.enums import Command
-
 from sdk import utils
-from sdk.decorators import error_handler_decorator
-from sdk.decorators import transaction_decorator
+from sdk.decorators import error_handler_decorator, transaction_decorator
 
 
 @dp.message_handler(commands=[Command.COMPANIES])

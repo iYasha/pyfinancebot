@@ -1,8 +1,7 @@
 import sqlalchemy as sa
-from database import Base
 
-from sdk.models import AuditMixin
-from sdk.models import IDModelMixin
+from database import Base
+from sdk.models import AuditMixin, IDModelMixin
 
 
 class Currency(

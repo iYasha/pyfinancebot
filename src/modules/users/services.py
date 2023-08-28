@@ -1,9 +1,7 @@
-from typing import Type
+from typing import Optional, Type
 
 from modules.users.repositories import UserRepository
-from modules.users.schemas import User
-from modules.users.schemas import UserCreate
-
+from modules.users.schemas import User, UserCreate
 from sdk.repositories import WhereModifier
 
 
@@ -11,7 +9,7 @@ class UserService:
     repository = UserRepository
 
     @classmethod
-    async def get_user(cls, chat_id: int) -> User:
+    async def get_user(cls, chat_id: int) -> Optional[User]:
         user = await cls.repository.get([WhereModifier(chat_id=chat_id)])
         if not user:
             return None

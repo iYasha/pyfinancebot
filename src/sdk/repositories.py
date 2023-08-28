@@ -1,19 +1,13 @@
 import abc
 from datetime import datetime
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Type
-from typing import Union
+from typing import Any, Dict, List, Optional, Type, Union
 
 import sqlalchemy as sa
+from sqlalchemy.sql import Delete, Select, Selectable
+from sqlalchemy.sql.elements import BooleanClauseList
+
 from database import ModelType  # type: ignore[attr-defined]
 from database import database  # type: ignore[attr-defined]
-from sqlalchemy.sql import Delete
-from sqlalchemy.sql import Select
-from sqlalchemy.sql import Selectable
-from sqlalchemy.sql.elements import BooleanClauseList
 
 Queryable = Union[Select, Delete, BooleanClauseList, Selectable]
 
@@ -31,14 +25,14 @@ class WhereModifier(BaseModifier):
     def modify(self: 'WhereModifier', model: Type[ModelType], query: Queryable) -> Queryable:
         return query.where(  # type: ignore[union-attr]
             sa.and_(
-                *[getattr(model, key) == value for key, value in self.fields.items()],
+                *[getattr(model, key) == value for key, value in self.fields.items()],  # type: ignore[name-defined]
             ),
         )
 
     def __repr__(self) -> str:
         return f'WhereModifier({self.fields})'
 
-    def __eq__(self, other: 'WhereModifier') -> bool:
+    def __eq__(self, other: Union['WhereModifier', object]) -> bool:
         if not isinstance(other, WhereModifier):
             return False
         return self.fields == other.fields
@@ -86,8 +80,8 @@ class ExpiredModifier(BaseModifier):
     def modify(self: 'ExpiredModifier', model: Type[ModelType], query: Queryable) -> Queryable:
         return query.where(  # type: ignore[union-attr]
             sa.and_(
-                model.end_at >= self.utc_now,
-                model.start_at <= self.utc_now,
+                model.end_at >= self.utc_now,  # type: ignore[attr-defined]
+                model.start_at <= self.utc_now,  # type: ignore[attr-defined]
             ),
         )
 
@@ -108,16 +102,13 @@ class SearchModifier(BaseModifier):
     def modify(self: 'SearchModifier', model: Type[ModelType], query: Queryable) -> Queryable:
         return query.where(  # type: ignore[union-attr]
             sa.or_(
-                *[
-                    getattr(model, field).ilike(f'%{value}%')
-                    for field, value in self.fields.items()
-                ],
+                *[getattr(model, field).ilike(f'%{value}%') for field, value in self.fields.items()],
             ),
         )
 
 
 class BaseRepository:
-    model: Type[ModelType]
+    model: Type[ModelType]  # type: ignore[valid-type]
 
     @classmethod
     async def get(
@@ -178,11 +169,7 @@ class BaseRepository:
         if modifiers is None:
             modifiers = []
         query = cls._modify_query(
-            (
-                sa.update(cls.model)  # type: ignore[arg-type]
-                .values(**fields)
-                .where(cls.get_where_clause(**kwargs))
-            ),
+            (sa.update(cls.model).values(**fields).where(cls.get_where_clause(**kwargs))),  # type: ignore[arg-type]
             modifiers,
         )
         if fetch_one:
