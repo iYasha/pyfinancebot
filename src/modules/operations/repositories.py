@@ -6,7 +6,7 @@ from asyncpg import Record
 from config import settings
 from database import database
 from modules.operations.enums import RepeatType
-from modules.operations.models import Operation
+from modules.operations.models import FailedOperation, Operation
 from sdk.repositories import BaseRepository
 
 
@@ -184,3 +184,7 @@ class OperationRepository(BaseRepository):
         }
 
         return {x[0]: x[1] for x in await database.fetch_all(query=query, values=values)}
+
+
+class FailedOperationRepository(BaseRepository):
+    model: Type[FailedOperation] = FailedOperation

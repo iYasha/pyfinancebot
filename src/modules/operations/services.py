@@ -8,7 +8,7 @@ from spacy.lang.ru import STOP_WORDS
 
 from config import category_model, nlp, operation_model
 from modules.operations.enums import CurrencyEnum, ExpenseCategoryEnum, OperationType, RepeatType
-from modules.operations.repositories import OperationRepository
+from modules.operations.repositories import FailedOperationRepository, OperationRepository
 from modules.operations.schemas import Operation, OperationCreate, OperationUpdate
 from sdk.repositories import WhereModifier
 from sdk.schemas import PaginatedSchema
@@ -379,4 +379,17 @@ class OperationService:
             date_from=date_from,
             date_to=date_to,
             company_id=company_id,
+        )
+
+    @classmethod
+    async def save_failed_operation(
+        cls: Type['OperationService'],
+        operation_text: str,
+        creator_id: int,
+        internal_event_id: str,
+    ) -> None:
+        await FailedOperationRepository.create(
+            operation_text=operation_text,
+            creator_id=creator_id,
+            internal_event_id=internal_event_id,
         )

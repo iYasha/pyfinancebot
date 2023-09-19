@@ -1,5 +1,6 @@
 import functools
 import logging
+import uuid
 from typing import Any, Callable, Optional, Union
 
 import sentry_sdk
@@ -8,6 +9,7 @@ from aiogram import types
 from config import Environment, bot, settings
 from database import database
 from modules.companies.services import CompanyService
+from modules.operations.services import OperationService
 from sdk.exceptions.exception_handler_mapping import catch_exception
 
 
@@ -23,13 +25,28 @@ def error_handler_decorator(func: Callable) -> Callable:  # noqa: CCR001
         except Exception as e:
             if settings.ENVIRONMENT == Environment.DEV:
                 logging.exception(e)  # noqa: G200
-            sentry_sdk.capture_exception(e)
+
             if data is None:
                 return
             elif isinstance(data, types.Message):
                 chat_id = data.chat.id
+                message_text = data.text
             else:
                 chat_id = data.message.chat.id
+                message_text = data.message.text
+
+            internal_event_id = uuid.uuid4().hex
+            with sentry_sdk.push_scope() as scope:
+                scope.set_user({"chat_id": chat_id, "username": data.from_user.username})
+                scope.set_tag("internal_event_id", internal_event_id)
+                sentry_sdk.capture_exception(e)
+
+            await OperationService.save_failed_operation(
+                operation_text=message_text,
+                creator_id=chat_id,
+                internal_event_id=internal_event_id,
+            )
+
             await catch_exception(e, chat_id)
 
     return wrapper

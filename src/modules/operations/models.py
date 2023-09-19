@@ -33,3 +33,24 @@ class Operation(
         sa.ForeignKey('companies.id', ondelete='CASCADE'),
         nullable=False,
     )
+
+
+class FailedOperation(
+    IDModelMixin,
+    AuditMixin,
+    Base,
+):
+    """
+    If operation cant be parsed by spacy, it marks as failed operation.
+    Failed operation will be fixed manually and model will be trained with this data.
+    """
+
+    __tablename__ = 'failed_operations'
+
+    operation_text = sa.Column(sa.String, nullable=False)
+    internal_event_id = sa.Column(sa.String, nullable=False)
+    creator_id = sa.Column(
+        sa.Integer,
+        sa.ForeignKey('users.chat_id', ondelete='CASCADE'),
+        nullable=False,
+    )
