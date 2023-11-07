@@ -57,10 +57,10 @@ async def get_today_analytics(data: Union[types.Message, types.CallbackQuery]) -
         days_left = 1
     day_budget = round(saldo / days_left, 2)
     message_text = (
-        f'🟢 Доход: {round_amount(today_stats["income"], 2)}₴\n🔴 Расход: {round_amount(today_stats["expense"], 2)}₴\n'
-        f'💸 Баланс: {round_amount(saldo, 2)}₴\n'
-        f'💰 Дневной бюджет: {round_amount(day_budget, 2)}₴\n\n'
-        f'🟢 Будущий доход {round_amount(future_income, 2)}₴\n🔴 Будущий расход {round_amount(future_expense, 2)}₴\n\n'
+        f'🟢 Доход: {round_amount(today_stats["income"])}₴\n🔴 Расход: {round_amount(today_stats["expense"])}₴\n'
+        f'💸 Баланс: {round_amount(saldo)}₴\n'
+        f'💰 Дневной бюджет: {round_amount(day_budget)}₴\n\n'
+        f'🟢 Будущий доход {round_amount(future_income)}₴\n🔴 Будущий расход {round_amount(future_expense)}₴\n\n'
         f'Операции на завтра:\n'
     )
     markup = utils.get_future_operation_markup(tomorrow_operations, BackScreenType.TODAY)
@@ -108,8 +108,8 @@ async def get_month_analytics(message: types.Message) -> None:
         days_left = 1
     day_budget = round(saldo / days_left, 2)
     await message.answer(
-        f'🟢 Доход: {round_amount(income, 2)}₴\n🔴 Расход: {round_amount(expense, 2)}₴\n'
-        f'💸 Баланс: {round_amount(saldo, 2)}₴\n'
-        f'💰 Дневной бюджет: {round_amount(day_budget, 2)}₴\n\n'
-        f'🟢 Будущий доход {round_amount(future_income, 2)}₴\n🔴 Будущий расход {round_amount(future_expense, 2)}₴',
+        f'🟢 Доход: {round_amount(income)}₴\n🔴 Расход: {round_amount(expense)}₴\n'
+        f'💸 Баланс: {round_amount(saldo)}₴\n'
+        f'💰 Дневной бюджет: {round_amount(day_budget)}₴\n\n'
+        f'🟢 Будущий доход {round_amount(future_income)}₴\n🔴 Будущий расход {round_amount(future_expense)}₴',
     )

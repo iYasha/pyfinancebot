@@ -110,9 +110,9 @@ class Settings(EnvSettings, HardSettings):
 settings = Settings()
 
 bot = Bot(token=settings.BOT_TOKEN)
-nlp: Language
-operation_model: Language
-category_model: Language
+nlp: Language = None
+operation_model: Language = None
+category_model: Language = None
 if os.path.basename(sys.argv[0]) == 'main.py':
     nlp = spacy.load('ru_core_news_md')
     operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
