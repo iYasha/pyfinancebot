@@ -44,3 +44,4 @@ class CompanyUser(Base):
         nullable=False,
         server_default=sa.func.now(),
     )
+    monobank_integration_key = sa.Column(sa.String, nullable=True)

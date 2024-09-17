@@ -13,3 +13,5 @@ class Command(str, Enum):
     TODAY = 'today'
     MONTH = 'month'
     COMPANIES = 'companies'
+    INTEGRATIONS = 'integrations'
+    SET_MONOBANK_TOKEN = 'set_monobank_token'
