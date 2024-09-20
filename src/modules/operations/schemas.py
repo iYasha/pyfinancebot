@@ -22,6 +22,9 @@ class OperationBase(BaseSchema):
     repeat_days: Optional[Union[List[Union[int, str]], str]] = None
     is_regular_operation: bool = False
 
+    # monobank integration
+    monobank_account_id: Optional[str] = None
+
     @validator('repeat_days', always=True, pre=True)
     def repeat_days_must_be_list(
         cls: Type['Operation'],  # noqa: N805

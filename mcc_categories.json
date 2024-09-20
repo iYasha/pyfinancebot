@@ -1,0 +1,4354 @@
+{
+  "0742": {
+    "short_description": "Ветеринарные услуги",
+    "category": "pet"
+  },
+  "0743": {
+    "short_description": "Производители вина",
+    "category": "bad_habits"
+  },
+  "0744": {
+    "short_description": "Производители шампанского",
+    "category": "food"
+  },
+  "0763": {
+    "short_description": "Сельскохозяйственные кооперативы",
+    "category": "other"
+  },
+  "0780": {
+    "short_description": "Садоводство. Ландшафтный дизайн",
+    "category": "house"
+  },
+  "1520": {
+    "short_description": "Строительство. Подрядчики",
+    "category": "renovation"
+  },
+  "1711": {
+    "short_description": "Кондиционеры. Установка",
+    "category": "renovation"
+  },
+  "1731": {
+    "short_description": "Электрики",
+    "category": "renovation"
+  },
+  "1740": {
+    "short_description": "Строители. Облицовка",
+    "category": "renovation"
+  },
+  "1750": {
+    "short_description": "Столярные работы",
+    "category": "renovation"
+  },
+  "1761": {
+    "short_description": "Строители. Облицовка",
+    "category": "renovation"
+  },
+  "1771": {
+    "short_description": "Строительство. Бетон",
+    "category": "renovation"
+  },
+  "1799": {
+    "short_description": "Специализированные подрядчики",
+    "category": "renovation"
+  },
+  "2741": {
+    "short_description": "Печатное дело",
+    "category": "personal"
+  },
+  "2744": {
+    "short_description": "Печатное дело",
+    "category": "personal"
+  },
+  "2791": {
+    "short_description": "Набор текстов и печать",
+    "category": "other"
+  },
+  "2842": {
+    "short_description": "Специализированная уборка",
+    "category": "house"
+  },
+  "3000": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3001": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3002": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3003": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3004": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3005": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3006": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3007": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3008": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3009": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3010": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3011": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3012": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3013": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3014": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3015": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3016": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3017": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3018": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3019": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3020": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3021": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3022": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3023": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3024": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3025": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3026": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3027": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3028": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3029": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3030": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3031": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3032": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3033": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3034": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3035": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3036": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3037": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3038": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3039": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3040": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3041": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3042": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3043": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3044": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3045": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3046": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3047": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3048": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3049": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3050": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3051": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3052": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3053": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3054": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3055": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3056": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3057": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3058": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3059": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3060": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3061": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3062": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3063": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3064": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3065": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3066": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3067": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3068": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3069": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3070": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3071": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3072": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3073": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3074": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3075": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3076": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3077": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3078": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3079": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3080": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3081": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3082": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3083": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3084": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3085": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3086": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3087": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3088": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3089": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3090": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3091": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3092": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3093": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3094": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3095": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3096": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3097": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3098": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3099": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3100": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3101": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3102": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3103": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3104": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3105": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3106": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3107": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3108": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3109": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3110": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3111": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3112": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3113": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3114": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3115": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3116": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3117": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3118": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3119": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3120": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3121": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3122": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3123": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3124": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3125": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3126": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3127": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3128": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3129": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3130": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3131": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3132": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3133": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3134": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3135": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3136": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3137": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3138": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3139": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3140": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3141": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3142": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3143": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3144": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3145": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3146": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3147": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3148": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3149": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3150": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3151": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3152": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3153": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3154": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3155": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3156": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3157": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3158": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3159": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3160": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3161": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3162": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3163": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3164": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3165": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3166": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3167": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3168": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3169": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3170": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3171": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3172": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3173": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3174": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3175": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3176": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3177": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3178": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3179": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3180": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3181": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3182": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3183": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3184": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3185": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3186": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3187": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3188": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3189": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3190": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3191": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3192": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3193": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3194": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3195": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3196": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3197": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3198": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3199": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3200": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3201": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3202": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3203": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3204": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3205": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3206": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3207": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3208": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3209": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3210": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3211": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3212": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3213": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3214": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3215": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3216": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3217": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3218": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3219": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3220": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3221": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3222": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3223": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3224": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3225": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3226": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3227": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3228": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3229": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3230": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3231": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3232": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3233": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3234": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3235": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3236": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3237": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3238": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3239": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3240": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3241": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3242": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3243": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3244": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3245": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3246": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3247": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3248": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3249": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3250": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3251": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3252": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3253": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3254": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3255": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3256": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3257": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3258": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3259": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3260": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3261": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3262": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3263": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3264": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3265": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3266": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3267": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3268": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3269": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3270": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3271": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3272": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3273": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3274": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3275": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3276": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3277": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3278": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3279": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3280": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3281": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3282": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3283": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3284": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3285": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3286": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3287": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3288": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3289": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3290": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3291": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3292": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3293": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3294": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3295": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3296": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3297": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3298": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3299": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3300": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3301": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3302": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "3351": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3352": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3353": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3354": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3355": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3356": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3357": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3358": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3359": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3360": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3361": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3362": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3363": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3364": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3365": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3366": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3367": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3368": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3369": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3370": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3371": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3372": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3373": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3374": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3375": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3376": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3377": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3378": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3379": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3380": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3381": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3382": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3383": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3384": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3385": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3386": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3387": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3388": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3389": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3390": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3391": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3392": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3393": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3394": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3395": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3396": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3397": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3398": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3399": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3400": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3401": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3402": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3403": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3404": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3405": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3406": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3407": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3408": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3409": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3410": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3411": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3412": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3413": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3414": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3415": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3416": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3417": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3418": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3419": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3420": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3421": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3422": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3423": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3424": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3425": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3426": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3427": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3428": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3429": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3430": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3431": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3432": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3433": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3434": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3435": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3436": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3437": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3438": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3439": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3440": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3441": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "3501": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3502": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3503": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3504": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3505": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3506": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3507": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3508": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3509": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3510": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3511": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3512": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3513": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3514": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3515": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3516": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3517": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3518": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3519": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3520": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3521": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3522": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3523": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3524": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3525": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3526": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3527": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3528": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3529": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3530": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3531": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3532": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3533": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3534": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3535": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3536": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3537": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3538": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3539": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3540": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3541": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3542": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3543": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3544": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3545": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3546": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3547": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3548": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3549": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3550": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3551": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3552": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3553": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3554": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3555": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3556": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3557": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3558": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3559": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3560": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3561": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3562": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3563": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3564": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3565": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3566": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3567": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3568": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3569": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3570": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3571": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3572": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3573": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3574": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3575": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3576": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3577": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3578": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3579": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3580": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3581": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3582": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3583": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3584": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3585": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3586": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3587": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3588": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3589": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3590": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3591": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3592": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3593": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3594": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3595": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3596": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3597": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3598": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3599": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3600": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3601": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3602": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3603": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3604": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3605": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3606": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3607": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3608": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3609": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3610": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3611": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3612": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3613": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3614": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3615": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3616": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3617": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3618": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3619": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3620": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3621": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3622": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3623": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3624": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3625": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3626": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3627": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3628": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3629": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3630": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3631": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3632": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3633": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3634": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3635": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3636": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3637": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3638": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3639": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3640": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3641": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3642": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3643": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3644": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3645": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3646": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3647": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3648": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3649": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3650": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3651": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3652": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3653": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3654": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3655": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3656": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3657": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3658": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3659": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3660": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3661": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3662": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3663": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3664": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3665": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3666": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3667": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3668": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3669": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3670": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3671": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3672": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3673": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3674": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3675": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3676": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3677": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3678": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3679": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3680": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3681": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3682": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3683": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3684": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3685": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3686": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3687": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3688": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3689": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3690": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3691": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3692": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3693": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3694": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3695": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3696": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3697": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3698": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3699": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3700": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3701": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3702": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3703": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3704": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3705": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3706": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3707": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3708": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3709": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3710": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3711": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3712": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3713": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3714": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3715": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3716": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3717": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3718": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3719": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3720": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3721": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3722": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3723": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3724": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3725": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3726": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3727": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3728": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3729": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3730": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3731": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3732": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3733": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3734": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3735": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3736": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3737": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3738": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3739": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3740": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3741": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3742": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3743": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3744": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3745": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3746": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3747": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3748": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3749": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3750": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3751": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3752": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3753": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3754": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3755": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3756": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3757": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3758": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3759": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3760": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3761": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3762": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3763": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3764": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3765": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3766": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3767": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3768": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3769": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3770": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3771": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3772": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3773": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3774": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3775": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3776": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3777": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3778": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3779": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3780": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3781": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3782": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3783": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3784": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3785": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3786": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3787": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3788": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3789": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3790": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3791": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3792": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3793": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3794": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3795": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3796": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3797": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3798": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3799": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3800": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3801": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3802": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3803": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3804": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3805": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3806": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3807": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3808": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3809": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3810": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3811": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3812": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3813": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3814": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3815": {
+    "short_description": "Отель \"The Palace\"",
+    "category": "entertainment"
+  },
+  "3816": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3817": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3818": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3819": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3820": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3821": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3822": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3823": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3824": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3825": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3826": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3827": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3828": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3829": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3830": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3831": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3832": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3833": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3834": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3835": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3836": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3837": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3838": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "3882": {
+    "short_description": "Обналичивание",
+    "category": "other"
+  },
+  "4011": {
+    "short_description": "Железные дороги",
+    "category": "vehicle"
+  },
+  "4111": {
+    "short_description": "Пассажирские перевозки",
+    "category": "vehicle"
+  },
+  "4112": {
+    "short_description": "Пассажирские железнодорожные перевозки",
+    "category": "vehicle"
+  },
+  "4119": {
+    "short_description": "Скорая помощь",
+    "category": "health"
+  },
+  "4121": {
+    "short_description": "Такси",
+    "category": "vehicle"
+  },
+  "4131": {
+    "short_description": "Перевозки. Автобус",
+    "category": "vehicle"
+  },
+  "4214": {
+    "short_description": "Транспортировка. Доставка",
+    "category": "vehicle"
+  },
+  "4215": {
+    "short_description": "Курьерская служба",
+    "category": "personal"
+  },
+  "4225": {
+    "short_description": "Хранилище",
+    "category": "house"
+  },
+  "4304": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "4411": {
+    "short_description": "Круизные линии",
+    "category": "entertainment"
+  },
+  "4457": {
+    "short_description": "Аренда суден",
+    "category": "entertainment"
+  },
+  "4468": {
+    "short_description": "Яхтинговый сервис",
+    "category": "entertainment"
+  },
+  "4511": {
+    "short_description": "Авиалинии",
+    "category": "vehicle"
+  },
+  "4582": {
+    "short_description": "Аэропорты",
+    "category": "vehicle"
+  },
+  "4722": {
+    "short_description": "Туризм",
+    "category": "entertainment"
+  },
+  "4723": {
+    "short_description": "Туроператоры",
+    "category": "entertainment"
+  },
+  "4729": {
+    "short_description": "Транспортные услуги",
+    "category": "vehicle"
+  },
+  "4761": {
+    "short_description": "Телемаркетинг",
+    "category": "other"
+  },
+  "4784": {
+    "short_description": "Платные дороги",
+    "category": "vehicle"
+  },
+  "4785": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "4789": {
+    "short_description": "Железные дороги",
+    "category": "vehicle"
+  },
+  "4812": {
+    "short_description": "Телекоммуникационное оборудование",
+    "category": "other"
+  },
+  "4813": {
+    "short_description": "Торговые точки с телефонией",
+    "category": "other"
+  },
+  "4814": {
+    "short_description": "Мобильная связь",
+    "category": "subscriptions"
+  },
+  "4815": {
+    "short_description": "Телефонные услуги",
+    "category": "subscriptions"
+  },
+  "4816": {
+    "short_description": "Информационные услуги",
+    "category": "subscriptions"
+  },
+  "4821": {
+    "short_description": "Телеграф",
+    "category": "other"
+  },
+  "4829": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "4899": {
+    "short_description": "Телевидение",
+    "category": "subscriptions"
+  },
+  "4900": {
+    "short_description": "Коммунальные услуги",
+    "category": "house"
+  },
+  "5013": {
+    "short_description": "Автозапчасти",
+    "category": "vehicle"
+  },
+  "5021": {
+    "short_description": "Мебель",
+    "category": "house"
+  },
+  "5039": {
+    "short_description": "Стройматериалы",
+    "category": "renovation"
+  },
+  "5044": {
+    "short_description": "Офисное оборудование",
+    "category": "house"
+  },
+  "5045": {
+    "short_description": "Компьютеры и программное обеспечение",
+    "category": "subscriptions"
+  },
+  "5046": {
+    "short_description": "Оборудование",
+    "category": "house"
+  },
+  "5047": {
+    "short_description": "Медицинское оборудование",
+    "category": "health"
+  },
+  "5051": {
+    "short_description": "Обработка металла",
+    "category": "other"
+  },
+  "5065": {
+    "short_description": "Электроника",
+    "category": "house"
+  },
+  "5072": {
+    "short_description": "Аппаратура",
+    "category": "house"
+  },
+  "5074": {
+    "short_description": "Сантехника",
+    "category": "renovation"
+  },
+  "5085": {
+    "short_description": "Промышленность",
+    "category": "other"
+  },
+  "5094": {
+    "short_description": "Драгоценности",
+    "category": "house"
+  },
+  "5099": {
+    "short_description": "Товары",
+    "category": "other"
+  },
+  "5111": {
+    "short_description": "Канцелярия",
+    "category": "personal"
+  },
+  "5122": {
+    "short_description": "Лекарства",
+    "category": "health"
+  },
+  "5131": {
+    "short_description": "Галантерея",
+    "category": "personal"
+  },
+  "5137": {
+    "short_description": "Одежда",
+    "category": "personal"
+  },
+  "5139": {
+    "short_description": "Обувь",
+    "category": "house"
+  },
+  "5169": {
+    "short_description": "Химия",
+    "category": "house"
+  },
+  "5172": {
+    "short_description": "Бензин",
+    "category": "vehicle"
+  },
+  "5192": {
+    "short_description": "Книги. Пресса",
+    "category": "personal"
+  },
+  "5193": {
+    "short_description": "Цветы",
+    "category": "house"
+  },
+  "5198": {
+    "short_description": "Краски",
+    "category": "renovation"
+  },
+  "5199": {
+    "short_description": "Товары",
+    "category": "other"
+  },
+  "5200": {
+    "short_description": "Товары для дома",
+    "category": "house"
+  },
+  "5211": {
+    "short_description": "Стройматериалы",
+    "category": "renovation"
+  },
+  "5231": {
+    "short_description": "Ремонт",
+    "category": "renovation"
+  },
+  "5251": {
+    "short_description": "Хозяйственные товары",
+    "category": "house"
+  },
+  "5261": {
+    "short_description": "Садовые принадлежности",
+    "category": "house"
+  },
+  "5262": {
+    "short_description": "Маркетплейсы",
+    "category": "other"
+  },
+  "5271": {
+    "short_description": "Дома на колёсах",
+    "category": "vehicle"
+  },
+  "5292": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "5295": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "5297": {
+    "short_description": "Розничные магазины",
+    "category": "personal"
+  },
+  "5298": {
+    "short_description": "Розничные магазины",
+    "category": "personal"
+  },
+  "5299": {
+    "short_description": "Продажа газа",
+    "category": "house"
+  },
+  "5300": {
+    "short_description": "Оптовики",
+    "category": "other"
+  },
+  "5309": {
+    "short_description": "Duty Free",
+    "category": "house"
+  },
+  "5310": {
+    "short_description": "Дискаунтеры",
+    "category": "shopping"
+  },
+  "5311": {
+    "short_description": "Универмаги",
+    "category": "personal"
+  },
+  "5331": {
+    "short_description": "Универсальные магазины",
+    "category": "house"
+  },
+  "5399": {
+    "short_description": "Универсальные магазины",
+    "category": "house"
+  },
+  "5411": {
+    "short_description": "Продукты",
+    "category": "food"
+  },
+  "5415": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "5422": {
+    "short_description": "Мясо",
+    "category": "food"
+  },
+  "5441": {
+    "short_description": "Сладости",
+    "category": "food"
+  },
+  "5451": {
+    "short_description": "Фермерские товары",
+    "category": "food"
+  },
+  "5462": {
+    "short_description": "Пекарни",
+    "category": "food"
+  },
+  "5499": {
+    "short_description": "Продукты",
+    "category": "food"
+  },
+  "5511": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5521": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5531": {
+    "short_description": "Автозапчасти",
+    "category": "vehicle"
+  },
+  "5532": {
+    "short_description": "Шины",
+    "category": "vehicle"
+  },
+  "5533": {
+    "short_description": "Автомагазины",
+    "category": "vehicle"
+  },
+  "5541": {
+    "short_description": "СТО",
+    "category": "vehicle"
+  },
+  "5542": {
+    "short_description": "АЗС",
+    "category": "vehicle"
+  },
+  "5551": {
+    "short_description": "Лодки",
+    "category": "entertainment"
+  },
+  "5552": {
+    "short_description": "Зарядка электромобилей",
+    "category": "vehicle"
+  },
+  "5561": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5571": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5592": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5598": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5599": {
+    "short_description": "Автосалоны",
+    "category": "vehicle"
+  },
+  "5611": {
+    "short_description": "Мужская одежда",
+    "category": "house"
+  },
+  "5621": {
+    "short_description": "Женская одежда",
+    "category": "house"
+  },
+  "5631": {
+    "short_description": "Женская одежда",
+    "category": "house"
+  },
+  "5641": {
+    "short_description": "Детская одежда",
+    "category": "house"
+  },
+  "5651": {
+    "short_description": "Одежда",
+    "category": "personal"
+  },
+  "5655": {
+    "short_description": "Спортивная одежда",
+    "category": "personal"
+  },
+  "5661": {
+    "short_description": "Обувь",
+    "category": "house"
+  },
+  "5681": {
+    "short_description": "Мех",
+    "category": "house"
+  },
+  "5691": {
+    "short_description": "Одежда",
+    "category": "personal"
+  },
+  "5697": {
+    "short_description": "Ателье",
+    "category": "house"
+  },
+  "5698": {
+    "short_description": "Парики",
+    "category": "personal"
+  },
+  "5699": {
+    "short_description": "Аксессуары",
+    "category": "personal"
+  },
+  "5712": {
+    "short_description": "Фурнитура",
+    "category": "house"
+  },
+  "5713": {
+    "short_description": "Покрытия для пола",
+    "category": "house"
+  },
+  "5714": {
+    "short_description": "Шторы. Занавески",
+    "category": "house"
+  },
+  "5715": {
+    "short_description": "Спиртные напитки",
+    "category": "bad_habits"
+  },
+  "5718": {
+    "short_description": "Камины",
+    "category": "house"
+  },
+  "5719": {
+    "short_description": "Фурнитура",
+    "category": "house"
+  },
+  "5722": {
+    "short_description": "Бытовая техника",
+    "category": "house"
+  },
+  "5732": {
+    "short_description": "Бытовая техника",
+    "category": "house"
+  },
+  "5733": {
+    "short_description": "Музыкальные инструменты",
+    "category": "entertainment"
+  },
+  "5734": {
+    "short_description": "Компьютерное ПО",
+    "category": "personal"
+  },
+  "5735": {
+    "short_description": "Магазины звукозаписи",
+    "category": "entertainment"
+  },
+  "5811": {
+    "short_description": "Доставка еды",
+    "category": "food"
+  },
+  "5812": {
+    "short_description": "Кафе. Рестораны",
+    "category": "food"
+  },
+  "5813": {
+    "short_description": "Бары",
+    "category": "food"
+  },
+  "5814": {
+    "short_description": "Фастфуд",
+    "category": "food"
+  },
+  "5815": {
+    "short_description": "Цифровые товары",
+    "category": "subscriptions"
+  },
+  "5816": {
+    "short_description": "Игры",
+    "category": "entertainment"
+  },
+  "5817": {
+    "short_description": "Программное обеспечение",
+    "category": "subscriptions"
+  },
+  "5818": {
+    "short_description": "Цифровые товары",
+    "category": "subscriptions"
+  },
+  "5832": {
+    "short_description": "Антиквариат",
+    "category": "house"
+  },
+  "5912": {
+    "short_description": "Аптеки",
+    "category": "health"
+  },
+  "5921": {
+    "short_description": "Спиртные напитки",
+    "category": "bad_habits"
+  },
+  "5931": {
+    "short_description": "Секонд-хенд",
+    "category": "personal"
+  },
+  "5932": {
+    "short_description": "Антиквариат",
+    "category": "house"
+  },
+  "5933": {
+    "short_description": "Ломбарды",
+    "category": "personal"
+  },
+  "5935": {
+    "short_description": "Автосвалка",
+    "category": "vehicle"
+  },
+  "5937": {
+    "short_description": "Магазины репродукций",
+    "category": "entertainment"
+  },
+  "5940": {
+    "short_description": "Велосипеды",
+    "category": "vehicle"
+  },
+  "5941": {
+    "short_description": "Товары для спорта",
+    "category": "entertainment"
+  },
+  "5942": {
+    "short_description": "Книжные магазины",
+    "category": "house"
+  },
+  "5943": {
+    "short_description": "Канцтовары",
+    "category": "house"
+  },
+  "5944": {
+    "short_description": "Часы",
+    "category": "house"
+  },
+  "5945": {
+    "short_description": "Игрушки",
+    "category": "house"
+  },
+  "5946": {
+    "short_description": "Фототовары",
+    "category": "personal"
+  },
+  "5947": {
+    "short_description": "Сувениры",
+    "category": "personal"
+  },
+  "5948": {
+    "short_description": "Кожаные изделия",
+    "category": "personal"
+  },
+  "5949": {
+    "short_description": "Товары для шитья",
+    "category": "house"
+  },
+  "5950": {
+    "short_description": "Хрусталь / посуда",
+    "category": "house"
+  },
+  "5960": {
+    "short_description": "Стахование",
+    "category": "other"
+  },
+  "5961": {
+    "short_description": "Товары почтой",
+    "category": "house"
+  },
+  "5962": {
+    "short_description": "Путешествия",
+    "category": "entertainment"
+  },
+  "5963": {
+    "short_description": "Коммивояжеры",
+    "category": "other"
+  },
+  "5964": {
+    "short_description": "Товары почтой",
+    "category": "house"
+  },
+  "5965": {
+    "short_description": "Товары почтой",
+    "category": "house"
+  },
+  "5966": {
+    "short_description": "Товары почтой",
+    "category": "house"
+  },
+  "5967": {
+    "short_description": "Информационные услуги",
+    "category": "subscriptions"
+  },
+  "5968": {
+    "short_description": "Подписки",
+    "category": "subscriptions"
+  },
+  "5969": {
+    "short_description": "Товары почтой",
+    "category": "house"
+  },
+  "5970": {
+    "short_description": "Художественные товары",
+    "category": "house"
+  },
+  "5971": {
+    "short_description": "Галереи",
+    "category": "entertainment"
+  },
+  "5972": {
+    "short_description": "Филателизм",
+    "category": "personal"
+  },
+  "5973": {
+    "short_description": "Церковные лавки",
+    "category": "other"
+  },
+  "5974": {
+    "short_description": "Штампи",
+    "category": "other"
+  },
+  "5975": {
+    "short_description": "Слуховые аппараты",
+    "category": "health"
+  },
+  "5976": {
+    "short_description": "Протезы",
+    "category": "health"
+  },
+  "5977": {
+    "short_description": "Косметика",
+    "category": "personal"
+  },
+  "5978": {
+    "short_description": "Печатные машины",
+    "category": "house"
+  },
+  "5983": {
+    "short_description": "Топливо",
+    "category": "vehicle"
+  },
+  "5992": {
+    "short_description": "Флористика",
+    "category": "house"
+  },
+  "5993": {
+    "short_description": "Табачные изделия",
+    "category": "bad_habits"
+  },
+  "5994": {
+    "short_description": "Газеты. Журналы",
+    "category": "subscriptions"
+  },
+  "5995": {
+    "short_description": "Зоотовары",
+    "category": "pet"
+  },
+  "5996": {
+    "short_description": "Бассейны",
+    "category": "entertainment"
+  },
+  "5997": {
+    "short_description": "Бритвы",
+    "category": "personal"
+  },
+  "5998": {
+    "short_description": "Тенты",
+    "category": "house"
+  },
+  "5999": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "6010": {
+    "short_description": "Кассы",
+    "category": "other"
+  },
+  "6011": {
+    "short_description": "Кассы",
+    "category": "other"
+  },
+  "6012": {
+    "short_description": "Финансовые услуги",
+    "category": "personal"
+  },
+  "6022": {
+    "short_description": "Банки",
+    "category": "personal"
+  },
+  "6023": {
+    "short_description": "Банки",
+    "category": "personal"
+  },
+  "6025": {
+    "short_description": "Банки",
+    "category": "personal"
+  },
+  "6026": {
+    "short_description": "Банки",
+    "category": "personal"
+  },
+  "6028": {
+    "short_description": "Банки",
+    "category": "personal"
+  },
+  "6050": {
+    "short_description": "Квази-кэш",
+    "category": "other"
+  },
+  "6051": {
+    "short_description": "Квази-кэш",
+    "category": "other"
+  },
+  "6211": {
+    "short_description": "Ценные бумаги",
+    "category": "personal"
+  },
+  "6236": {
+    "short_description": "Ценные бумаги",
+    "category": "personal"
+  },
+  "6300": {
+    "short_description": "Страхование",
+    "category": "other"
+  },
+  "6381": {
+    "short_description": "Страхование",
+    "category": "other"
+  },
+  "6399": {
+    "short_description": "Страхование",
+    "category": "other"
+  },
+  "6513": {
+    "short_description": "Аренда недвижимости",
+    "category": "house"
+  },
+  "6529": {
+    "short_description": "Пополнение карты",
+    "category": "other"
+  },
+  "6530": {
+    "short_description": "Пополнение карты",
+    "category": "other"
+  },
+  "6531": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6532": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6533": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6534": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6535": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6536": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6537": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6538": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6539": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6540": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6611": {
+    "short_description": "Перевод средств",
+    "category": "other"
+  },
+  "6760": {
+    "short_description": "Облигации",
+    "category": "personal"
+  },
+  "7011": {
+    "short_description": "Отели и курорты",
+    "category": "entertainment"
+  },
+  "7012": {
+    "short_description": "Тайм-шеры",
+    "category": "house"
+  },
+  "7032": {
+    "short_description": "Рекреация",
+    "category": "entertainment"
+  },
+  "7033": {
+    "short_description": "Кемпинг",
+    "category": "entertainment"
+  },
+  "7210": {
+    "short_description": "Стирка и уборка",
+    "category": "house"
+  },
+  "7211": {
+    "short_description": "Стирка",
+    "category": "house"
+  },
+  "7216": {
+    "short_description": "Химчистка",
+    "category": "personal"
+  },
+  "7217": {
+    "short_description": "Чистка",
+    "category": "house"
+  },
+  "7221": {
+    "short_description": "Фотостудия",
+    "category": "entertainment"
+  },
+  "7230": {
+    "short_description": "Красота",
+    "category": "health"
+  },
+  "7251": {
+    "short_description": "Ремонт одежды",
+    "category": "personal"
+  },
+  "7261": {
+    "short_description": "Ритуальные услуги",
+    "category": "other"
+  },
+  "7272": {
+    "short_description": "Эскорт",
+    "category": "bad_habits"
+  },
+  "7273": {
+    "short_description": "Знакомства. Эскорт",
+    "category": "bad_habits"
+  },
+  "7276": {
+    "short_description": "Налоги",
+    "category": "personal"
+  },
+  "7277": {
+    "short_description": "Консультация",
+    "category": "personal"
+  },
+  "7278": {
+    "short_description": "Покупки",
+    "category": "house"
+  },
+  "7280": {
+    "short_description": "Больницы",
+    "category": "health"
+  },
+  "7295": {
+    "short_description": "Няни",
+    "category": "personal"
+  },
+  "7296": {
+    "short_description": "Прокат одежды",
+    "category": "house"
+  },
+  "7297": {
+    "short_description": "Маcсаж",
+    "category": "health"
+  },
+  "7298": {
+    "short_description": "Здоровье и красота",
+    "category": "health"
+  },
+  "7299": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "7311": {
+    "short_description": "Реклама",
+    "category": "personal"
+  },
+  "7321": {
+    "short_description": "БКИ",
+    "category": "other"
+  },
+  "7322": {
+    "short_description": "Коллекторы",
+    "category": "other"
+  },
+  "7332": {
+    "short_description": "Копи-центры",
+    "category": "house"
+  },
+  "7333": {
+    "short_description": "Фотография и искусство",
+    "category": "entertainment"
+  },
+  "7338": {
+    "short_description": "Копи-центры",
+    "category": "house"
+  },
+  "7339": {
+    "short_description": "Стенография",
+    "category": "other"
+  },
+  "7342": {
+    "short_description": "Дезинфекция",
+    "category": "house"
+  },
+  "7349": {
+    "short_description": "Чистка и обслуживание",
+    "category": "house"
+  },
+  "7361": {
+    "short_description": "Трудоустройство",
+    "category": "personal"
+  },
+  "7372": {
+    "short_description": "Программирование",
+    "category": "other"
+  },
+  "7375": {
+    "short_description": "Информационные услуги",
+    "category": "subscriptions"
+  },
+  "7379": {
+    "short_description": "Ремонт компьютеров",
+    "category": "house"
+  },
+  "7389": {
+    "short_description": "Бизнес услуги",
+    "category": "other"
+  },
+  "7392": {
+    "short_description": "Консультации, PR",
+    "category": "personal"
+  },
+  "7393": {
+    "short_description": "Детективные агентства",
+    "category": "other"
+  },
+  "7394": {
+    "short_description": "Аренда снаряжения",
+    "category": "entertainment"
+  },
+  "7395": {
+    "short_description": "Фотопечать",
+    "category": "personal"
+  },
+  "7399": {
+    "short_description": "Бизнес услуги",
+    "category": "other"
+  },
+  "7511": {
+    "short_description": "Парковка",
+    "category": "vehicle"
+  },
+  "7512": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "7513": {
+    "short_description": "Аренда грузовиков",
+    "category": "vehicle"
+  },
+  "7519": {
+    "short_description": "Аренда автомобилей",
+    "category": "vehicle"
+  },
+  "7523": {
+    "short_description": "Парковка",
+    "category": "vehicle"
+  },
+  "7524": {
+    "short_description": "Парковка",
+    "category": "vehicle"
+  },
+  "7531": {
+    "short_description": "Ремонт авто",
+    "category": "vehicle"
+  },
+  "7534": {
+    "short_description": "Шиномонтаж",
+    "category": "vehicle"
+  },
+  "7535": {
+    "short_description": "Автомобильные краски",
+    "category": "vehicle"
+  },
+  "7538": {
+    "short_description": "СТО",
+    "category": "vehicle"
+  },
+  "7542": {
+    "short_description": "Автомойки",
+    "category": "vehicle"
+  },
+  "7549": {
+    "short_description": "Эвакуатор",
+    "category": "vehicle"
+  },
+  "7622": {
+    "short_description": "Ремонт техники",
+    "category": "house"
+  },
+  "7623": {
+    "short_description": "Ремонт климатической техники",
+    "category": "house"
+  },
+  "7629": {
+    "short_description": "Ремонт техники",
+    "category": "house"
+  },
+  "7631": {
+    "short_description": "Ремонт часов и ювелирных изделий",
+    "category": "personal"
+  },
+  "7641": {
+    "short_description": "Ремонт мебели",
+    "category": "house"
+  },
+  "7692": {
+    "short_description": "Сварочные работы",
+    "category": "renovation"
+  },
+  "7699": {
+    "short_description": "Ремонт",
+    "category": "renovation"
+  },
+  "7800": {
+    "short_description": "Государственная лотерея",
+    "category": "bad_habits"
+  },
+  "7801": {
+    "short_description": "Онлайн-казино",
+    "category": "bad_habits"
+  },
+  "7802": {
+    "short_description": "Скачки",
+    "category": "bad_habits"
+  },
+  "7829": {
+    "short_description": "Прокат видео",
+    "category": "entertainment"
+  },
+  "7832": {
+    "short_description": "Кинотеатры",
+    "category": "entertainment"
+  },
+  "7833": {
+    "short_description": "Кинотеатры",
+    "category": "entertainment"
+  },
+  "7841": {
+    "short_description": "Прокат видео",
+    "category": "entertainment"
+  },
+  "7911": {
+    "short_description": "Танцевальные студии. Школы танцев",
+    "category": "entertainment"
+  },
+  "7922": {
+    "short_description": "Билеты",
+    "category": "entertainment"
+  },
+  "7929": {
+    "short_description": "Музыкальные группы. Оркестры",
+    "category": "entertainment"
+  },
+  "7932": {
+    "short_description": "Бильярд",
+    "category": "entertainment"
+  },
+  "7933": {
+    "short_description": "Боулинг-клубы",
+    "category": "entertainment"
+  },
+  "7941": {
+    "short_description": "Спортклубы",
+    "category": "entertainment"
+  },
+  "7991": {
+    "short_description": "Туризм",
+    "category": "entertainment"
+  },
+  "7992": {
+    "short_description": "Гольф",
+    "category": "entertainment"
+  },
+  "7993": {
+    "short_description": "Видеоигры",
+    "category": "entertainment"
+  },
+  "7994": {
+    "short_description": "Видеоигры",
+    "category": "entertainment"
+  },
+  "7995": {
+    "short_description": "Азартные игры",
+    "category": "bad_habits"
+  },
+  "7996": {
+    "short_description": "Развлечения",
+    "category": "entertainment"
+  },
+  "7997": {
+    "short_description": "Развлечения и спорт",
+    "category": "entertainment"
+  },
+  "7998": {
+    "short_description": "Аквариумы. Дельфинарии",
+    "category": "entertainment"
+  },
+  "7999": {
+    "short_description": "Развлечения и спорт",
+    "category": "entertainment"
+  },
+  "8011": {
+    "short_description": "Медицина",
+    "category": "health"
+  },
+  "8021": {
+    "short_description": "Стоматология",
+    "category": "health"
+  },
+  "8031": {
+    "short_description": "Медицина",
+    "category": "health"
+  },
+  "8041": {
+    "short_description": "Хиропрактики",
+    "category": "health"
+  },
+  "8042": {
+    "short_description": "Оптика",
+    "category": "health"
+  },
+  "8043": {
+    "short_description": "Оптика",
+    "category": "health"
+  },
+  "8044": {
+    "short_description": "Оптика",
+    "category": "health"
+  },
+  "8049": {
+    "short_description": "Ортопеды",
+    "category": "health"
+  },
+  "8050": {
+    "short_description": "Сиделки",
+    "category": "health"
+  },
+  "8062": {
+    "short_description": "Больницы",
+    "category": "health"
+  },
+  "8071": {
+    "short_description": "Медицина и стоматология",
+    "category": "health"
+  },
+  "8099": {
+    "short_description": "Медицинские услуги",
+    "category": "health"
+  },
+  "8110": {
+    "short_description": "Юристы. Адвокаты",
+    "category": "other"
+  },
+  "8111": {
+    "short_description": "Юристы. Адвокаты",
+    "category": "other"
+  },
+  "8211": {
+    "short_description": "Школа",
+    "category": "education"
+  },
+  "8220": {
+    "short_description": "Образование. Университет",
+    "category": "education"
+  },
+  "8241": {
+    "short_description": "Дистанционное образование",
+    "category": "education"
+  },
+  "8244": {
+    "short_description": "Образование. Бизнес",
+    "category": "education"
+  },
+  "8249": {
+    "short_description": "Образование",
+    "category": "education"
+  },
+  "8299": {
+    "short_description": "Образование",
+    "category": "education"
+  },
+  "8351": {
+    "short_description": "Детский сад",
+    "category": "education"
+  },
+  "8398": {
+    "short_description": "Благотворительность",
+    "category": "other"
+  },
+  "8641": {
+    "short_description": "Общественные организации",
+    "category": "other"
+  },
+  "8651": {
+    "short_description": "Политические организации",
+    "category": "other"
+  },
+  "8661": {
+    "short_description": "Религиозные организации",
+    "category": "other"
+  },
+  "8664": {
+    "short_description": "Разное",
+    "category": "other"
+  },
+  "8675": {
+    "short_description": "Автоклуб",
+    "category": "vehicle"
+  },
+  "8699": {
+    "short_description": "Членские организации",
+    "category": "subscriptions"
+  },
+  "8734": {
+    "short_description": "Испытательные лаборатории",
+    "category": "other"
+  },
+  "8743": {
+    "short_description": "Испытательные лаборатории",
+    "category": "other"
+  },
+  "8911": {
+    "short_description": "Архитекторы",
+    "category": "house"
+  },
+  "8931": {
+    "short_description": "Бухгалтерия. Аудит",
+    "category": "personal"
+  },
+  "8999": {
+    "short_description": "Профессиональные услуги",
+    "category": "personal"
+  },
+  "9034": {
+    "short_description": "I-Purchasing Pilot",
+    "category": "other"
+  },
+  "9211": {
+    "short_description": "Суд",
+    "category": "other"
+  },
+  "9222": {
+    "short_description": "Штрафы",
+    "category": "other"
+  },
+  "9223": {
+    "short_description": "Выплаты. Облигации",
+    "category": "personal"
+  },
+  "9311": {
+    "short_description": "Налоги",
+    "category": "personal"
+  },
+  "9399": {
+    "short_description": "Государственные услуги",
+    "category": "other"
+  },
+  "9401": {
+    "short_description": "I-Purchasing Pilot",
+    "category": "other"
+  },
+  "9402": {
+    "short_description": "Почта",
+    "category": "other"
+  },
+  "9405": {
+    "short_description": "Правительственные закупки",
+    "category": "other"
+  },
+  "9406": {
+    "short_description": "Государственная лотерея",
+    "category": "bad_habits"
+  },
+  "9411": {
+    "short_description": "Государственные услуги",
+    "category": "other"
+  },
+  "9700": {
+    "short_description": "Кэшбек",
+    "category": "personal"
+  },
+  "9701": {
+    "short_description": "VISA",
+    "category": "personal"
+  },
+  "9702": {
+    "short_description": "Аварийные службы",
+    "category": "other"
+  },
+  "9751": {
+    "short_description": "Документооборот",
+    "category": "other"
+  },
+  "9752": {
+    "short_description": "Документооборот",
+    "category": "other"
+  },
+  "9754": {
+    "short_description": "Скачки",
+    "category": "bad_habits"
+  },
+  "9950": {
+    "short_description": "Покупки внутри компании",
+    "category": "personal"
+  },
+  "9999": {
+    "short_description": "Разное",
+    "category": "other"
+  }
+}

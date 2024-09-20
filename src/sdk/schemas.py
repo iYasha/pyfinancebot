@@ -2,7 +2,6 @@ from datetime import datetime, timezone
 from typing import Generic, List, Optional, TypeVar
 
 from pydantic import BaseModel
-from pydantic.generics import GenericModel
 
 from config import settings
 
@@ -19,7 +18,7 @@ class IDSchemaMixin(BaseSchema):
     id: int
 
 
-class PaginatedSchema(GenericModel, Generic[BaseSchemaType]):
+class PaginatedSchema(BaseModel, Generic[BaseSchemaType]):
     total_count: int = 0
     page_count: int
     next: Optional[int]  # noqa: VNE003

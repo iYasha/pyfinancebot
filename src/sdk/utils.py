@@ -255,13 +255,17 @@ def get_operation_text(
         received_amount = '⚠️ Оплачено'
     received_amount += f' {operation.received_amount}/{operation.amount}' if operation.received_amount else ''
     category = f'📂 Категория: {operation.category.get_translation()}\n' if operation.category else ''
+    if operation.monobank_account_id:
+        integration_mark = '🔗 Интеграция: Monobank\n'
+    else:
+        integration_mark = ''
     return (
         f'<b>{title}:</b>\n\n'
         f'💰 Сумма: {operation.amount} {operation.currency.value.upper()}\n'
         f'{operation_type} Тип операции: {operation.operation_type.get_translation()}\n{category}'
         f'🗓 Дата создания: {operation.created_at.strftime("%Y-%m-%d %H:%M")}\n'
         f'{repeat_at}'
-        f'💬 Описание: {operation.description}\n{received_amount}\n'
+        f'💬 Описание: {operation.description}\n{received_amount}\n' + integration_mark
     )
 
 

@@ -33,6 +33,7 @@ class Operation(
         sa.ForeignKey('companies.id', ondelete='CASCADE'),
         nullable=False,
     )
+    monobank_account_id = sa.Column(sa.String, nullable=True)
 
 
 class FailedOperation(

@@ -101,3 +101,16 @@ class StatementItem(BaseSchema):
 # Schema for List of Statement Items (Transactions)
 class StatementItems(BaseSchema):
     items: List[StatementItem]
+
+
+# Schema for Webhook
+
+
+class WebhookData(BaseSchema):
+    account: str
+    statementItem: StatementItem
+
+
+class WebhookRequest(BaseSchema):
+    type: str
+    data: WebhookData
