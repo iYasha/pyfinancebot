@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 from enum import Enum
@@ -6,8 +7,7 @@ from typing import Dict, Optional
 import spacy
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from pydantic import BaseSettings
-from spacy import Language
+from pydantic.v1 import BaseSettings
 
 
 class Environment(str, Enum):
@@ -21,6 +21,7 @@ class EnvSettings(BaseSettings):
     """
 
     PROJECT_NAME: str = 'PyFinanceBot'
+    DOMAIN: str
     ENVIRONMENT: Optional[Environment] = Environment.PROD
     DEBUG: Optional[bool] = True
     PROJECT_ROOT: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -110,13 +111,16 @@ class Settings(EnvSettings, HardSettings):
 settings = Settings()
 
 bot = Bot(token=settings.BOT_TOKEN)
-nlp: Language
-operation_model: Language
-category_model: Language
+nlp: spacy.Language = None
+operation_model: spacy.Language = None
+category_model: spacy.Language = None
 if os.path.basename(sys.argv[0]) == 'main.py':
     nlp = spacy.load('ru_core_news_md')
     operation_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.OPERATION_MODEL))
     category_model = spacy.load(os.path.join(settings.AI_MODELS_DIR, settings.CATEGORY_MODEL))
+
+# Fetched from https://raw.githubusercontent.com/Oleksios/Merchant-Category-Codes/
+mcc_categories = json.load(open(os.path.join(settings.PROJECT_ROOT, 'mcc_categories.json')))
 
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
