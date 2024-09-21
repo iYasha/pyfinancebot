@@ -1,12 +1,15 @@
 import uvicorn
 from fastapi import FastAPI
 
-from config import settings
+from config import Environment, settings
 from webserver.api.monobank.views import router as monobank_router
 from webserver.sentry import init_sentry
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
+    docs_url=None if settings.ENVIRONMENT == Environment.PROD else '/docs',
+    redoc_url=None if settings.ENVIRONMENT == Environment.PROD else '/redoc',
+    openapi_url=None if settings.ENVIRONMENT == Environment.PROD else '/openapi.json',
 )
 
 if settings.SENTRY_DSN:
