@@ -1,6 +1,6 @@
 from typing import Type
 
-import aiohttp
+import requests
 import sentry_sdk
 
 from commands.base import Command
@@ -14,21 +14,20 @@ class FetchCurrency(Command):
 
     @classmethod
     async def run(cls: Type['FetchCurrency']) -> None:  # noqa: CCR001
-        async with aiohttp.ClientSession() as session:
-            async with session.get(cls.base_url) as response:
-                if response.status != 200:
-                    sentry_sdk.capture_message(
-                        f'Error fetching currency: {response.status}. {response.text}',
-                    )  # noqa: G004
-                    return
-                data = await response.json()
-                currencies = [
-                    CurrencyCreate(
-                        ccy=currency['cc'].lower(),
-                        base_ccy='uah',
-                        buy=currency['rate'],
-                        sale=currency['rate'],
-                    )
-                    for currency in data
-                ]
-                await CurrencyService.create_many(currencies)
+        response = requests.get(cls.base_url)
+        if response.status_code != 200:
+            sentry_sdk.capture_message(
+                f'Error fetching currency: {response.status_code}. {response.text}',
+            )
+        data = response.json()
+        currencies = [
+            CurrencyCreate(
+                ccy=currency['cc'].lower(),
+                base_ccy='uah',
+                buy=currency['rate'],
+                sale=currency['rate'],
+            )
+            for currency in data
+        ]
+        await CurrencyService.create_many(currencies)
+        await CurrencyService.delete_obsolete()

@@ -10,3 +10,7 @@ class CurrencyService:
     @classmethod
     async def create_many(cls: Type['CurrencyService'], currencies: List[CurrencyCreate]) -> None:
         await cls.repository.create_many([currency.dict() for currency in currencies])
+
+    @classmethod
+    async def delete_obsolete(cls: Type['CurrencyService']) -> None:
+        await cls.repository.delete_obsolete()
