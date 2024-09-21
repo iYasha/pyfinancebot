@@ -5,6 +5,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, ParseMode
 from aiogram.utils.text_decorations import markdown_decoration
+from databases.core import Transaction
 
 from config import bot, dp, settings
 from modules.companies.enums import CompanyCallback
@@ -89,7 +90,7 @@ async def cancel_handler(message: types.Message, state: FSMContext) -> None:
 @dp.message_handler(state=CompanyCreateState.name)
 @error_handler_decorator
 @transaction_decorator
-async def finish_company_create(message: types.Message, state: FSMContext) -> None:
+async def finish_company_create(message: types.Message, state: FSMContext, *, transaction: Transaction) -> None:
     await state.finish()
     company_name = message.text.strip()
     company_id = await CompanyService.create_company(
@@ -100,6 +101,7 @@ async def finish_company_create(message: types.Message, state: FSMContext) -> No
         company_id=company_id,
         chat_id=message.chat.id,
     )
+    await transaction.commit()
     bot_info = await bot.me
     await bot.send_message(
         chat_id=message.chat.id,

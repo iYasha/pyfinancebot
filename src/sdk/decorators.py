@@ -100,7 +100,7 @@ class SelectCompanyRequired:
 def transaction_decorator(func: Callable) -> Callable:  # noqa: CCR001
     @functools.wraps(func)
     async def wrapper(*args, **kwargs) -> Any:  # noqa: ANN401
-        async with database.transaction():
-            return await func(*args, **kwargs)
+        async with database.transaction() as transaction:
+            return await func(*args, transaction=transaction, **kwargs)
 
     return wrapper

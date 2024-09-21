@@ -1,4 +1,5 @@
 from aiogram import types
+from databases.core import Transaction
 
 from config import bot, dp, settings
 from modules.helps.enums import Command
@@ -93,7 +94,7 @@ async def monobank_integration(callback_query: types.CallbackQuery) -> None:
 @SelectCompanyRequired
 @error_handler_decorator
 @transaction_decorator
-async def set_monobank_token(message: types.Message) -> None:
+async def set_monobank_token(message: types.Message, *, transaction: Transaction) -> None:
     token = message.get_args().strip()
     chat_id = message.chat.id
     company_id = settings.SELECTED_COMPANIES[chat_id]
@@ -115,6 +116,7 @@ async def set_monobank_token(message: types.Message) -> None:
         return
     webhook_secret = await MonobankIntegrationService.set_integration_key(chat_id, company_id, token)
     await MonobankIntegrationService.set_accounts(chat_id, company_id, client_info)
+    await transaction.commit()
     await monobank_service.set_webhook(webhook_secret)
     text = f'Поздравляю {client_info.name}! Интеграция с Monobank успешно завершена.'
     await bot.send_message(message.chat.id, text=text)
@@ -140,11 +142,12 @@ async def change_account_status(callback_query: types.CallbackQuery) -> None:
 @SelectCompanyRequired
 @error_handler_decorator
 @transaction_decorator
-async def disable_monobank_integration(callback_query: types.CallbackQuery) -> None:
+async def disable_monobank_integration(callback_query: types.CallbackQuery, *, transaction: Transaction) -> None:
     chat_id = callback_query.message.chat.id
     company_id = settings.SELECTED_COMPANIES[chat_id]
     await MonobankIntegrationService.remove_integration(chat_id, company_id)
     await MonobankIntegrationService.delete_accounts(chat_id, company_id)
+    await transaction.commit()
     await bot.send_message(
         chat_id,
         text='Интеграция с Monobank успешно отключена.',
