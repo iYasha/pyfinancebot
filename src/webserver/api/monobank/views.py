@@ -17,6 +17,7 @@ async def monobank_webhook(secret: str):
 
 @router.post('/webhook/{secret}/')
 async def create_operation_via_monobank(secret: str, webhook_data: WebhookRequest):
+    # TODO: Track if account id is in db, if not, retrieve all accounts again and save them
     integration = await MonobankIntegrationService.check_integration_by_secret(secret)
     if not integration:
         return JSONResponse(status_code=404, content={'detail': 'Not Found'})
