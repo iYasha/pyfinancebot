@@ -138,6 +138,16 @@ class MonobankIntegrationService:
             parse_mode=settings.PARSE_MODE,
         )
 
+    @classmethod
+    async def is_active_account(cls, integration: MonobankIntegration, account: str) -> bool:
+        query = Account.__table__.select().where(
+            (Account.chat_id == integration.chat_id)
+            & (Account.company_id == integration.company_id)
+            & (Account.id == account)
+            & Account.is_active,
+        )
+        return bool(await database.fetch_one(query))
+
 
 class MonobankService:
     BASE_URL = 'https://api.monobank.ua'

@@ -21,8 +21,9 @@ async def create_operation_via_monobank(secret: str, webhook_data: WebhookReques
     integration = await MonobankIntegrationService.check_integration_by_secret(secret)
     if not integration:
         return JSONResponse(status_code=404, content={'detail': 'Not Found'})
-    await MonobankIntegrationService.create_operation(
-        integration=integration,
-        webhook_data=webhook_data,
-    )
+    if await MonobankIntegrationService.is_active_account(integration, webhook_data.data.account):
+        await MonobankIntegrationService.create_operation(
+            integration=integration,
+            webhook_data=webhook_data,
+        )
     return JSONResponse(status_code=200, content={'detail': 'OK'})
