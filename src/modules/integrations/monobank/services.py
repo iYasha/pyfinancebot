@@ -139,14 +139,14 @@ class MonobankIntegrationService:
         )
 
     @classmethod
-    async def is_active_account(cls, integration: MonobankIntegration, account: str) -> bool:
+    async def get_account(cls, integration: MonobankIntegration, account_id: str) -> Optional[Account]:
         query = Account.__table__.select().where(
             (Account.chat_id == integration.chat_id)
             & (Account.company_id == integration.company_id)
-            & (Account.id == account)
-            & Account.is_active,
+            & (Account.id == account_id),
         )
-        return bool(await database.fetch_one(query))
+        account = await database.fetch_one(query)
+        return Account(**dict(account)) if account else None
 
 
 class MonobankService:
