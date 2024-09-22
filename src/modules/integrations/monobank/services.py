@@ -121,8 +121,8 @@ class MonobankIntegrationService:
         else:
             category = IncomeCategoryEnum.other
         operation_create = OperationCreate(
-            amount=abs(settlement_item.amount) / 100,
-            received_amount=abs(settlement_item.amount) / 100,
+            amount=abs(settlement_item.amount) // 100,
+            received_amount=abs(settlement_item.amount) // 100,
             operation_type=operation_type,
             description=description,
             creator_id=integration.chat_id,
